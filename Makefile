@@ -1,4 +1,4 @@
-NAME=minishell_testName
+NAME=minishell_Name
 SRCDIR=src
 OBJDIR=obj
 CC=cc
