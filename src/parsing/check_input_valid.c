@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_input_valid.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/08 20:02:29 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/08 19:38:26 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/08 19:58:27 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
 
-int	main(int argc, char *argv[])
+
+int	check_valid_input(int argc, char *argv[])
 {
-	check_valid_input(argc, argv);
+	if (argc != 2)
+		return(printf("input only 1 argument\n"));
+	else
+		return(printf("%s\n", argv[1]));
 }

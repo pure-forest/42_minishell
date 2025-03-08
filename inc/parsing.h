@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/08 20:02:29 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/08 19:39:29 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/08 20:01:44 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-int	main(int argc, char *argv[])
-{
-	check_valid_input(argc, argv);
-}
+#include <stdio.h>
+
+int	check_valid_input(int argc, char *argv[]);
+
+
+
+#endif
