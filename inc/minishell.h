@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "parsing.h"
+# include "execution.h"
 
 
 
