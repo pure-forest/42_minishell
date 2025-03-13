@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/10 16:58:09 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/13 20:07:49 by gboggion         ###   ########.fr       */
+/*   Created: 2025/03/13 19:04:10 by gboggion          #+#    #+#             */
+/*   Updated: 2025/03/13 19:09:27 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
+#include "builtins.h"
 
-# include <stdlib.h> //malloc
-# include <stdio.h> //printf
-
-typedef struct s_env_nodes
+void	pwd(char **env)
 {
-	char	*str;
-	char	*var_name;
-	struct	s_env_nodes	*prev;
-	struct	s_env_nodes	*next;
-}	t_env_nodes;
-
-#endif
+	
+}
