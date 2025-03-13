@@ -6,13 +6,13 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:04:10 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/13 19:09:27 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:21:54 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../../../inc/execution.h"
 
 void	pwd(char **env)
 {
-	
+
 }
