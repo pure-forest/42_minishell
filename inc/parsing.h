@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/10 16:58:39 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/08 19:39:29 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/10 17:47:25 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-int	main(void)
-{
-	char	*read_line;
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
 
-	while (1)
-	{
-		read_line = readline(PROMPT);
-		if (read_line && *read_line)
-			add_history(read_line);
-		token_input(read_line);
-		if (read_line)
-		{
-			free(read_line);
-			read_line = NULL;
-		}
-	}
-	return (0);
-}
+#define PINK "\033[1;38;5;218m"
+#define END  "\033[0m"
+#define PROMPT PINK"🐱 --Catshell > "END
+
+void	token_input(char *str);
+
+
+
+#endif

@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/10 16:58:39 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/10 16:09:13 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/10 16:51:04 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
 
-int	main(void)
+void	token_input(char *str)
 {
-	char	*read_line;
-
-	while (1)
-	{
-		read_line = readline(PROMPT);
-		if (read_line && *read_line)
-			add_history(read_line);
-		token_input(read_line);
-		if (read_line)
-		{
-			free(read_line);
-			read_line = NULL;
-		}
-	}
-	return (0);
+	printf("str = %s\n", str);
 }
