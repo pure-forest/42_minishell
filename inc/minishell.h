@@ -15,7 +15,7 @@
 
 # include "parsing.h"
 # include "execution.h"
-
+# include "../libft/libft.h"
 
 
 
