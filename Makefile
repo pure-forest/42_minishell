@@ -13,7 +13,7 @@ LIBFT_A = ${LIBFT_DIR}/libft.a
 
 PARSE_DIR=${SRCDIR}/parsing
 PARSE_INC=${INCDIR}/parsing.h
-PARSE_SRC=${addprefix ${PARSE_DIR}/, tokenization.c}
+PARSE_SRC=${addprefix ${PARSE_DIR}/, lexer.c parser.c}
 PARSE_OBJ=${PARSE_SRC:${PARSE_DIR}%.c=${OBJDIR}/parsing/%.o}
 
 EXECUTE_DIR=${SRCDIR}/execution
