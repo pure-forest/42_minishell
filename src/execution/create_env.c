@@ -6,14 +6,13 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:50:59 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/16 23:22:10 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:12:49 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/execution.h"
 
-static void		append_node(t_struct_ptrs *data, t_env_nodes *new_var);
-static t_env_nodes	*find_last(t_env_nodes *root);
+int	create_var(char *envp, t_env_nodes *new_var);
 
 int	create_env(char **envp, t_struct_ptrs *data)
 {
@@ -29,32 +28,46 @@ int	create_env(char **envp, t_struct_ptrs *data)
 		if (!new_var)
 			return (0);
 		*new_var = (t_env_nodes){0};
-		new_var->str = ft_strdup(envp[i]);
-		if (!new_var->str)
+		if (!(create_var(envp[i], new_var)))
 			return (free(new_var), error_handling(data), -1);
-		new_var->first_letter = new_var->str[0];
-		new_var->next = NULL;
+		new_var->base.next = NULL;
 		if (!data->env)
 		{
 			data->env = new_var;
-			new_var->prev = NULL;
+			new_var->base.prev = NULL;
 		}
 		else
-			append_node(data, new_var);
+			append_node((t_list_base *)data->env, (t_list_base *)new_var);
 	}
 	return (1);
 }
 
-static void	append_node(t_struct_ptrs *data, t_env_nodes *new_var) //Static or not?
+int	create_var(char *envp, t_env_nodes *new_var)
 {
-	t_env_nodes	*last_var;
+	char	*equal_sign;
 
-	last_var = find_last(data->env);
+	equal_sign = ft_strchr(envp, '=');
+	if (!equal_sign)
+		return (0);
+	new_var->var_name = ft_strndup(envp, (equal_sign - envp) + 1); //+1 is there to copy in the =, per evitare di doverlo copiare dopo? Serve? o e' meglio farlo quando si stampa?
+	if (!new_var->var_name)
+		return (0);
+	new_var->var_value = ft_strdup(equal_sign + 1); //qui il +1 c'e per copiare dopo il =, dato che strchr ritorna un pointer iniziando al =
+	if (!new_var->var_value)
+		return (free (new_var->var_name), 0);
+	return (1);
+}
+
+void	append_node(t_list_base *list_to_modify, t_list_base *new_var)
+{
+	t_list_base	*last_var;
+
+	last_var = find_last(list_to_modify);
 	last_var->next = new_var;
 	new_var->prev = last_var;
 }
 
-static t_env_nodes	*find_last(t_env_nodes *root) //static or not??
+t_list_base	*find_last(t_list_base *root)
 {
 	if (!root)
 		return (NULL);
@@ -63,34 +76,22 @@ static t_env_nodes	*find_last(t_env_nodes *root) //static or not??
 	return (root);
 }
 
-/*
-//////////////	DEBUGGING THINGS - DELETE
-int	main(int ac, char **av, char **envp)
+char	*ft_strndup(const char *s, size_t len)	//Not static right?
 {
-	(void)ac;
-	(void)av;
-	t_struct_ptrs	data;
-	//int	i = 0;
+	char	*str;
+	size_t	i;
 
-	data = (t_struct_ptrs){0};
-	if (!(create_env(envp, &data)))
-		return (-1);
-	t_env_nodes *curr;
-	curr = data.env;
-	while(i <= 3)
+	if (!s)
+		return (NULL);
+	str = (char *) malloc(sizeof(char) * (len + 1));
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (s[i] && i < len)
 	{
-		printf("Node[%d]: Value: %p\nStr: '%s'\nNext: %p   Prev: %p\n\n",i, (void *)curr, curr->str, (void *)curr->next, (void *)curr->prev);
-		curr = curr->next;
+		str[i] = s[i];
 		i++;
 	}
-
-	while(curr->next)
-	{
-		printf("%s\n", curr->str);
-		curr = curr->next;
-		i++;
-	}
-	env(&data);
-	free_nodes(&data.env);
-	return (0);
-}*/
+	str[i] = 0;
+	return (str);
+}

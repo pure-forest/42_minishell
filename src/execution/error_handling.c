@@ -15,21 +15,22 @@
 void	error_handling(t_struct_ptrs *data)
 {
 	if (data->env)
-		free_nodes(&data->env);
+		free_env_nodes(&data->env);
 }
 
-void	free_nodes(t_env_nodes **root)
+void	free_env_nodes(t_env_nodes **root)
 {
 	t_env_nodes	*tmp;
 	t_env_nodes	*curr;
 
-	if (!root)
+	if (!root || !*root)
 		return ;
 	curr = *root;
 	while (curr)
 	{
-		tmp = curr->next;
-		free(curr->str);
+		tmp = (t_env_nodes *)curr->base.next;
+		free(curr->var_name);
+		free(curr->var_value);
 		free(curr);
 		curr = tmp;
 	}

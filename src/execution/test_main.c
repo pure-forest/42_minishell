@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **envp)
 	data = (t_struct_ptrs){0};
 	if (!(create_env(envp, &data)))
 		return (-1);
-    if (!(create_export(&data)))
+   if (!(create_export(&data)))
 		return (-1);
 	t_env_nodes *curr;
 	//t_export *curr;
@@ -34,20 +34,23 @@ int	main(int ac, char **av, char **envp)
 		curr = curr->next;
 		i++;
 	}*/
-    
-    printf("\nPrinting export\n\n");
 
-	while(curr->next) // && (curr = curr->next))
+	if (curr)
 	{
-		printf("%s\n", curr->str);
-		//printf("%c\n", curr->first_letter);
-		curr = curr->next;
-		i++;
+		while(curr) // && (curr = curr->next))
+		{
+			printf("%s\"%s\"\n", curr->var_name, curr->var_value);
+			//printf("%s\n", curr->var_name);
+			//printf("%s\n", curr->var_value);
+			//printf("%c\n", curr->first_letter);
+			curr = (t_env_nodes *)curr->base.next;
+			i++;
+		}
 	}
 	//env(&data);
     //pwd(&data);
 
-	//free_nodes(&data.env);
-	//free_nodes(&data.export);
+	free_env_nodes(&data.env);
+	free_env_nodes(&data.export);
 	return (0);
 }
