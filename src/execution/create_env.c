@@ -6,16 +6,14 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:50:59 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/14 01:00:30 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:22:10 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/execution.h"
 
-void		append_node(t_struct_ptrs *data, t_env_nodes *new_var);
-t_env_nodes	*find_last(t_env_nodes *root);
-void		error_handling(t_struct_ptrs *data);
-void		free_nodes(t_env_nodes **root);
+static void		append_node(t_struct_ptrs *data, t_env_nodes *new_var);
+static t_env_nodes	*find_last(t_env_nodes *root);
 
 int	create_env(char **envp, t_struct_ptrs *data)
 {
@@ -30,9 +28,11 @@ int	create_env(char **envp, t_struct_ptrs *data)
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
 			return (0);
+		*new_var = (t_env_nodes){0};
 		new_var->str = ft_strdup(envp[i]);
 		if (!new_var->str)
 			return (free(new_var), error_handling(data), -1);
+		new_var->first_letter = new_var->str[0];
 		new_var->next = NULL;
 		if (!data->env)
 		{
@@ -45,7 +45,7 @@ int	create_env(char **envp, t_struct_ptrs *data)
 	return (1);
 }
 
-void	append_node(t_struct_ptrs *data, t_env_nodes *new_var)
+static void	append_node(t_struct_ptrs *data, t_env_nodes *new_var) //Static or not?
 {
 	t_env_nodes	*last_var;
 
@@ -54,7 +54,7 @@ void	append_node(t_struct_ptrs *data, t_env_nodes *new_var)
 	new_var->prev = last_var;
 }
 
-t_env_nodes	*find_last(t_env_nodes *root)
+static t_env_nodes	*find_last(t_env_nodes *root) //static or not??
 {
 	if (!root)
 		return (NULL);
@@ -63,7 +63,7 @@ t_env_nodes	*find_last(t_env_nodes *root)
 	return (root);
 }
 
-
+/*
 //////////////	DEBUGGING THINGS - DELETE
 int	main(int ac, char **av, char **envp)
 {
@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 	data = (t_struct_ptrs){0};
 	if (!(create_env(envp, &data)))
 		return (-1);
-	/*t_env_nodes *curr;
+	t_env_nodes *curr;
 	curr = data.env;
 	while(i <= 3)
 	{
@@ -89,8 +89,8 @@ int	main(int ac, char **av, char **envp)
 		printf("%s\n", curr->str);
 		curr = curr->next;
 		i++;
-	}*/
+	}
 	env(&data);
 	free_nodes(&data.env);
 	return (0);
-}
+}*/

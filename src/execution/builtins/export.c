@@ -1,31 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 00:52:00 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/14 00:52:00 by gboggion         ###   ########.fr       */
+/*   Created: 2025/03/16 19:54:36 by gboggion          #+#    #+#             */
+/*   Updated: 2025/03/16 19:54:36 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/execution.h"
 
-int    env(t_struct_ptrs *data)
-{
-    t_env_nodes   *curr;
-
-    curr = NULL;
-    if (data->env)
-    {
-        curr = data->env;
-        while (curr && (curr = curr->next))
-        {
-            printf("%s\n", curr->str);
-            //curr = curr->next;
-        }
-        return (0);
-    }
-    return (1);
-}
+int export(t_)

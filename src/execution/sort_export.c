@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   sort_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 00:52:00 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/14 00:52:00 by gboggion         ###   ########.fr       */
+/*   Created: 2025/03/16 20:58:18 by gboggion          #+#    #+#             */
+/*   Updated: 2025/03/16 20:58:18 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/execution.h"
+#include "../../inc/execution.h"
 
-int    env(t_struct_ptrs *data)
+void sort_export(t_struct_ptrs *data)
 {
-    t_env_nodes   *curr;
+	t_export	*curr;
+	int         smallest;
 
-    curr = NULL;
-    if (data->env)
+	curr = data->export;
+	while ()
+}
+
+void	set_smallest(t_export *export)
+{
+	int	smallest;
+	
+	smallest = 127;
+	while (curr && (curr = curr->next))
     {
-        curr = data->env;
-        while (curr && (curr = curr->next))
-        {
-            printf("%s\n", curr->str);
-            //curr = curr->next;
-        }
-        return (0);
+        if (curr->first_letter < smallest)
+            curr->smallest = 1;
     }
-    return (1);
 }
