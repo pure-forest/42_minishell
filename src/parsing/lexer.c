@@ -6,90 +6,70 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:09:13 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/16 17:02:24 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/17 15:39:50 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
 
-void	print_token_list(t_token *lexer)
+int	if_redirection(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (lexer->next)
+	while (str[i])
 	{
-		// printf("lexer->type = %d index = %d lexer->value = %s\n",
-		// 	lexer->type, lexer->pipe_index, lexer->value);
-		printf("%s[%d] =next>> ", lexer->value, lexer->type);
-		lexer = lexer->next;
+		if (str[i] == '<')
+			return (INPUT);
+		else if (str[i] == '>')
+			return (OUTPUT);
 		i++;
 	}
-	printf("%s[%d] =next>> \n", lexer->value, lexer->type);
-	while (lexer)
-	{
-		printf("=prev>> %s[%d] ", lexer->value, lexer->type);
-		lexer = lexer->prev;
-	}
-	printf("\n---end of lexer-----\n");
+	return (0);
 }
 
-void	push_to_list(t_token_type num, char *value, int index, t_token **head)
+void	trim_and_free(char **src)
 {
-	t_token	*temp;
+	char	*temp;
 
-	temp = malloc(sizeof(t_token));
+	temp = ft_strtrim((*src), " ");
 	if (!temp)
 	{
+		free(*src);
+		*src = NULL;
 		return ;
 	}
-	temp->type = num;
-	temp->pipe_index = index;
-	temp->value = value;
-	temp->next = (*head);
-	if (*head)
-		(*head)->prev = temp;
-	(*head) = temp;
-	(*head)->prev = NULL;
+	free(*src);
+	*src = temp;
 }
 
-void	free_lexer(t_token **head)
+void	handle_input_sign(char *str, int index, t_token **head)
 {
-	t_token *temp;
+	int		i;
+	char	**split_words;
 
-	temp = (*head);
-	while (temp)
+	i = 0;
+	split_words = ft_split(str, '<');
+	while (split_words[i])
 	{
-		free(temp);
-		temp = NULL;
-		temp = (*head)->next;
+		if (ft_strchr(split_words[i], ' '))
+			trim_and_free(&split_words[i]);
+		push_to_list(WORD, split_words[i], index, head);
+		if (i == 0)
+			push_to_list(INPUT, "<", index, head);
+		i++;
 	}
-	return ;
+	free(split_words);
+	split_words = NULL;
 }
 
 void	token_init(char *str, t_token **head)
 {
-	int		i;
-	int		index;
-	char	**trimed_str;
+	int	i;
+	int	index;
 
 	i = 0;
 	index = 0;
-	if ((*head))
-		free_lexer(head);
-	trimed_str = ft_split(str, ' ');
-	while (trimed_str[i])
-	{
-		if (ft_strnstr(trimed_str[i], "|", 1))
-			push_to_list(PIPE, "|", index++, head);
-		else if (ft_strnstr(trimed_str[i], "<<", 2))
-			push_to_list(HEREDOC, "<<", index, head);
-		else if (ft_strnstr(trimed_str[i], ">", 1))
-			push_to_list(OUTPUT, ">", index, head);
-		else if (ft_strnstr(trimed_str[i], "<", 1))
-			push_to_list(INPUT, "<", index, head);
-		else
-			push_to_list(WORD, trimed_str[i], index, head);
-		i++;
-	}
+	if (if_redirection(str) == INPUT)
+		handle_input_sign(str, index, head);
 }

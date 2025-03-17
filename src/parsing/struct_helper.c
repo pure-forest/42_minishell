@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   struct_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/17 15:10:36 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/17 15:26:44 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/17 15:26:57 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/parsing.h"
 
-int	main(void)
+void	push_to_list(t_token_type num, char *value, int index, t_token **head)
 {
-	char		*read_line;
-	t_token		*token;
-	t_cmd_table	*cmd_table;
+	t_token	*temp;
 
-	token = NULL;
-	cmd_table = NULL;
-	while (1)
+	temp = malloc(sizeof(t_token));
+	if (!temp)
 	{
-		read_line = readline(PROMPT);
-		if (read_line && *read_line)
-			add_history(read_line);
-		token_init(read_line, &token);
-		print_token_list(token);
-		cmd_table_init(&token, &cmd_table);
-		print_parser_list(cmd_table);
-		free_lexer(&token);
+		return ;
 	}
-	return (0);
+	temp->type = num;
+	temp->pipe_index = index;
+	temp->value = value;
+	temp->next = (*head);
+	if (*head)
+		(*head)->prev = temp;
+	(*head) = temp;
+	(*head)->prev = NULL;
 }
+
+
