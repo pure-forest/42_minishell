@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:39:29 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/17 15:46:09 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/18 16:57:21 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ typedef enum e_token_num
 	PIPE,
 }						t_token_type;
 
-typedef enum e_file_descpritor
+typedef enum e_fd
 {
 	STD_IN,
 	STD_OUT,
 	STD_ERR,
-}						t_file_descpritor;
+}						t_fd;
 
 typedef struct s_token
 {
@@ -55,7 +55,7 @@ typedef struct s_cmd_table
 	char				*cmd;
 	char				*input_file;
 	char				*output_file;
-	t_token				*redirection;
+	char				*redirection;
 	struct s_cmd_table	*next;
 }						t_cmd_table;
 
@@ -67,10 +67,12 @@ typedef struct s_memory_list
 
 void					token_init(char *str, t_token **head);
 void					print_token_list(t_token *lexer);
-void					cmd_table_init(t_token **token, t_cmd_table **cmd);
+void					cmd_table_init(char *str, t_cmd_table **cmd);
 void					print_parser_list(t_cmd_table *parser);
 void					free_lexer(t_token **head);
+void					free_cmd_table(t_cmd_table **head);
 void					push_to_list(t_token_type num, char *value, int index,
 							t_token **head);
+void	ft_free_double_ptr(char **str);
 
 #endif

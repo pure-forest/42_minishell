@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:25:42 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/17 15:38:23 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/18 13:22:47 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	print_token_list(t_token *lexer)
 	{
 		// printf("lexer->type = %d index = %d lexer->value = %s\n",
 		// 	lexer->type, lexer->pipe_index, lexer->value);
-		printf("%s[type: %d]   ->    ", lexer->value, lexer->type);
+		printf("index:%d   %s[type: %d] \n", lexer->pipe_index, lexer->value, lexer->type);
+		printf("vvv\n");
 		lexer = lexer->next;
 		i++;
 	}
