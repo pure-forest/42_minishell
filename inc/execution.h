@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:58:09 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/20 14:40:08 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:58:26 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdlib.h> //malloc + other functions
 #include <stdio.h>	//printf
-#include <unistd.h> //getcwd 
+#include <unistd.h> //getcwd
 #include "../libft/libft.h"
 
 typedef struct s_list_base
@@ -29,7 +29,6 @@ typedef struct s_env_nodes
 	t_list_base base;
 	char *var_name;
 	char *var_value;
-	;
 	int copied;
 	// struct s_env_nodes	*prev;
 	// struct s_env_nodes	*next;
@@ -39,8 +38,7 @@ typedef struct s_struct_ptrs
 {
 	t_env_nodes *env;
 	t_env_nodes *export;
-	t_input	*cmd_arr;
-	//char **cmd_arr;
+	char **cmd_arr;
 } t_struct_ptrs;
 
 //**************
