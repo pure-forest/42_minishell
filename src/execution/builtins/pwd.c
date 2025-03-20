@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:04:10 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/17 09:50:04 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:27:00 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ int	pwd(t_struct_ptrs *data)
 	if (data->env)
 	{
 		curr = data->env;
-		while (curr && (curr = curr->next))
+		while (curr)
 		{
-			if (!(ft_strncmp(curr->str, "PWD=", 4)))
-				return (printf("%s\n", (curr->str + 4)), 0);
+			if (!(ft_strncmp(curr->var_name, "PWD=", 4)))
+				return (printf("%s\n", curr->var_value), 1);
+			curr = (t_env_nodes *)curr->base.next;
 		}
-		return (1);
+		return (0);
 	}
-	return (1);
+	return (0);
 }

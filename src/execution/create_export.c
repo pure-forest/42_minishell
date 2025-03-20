@@ -32,8 +32,8 @@ int	create_export(t_struct_ptrs *data)
 			return (0);
 		*new_var = (t_env_nodes){0};
 		new_var->base.next = NULL;
-		set_var(new_var, data->env);
-		// check return ??
+		if (!(set_var(new_var, data->env)))
+			return (free(new_var), error_handling(data), -1); //needs double checking
 		if (!data->export)
 		{
 			data->export = new_var;
@@ -85,12 +85,3 @@ static int	is_export_sorted(t_env_nodes *env)
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2) // static or not??
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}

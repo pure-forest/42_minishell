@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   node_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 00:52:00 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/14 00:52:00 by gboggion         ###   ########.fr       */
+/*   Created: 2025/03/19 12:39:12 by gboggion          #+#    #+#             */
+/*   Updated: 2025/03/19 12:39:12 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/execution.h"
+#include "../../inc/execution.h"
 
-int    env(t_struct_ptrs *data)
+void	append_node(t_list_base *list_to_modify, t_list_base *new_var)
 {
-    t_env_nodes   *curr;
+	t_list_base	*last_var;
 
-    curr = NULL;
-    if (data->env)
-    {
-        curr = data->env;
-        while (curr)
-        {
-            printf("%s%s\n", curr->var_name, curr->var_value);
-            curr =(t_env_nodes *)curr->base.next;
-        }
-        return (1);
-    }
-    return (0);
+	last_var = find_last(list_to_modify);
+	last_var->next = new_var;
+	new_var->prev = last_var;
+}
+
+t_list_base	*find_last(t_list_base *root)
+{
+	if (!root)
+		return (NULL);
+	while (root->next)
+		root = root->next;
+	return (root);
 }
