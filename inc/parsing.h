@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:39:29 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/18 16:57:21 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/20 17:57:39 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 # define PINK "\033[1;38;5;218m"
 # define END "\033[0m"
@@ -25,28 +26,28 @@
 
 typedef enum e_token_num
 {
-	WORD,
-	OUTPUT,
+	CMD,
 	INPUT,
+	OUTPUT,
 	HEREDOC,
+	INFILE,
+	OUTFILE,
 	PIPE,
 }						t_token_type;
-
-typedef enum e_fd
-{
-	STD_IN,
-	STD_OUT,
-	STD_ERR,
-}						t_fd;
 
 typedef struct s_token
 {
 	t_token_type		type;
-	int					pipe_index;
 	char				*value;
 	struct s_token		*prev;
 	struct s_token		*next;
 }						t_token;
+
+typedef struct s_lexer
+{
+	t_token *list_of_token;
+	size_t	size;
+}				t_lexer;
 
 typedef struct s_cmd_table
 {
@@ -55,7 +56,7 @@ typedef struct s_cmd_table
 	char				*cmd;
 	char				*input_file;
 	char				*output_file;
-	char				*redirection;
+	int					redirection;
 	struct s_cmd_table	*next;
 }						t_cmd_table;
 
@@ -71,8 +72,7 @@ void					cmd_table_init(char *str, t_cmd_table **cmd);
 void					print_parser_list(t_cmd_table *parser);
 void					free_lexer(t_token **head);
 void					free_cmd_table(t_cmd_table **head);
-void					push_to_list(t_token_type num, char *value, int index,
-							t_token **head);
 void	ft_free_double_ptr(char **str);
+void	trim_and_free(char **src);
 
 #endif

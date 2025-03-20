@@ -6,101 +6,72 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:09:13 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/18 16:26:26 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/20 20:29:08 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
 
-// int	if_redirection(char *str)
-// {
-// 	int	i;
+void	push_to_list(t_token_type num, char *value, t_token **head)
+{
+	t_token	*temp;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '<')
-// 			return (INPUT);
-// 		else if (str[i] == '>')
-// 			return (OUTPUT);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	temp = malloc(sizeof(t_token));
+	if (!temp)
+	{
+		return ;
+	}
+	temp->type = num;
+	temp->value = value;
+	temp->next = (*head);
+	if (*head)
+		(*head)->prev = temp;
+	(*head) = temp;
+	(*head)->prev = NULL;
+}
 
+void	print_double_ptr(char **str)
+{
+	int	i = 0;
 
+	while (str[i])
+	{
+		printf("str[%d] = %s\n", i, str[i]);
+		i++;
+	}
+}
 
+char	*extract_input(char *needle)
+{
+	int		i = 0;
+	char	*end;
+	char	*return_str;
 
+	while (needle[i])
+	{
+		if (needle[i] == ' ' || needle[i] == '|')
+			end = &needle[i];
+		i++;
+	}
+	return_str = ft_substr(needle + 1, 0, end - needle - 1);
+	return (return_str);
+}
 
-// void	handle_redir_sign(char *str, int index, t_token **head)
-// {
-// 	int		i;
-// 	char	**split_words;
+void	token_init(char *str, t_token **head)
+{
+	char	*infile = NULL;
+	int		i = 0;
 
-// 	i = 0;
-// 	split_words = NULL;
-// 	if (ft_strchr(str, '<'))
-// 		split_words = ft_split(str, '<');
-// 	if (!split_words)
-// 		return ;
-// 	while (split_words[i])
-// 	{
-// 		if (ft_strchr(split_words[i], ' '))
-// 			trim_and_free(&split_words[i]);
-// 		push_to_list(WORD, split_words[i], index, head);
-// 		if (i == 0)
-// 			push_to_list(INPUT, "<", index, head);
-// 		i++;
-// 	}
-// 	free(split_words);
-// 	split_words = NULL;
-// }
+	if (ft_strchr(str, '<') && *ft_strchr(str, '<') + 1 != ' ')
+	{
+		infile = extract_input(ft_strchr(str, '<'));
+		printf("%s", infile);
+		push_to_list(INPUT, "<", head);
+		push_to_list(INFILE, infile, head);
+	}
+	while (str[i])
+	{
+		if ()
+	}
 
-// void	handle_normal(char *str, int index, t_token **head)
-// {
-// 	int		i;
-// 	char	**split_words;
-
-// 	i = 0;
-// 	if (!ft_strchr(str, ' '))
-// 	{
-// 		printf("Error\n");
-// 		return ;
-// 	}
-// 	split_words = ft_split(str, ' ');
-// 	if (!split_words)
-// 		return ;
-// 	while (split_words[i])
-// 	{
-// 		if (ft_strchr(split_words[i], ' '))
-// 			trim_and_free(&split_words[i]);
-// 		push_to_list(WORD, split_words[i], index, head);
-// 		i++;
-// 	}
-// 	free(split_words);
-// 	split_words = NULL;
-// }
-
-// void	token_init(char *str, t_token **head)
-// {
-// 	int		i;
-// 	int		index;
-// 	char	**split_str;
-
-// 	i = 0;
-// 	index = 0;
-// 	split_str = NULL;
-// 	if (ft_strchr(str, '|'))
-// 		split_str = find_pipe(str);
-// 	else
-// 		handle_redir_sign(str, index, head);
-// 	while (split_str[i])
-// 	{
-// 		if (!ft_strchr(split_str[i], '<'))
-// 			handle_normal(split_str[i], index, head);
-// 		else
-// 			handle_redir_sign(split_str[i], index, head);
-// 		i++;
-// 		index++;
-// 	}
-// }
+}

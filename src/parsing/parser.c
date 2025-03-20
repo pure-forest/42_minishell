@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:58:51 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/18 17:01:41 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/20 15:16:42 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ void	print_parser_list(t_cmd_table *parser)
 	fix_dis_cmd_args = 12;
 	fix_dis_redirection = 12;
 	printf("-----------------------------------------------------------------------------------------------\n");
-	printf("| %-*s | %-*s |  %-*s |  %-*s | %-*s |\n", fix_dis_index, "index",
+	printf("| %-*s | %-*s |  %-*s |  %-*s | %-*s | %-*s |\n", fix_dis_index, "index",
 		fix_dis_cmd_args, "input_file", fix_dis_cmd_args,
 		"cmd args[0]",fix_dis_cmd_args, "cmd args[1]",
-		fix_dis_cmd, "command");
+		fix_dis_cmd, "command", fix_dis_cmd, "redirection");
 	while (parser)
 	{
 		printf("-----------------------------------------------------------------------------------------------\n");
-		printf("| %-*d | %-*s |  %-*s |  %-*s | %-*s |\n", fix_dis_index, parser->index,
+		printf("| %-*d | %-*s |  %-*s |  %-*s | %-*s | %-*d |\n", fix_dis_index, parser->index,
 			fix_dis_cmd_args, parser->input_file, fix_dis_cmd_args, parser->cmd_args[0],
-			fix_dis_cmd_args, parser->cmd_args[1], fix_dis_cmd, parser->cmd);
+			fix_dis_cmd_args, parser->cmd_args[1], fix_dis_cmd, parser->cmd,
+			fix_dis_cmd, parser->redirection);
 		parser = parser->next;
 	}
 	printf("-----------------------------------------------------------------------------------------------\n");
@@ -68,6 +69,30 @@ void	trim_and_free(char **src)
 	*src = temp;
 }
 
+int		check_for_redirection(char ***cmd_args)
+{
+	int	i = 0;
+	char **args = (*cmd_args);
+
+	while (args[i])
+	{
+		if (!ft_strncmp(args[i], "<", 1))
+		{
+			args[i] = args[i + 1];
+			return (STDIN_FILENO);
+		}
+
+		else if (!ft_strncmp(args[i], ">", 1))
+		{
+			// while (args[i])
+			// 	args[i] = args[i + 1];
+			return (STDOUT_FILENO);
+		}
+		i++;
+	}
+	return (1);
+}
+
 char	*check_for_cmd(char **cmd_args)
 {
 	int i = 0;
@@ -77,10 +102,15 @@ char	*check_for_cmd(char **cmd_args)
 	{
 		if (ft_strchr(cmd_args[i], ' '))
 			trim_and_free(&cmd_args[i]);
-		if (ft_strnstr(cmd_args[i], "cat", 3) || ft_strnstr(cmd_args[i], "echo", 4)
-			|| ft_strnstr(cmd_args[i], "cd", 2) || ft_strnstr(cmd_args[i], "pwd", 3)
-			||  ft_strnstr(cmd_args[i], "unset", 5) || ft_strnstr(cmd_args[i], "export", 6)
-			|| ft_strnstr(cmd_args[i], "env", 3) || ft_strnstr(cmd_args[i], "exit", 4))
+		if (ft_strnstr(cmd_args[i], "cat", 3)
+			||ft_strnstr(cmd_args[i], "echo", 4)
+			|| ft_strnstr(cmd_args[i], "cd", 2)
+			|| ft_strnstr(cmd_args[i], "pwd", 3)
+			||  ft_strnstr(cmd_args[i], "unset", 5)
+			|| ft_strnstr(cmd_args[i], "export", 6)
+			|| ft_strnstr(cmd_args[i], "env", 3)
+			|| ft_strnstr(cmd_args[i], "exit", 4)
+			|| ft_strnstr(cmd_args[i], "grep", 4))
 			return (cmd_args[i]);
 		else
 			cmd = NULL;
@@ -98,6 +128,9 @@ void	push_to_cmd_table(t_cmd_table **cmd, int index, char **cmd_args)
 	if (!temp)
 		return ;
 	temp->index = index;
+	temp->redirection = check_for_redirection(&cmd_args);
+	if (temp->redirection == STDIN_FILENO)
+		temp->input_file = cmd_args[1];
 	temp->cmd_args = cmd_args;
 	temp->cmd = check_for_cmd(cmd_args);
 	temp->next = (*cmd);
