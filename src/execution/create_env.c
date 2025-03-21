@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:50:59 by gboggion          #+#    #+#             */
-/*   Updated: 2025/03/19 12:49:20 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:52:47 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	create_env(char **envp, t_struct_ptrs *data)
 		}
 		else
 		{
-			append_node((t_list_base *)data->env, (t_list_base *)new_var);
+			if (!append_node((t_list_base *)data->env, (t_list_base *)new_var))
+				return (FAIL);
 			//printf("Node added: %s\n", new_var->var_name);
 		}
 	}

@@ -12,7 +12,8 @@
 
 #include "../../inc/execution.h"
 
-void	init_cmd_arr(t_struct_ptrs *data);
+//void	init_cmd_arr(t_struct_ptrs *data);
+int	fill_tokens(t_struct_ptrs *data);
 
 //////////////	DEBUGGING THINGS - DELETE
 int	main(int ac, char **av, char **envp)
@@ -27,23 +28,30 @@ int	main(int ac, char **av, char **envp)
 		return (-1);
    if (!(create_export(&data)))
 		return (-1);
-	init_cmd_arr(&data);
-		
-	env(&data);
+	//init_cmd_arr(&data);
+
+	//env(&data);
 	//export(&data);
     //pwd(&data);
-	unset(&data);
-	printf("\n\nUnset has been processed\n\n\n");
-	env(&data);
+	//unset(&data);
+	//printf("\n\n Unset is done\n\n");
+	//env(&data);
+	//printf("\n\n\n");
 	//export(&data);
+	//printf("\n\nUnset has been processed\n\n\n");
+
+	if (fill_tokens(&data))
+		return (printf("Failure in fill tokens\n"), FAIL);
+	else
+		print_list((t_list_base *)data.inp, print_inp_nodes);
 
 	free_env_nodes(&data.env);
 	free_env_nodes(&data.export);
-	free(data.cmd_arr);
+	//free(data.cmd_arr);
 	return (0);
 }
 
-void	init_cmd_arr(t_struct_ptrs *data)
+/*void	init_cmd_arr(t_struct_ptrs *data)
 {
 	data->cmd_arr = malloc(sizeof(char *) * 10);
 	if (!data->cmd_arr)
@@ -58,4 +66,44 @@ void	init_cmd_arr(t_struct_ptrs *data)
 	data->cmd_arr[7] = "unset";
 	data->cmd_arr[8] = "T5";
 	data->cmd_arr[9] = NULL;
+}*/
+
+//// EXAMPLE
+//	 cd ../
+
+int	fill_tokens(t_struct_ptrs *data)
+{
+	t_inp	*new_token;
+	t_inp	*new_token_2;
+	//t_inp	*new_token_3;
+
+	new_token = malloc(sizeof(t_inp));
+	if (!new_token)
+		return (FAIL);
+	new_token->base.next = NULL;
+	new_token->token_type = CMD;
+	new_token->token_value = malloc(sizeof(char *) * 3);
+	new_token->token_value[0] = "cd";
+	new_token->token_value[1] = "two";
+	new_token->token_value[2] = NULL;
+	new_token->base.prev = NULL;
+	data->inp = new_token;
+	new_token_2 = malloc(sizeof(t_inp));
+	if (!new_token_2)
+		return (FAIL);
+	new_token->token_type = ARG;
+	new_token_2->token_value = malloc(sizeof(char *) * 3);
+	new_token_2->token_value[0] = "../";
+	new_token_2->token_value[1] = "smth";
+	new_token_2->token_value[2] = NULL;
+	if (append_node((t_list_base *)data->inp, (t_list_base *)new_token_2))
+			return (FAIL);
+	/*new_token_3 = malloc(sizeof(t_inp));
+	if (!new_token_3)
+		return (FAIL);
+	new_token_3->token_type = ARG;
+	new_token_3->token_value = "smth";
+	if (append_node((t_list_base *)data->inp, (t_list_base *)new_token_3))
+			return (FAIL);*/
+	return (SUCCESS);
 }

@@ -13,12 +13,16 @@
 #include "../../../inc/execution.h"
 
 #define PATH_MAX 100
+
 int	cd(char	**cmd_arr)	//t_struct_ptrs *data)
 {
 	printf("Path: %s\n", cmd_arr[1]);
 	//chdir(cmd_arr[1]);
 	return (chdir(cmd_arr[1]));
 }
+
+int	cd(t_env_nodes )
+
 
 int	main(void)
 {
