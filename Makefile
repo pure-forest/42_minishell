@@ -13,9 +13,14 @@ LIBFT_A = ${LIBFT_DIR}/libft.a
 
 PARSE_DIR=${SRCDIR}/parsing
 PARSE_INC=${INCDIR}/parsing.h
-PARSE_SRC=${addprefix ${PARSE_DIR}/, lexer.c parser.c \
-	lexer_utils.c struct_helper.c ft_free_double_ptr.c}
+PARSE_SRC=${addprefix ${PARSE_DIR}/, parser.c parser_utils.c}
 PARSE_OBJ=${PARSE_SRC:${PARSE_DIR}%.c=${OBJDIR}/parsing/%.o}
+
+LEXER_DIR=${SRCDIR}/lexer
+LEXER_INC=${INCDIR}/parsing.h
+LEXER_SRC=${addprefix ${LEXER_DIR=}/, lexer.c lexer_pipe_redir.c \
+			lexer_text_quote.c clean_up_funcs.c check_token.c}
+LEXER_OBJ=${LEXER_SRC:${LEXER_DIR=}%.c=${OBJDIR}/lexer/%.o}
 
 EXECUTE_DIR=${SRCDIR}/execution
 EXECUTE_INC=${INCDIR}/execution.h
@@ -46,12 +51,16 @@ ${OBJDIR}/parsing/%.o:${PARSE_DIR}/%.c ${PARSE_INC}
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
+${OBJDIR}/lexer/%.o:${LEXER_DIR}/%.c ${LEXER_INC}
+	@mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) -o $@ -c $<
+
 ${OBJDIR}/execution/%.o:${EXECUTE_DIR}/%.c ${EXECUTE_INC}
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-$(BINDIR)/${NAME}:$(LIBFT_A) ${PARSE_OBJ} ${EXECUTE_OBJ} ${OBJ} | $(BINDIR)
-	@$(CC) $(PARSE_OBJ) ${EXECUTE_OBJ} $(OBJ) $(LIBFT_A) -lreadline -o $(BINDIR)/$(NAME)
+$(BINDIR)/${NAME}:$(LIBFT_A) ${PARSE_OBJ} ${LEXER_OBJ} ${EXECUTE_OBJ} ${OBJ} | $(BINDIR)
+	@$(CC) ${LEXER_OBJ} $(PARSE_OBJ) ${EXECUTE_OBJ} $(OBJ) $(LIBFT_A) -lreadline -o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
 clean:

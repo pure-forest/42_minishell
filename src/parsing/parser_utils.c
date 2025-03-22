@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_double_ptr.c                               :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 12:59:37 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/18 16:57:14 by ydeng            ###   ########.fr       */
+/*   Created: 2025/03/17 15:26:44 by ydeng             #+#    #+#             */
+/*   Updated: 2025/03/22 20:02:44 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
 
-void	ft_free_double_ptr(char **str)
-{
-	int	i;
+// void	free_cmd_table(t_cmd_table **head)
+// {
+// 	t_cmd_table	*temp;
+// 	int			i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i])
-		{
-			free(str[i]);
-			str[i] = NULL;
-		}
-		i++;
-	}
-	free(str);
-	str = NULL;
-}
+// 	i = 1;
+// 	if (!(*head))
+// 		return ;
+// 	while ((*head))
+// 	{
+// 		temp = (*head);
+// 		*head = (*head)->next;
+// 		if (temp->cmd_args)
+// 			ft_free_double_ptr(temp->cmd_args);
+// 		if (temp->cmd)
+// 		{
+// 			free(temp->cmd);
+// 			temp->cmd = NULL;
+// 		}
+// 		free(temp);
+// 		temp = NULL;
+// 	}
+// 	return ;
+// }

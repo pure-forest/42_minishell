@@ -13,9 +13,15 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include "parsing.h"
 # include "execution.h"
-# include "../libft/libft.h"
+# include "lexer.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 
 
