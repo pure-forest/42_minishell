@@ -1,6 +1,5 @@
 #include "../../inc/lexer.h"
 
-
 t_token *create_token_list(char *str)
 {
 	t_token *token_list;
@@ -37,14 +36,10 @@ t_token	*token_init(char *str)
 		return (NULL);
 	}
 	if (check_pipe(token_list) == ERROR)
-	{
-		free_lexer(&token_list);
-		return (NULL);
-	}
+		return (free_lexer(&token_list), NULL);
 	if (check_redir_file(token_list) == ERROR)
-	{
-		free_lexer(&token_list);
-		return (NULL);
-	}
+		return (free_lexer(&token_list), NULL);
+	if (check_heredoc(token_list) == ERROR)
+		return (free_lexer(&token_list), NULL);
 	return (token_list);
 }

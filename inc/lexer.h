@@ -11,7 +11,6 @@
 typedef enum e_token_num
 {
 	WORD,
-	CMD,
 	INPUT,
 	OUTPUT,
 	HEREDOC,
@@ -37,7 +36,6 @@ typedef struct s_lexer
 
 void				print_token_list(t_token *lexer);
 void				free_lexer(t_token **head);
-void				push_to_list(t_token_type num, char *value, t_token **head);
 t_token				*token_init(char *str);
 int					tokenize_text(char *str, int *i, t_token **token_list);
 int					tokenize_quote(char *str, int *i, t_token **token_list);
@@ -45,5 +43,8 @@ int					tokenize_pipe(char *str, int *i, t_token **token_list);
 int					tokenize_redir(char *str, int *i, t_token **token_list);
 int					check_redir_file(t_token *token_list);
 int					check_pipe(t_token *token_list);
+int					check_heredoc(t_token *token_list);
+t_token				*node_init(t_token_type type, char *token_value);
+int					append_node(t_token *node, t_token *head);
 
 #endif
