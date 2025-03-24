@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:58:09 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/21 14:20:14 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:12:10 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,21 @@ typedef enum
 	ARG,
 } t_tokens;
 
-typedef struct s_inp
+typedef struct s_input
 {
 	t_list_base	base;
 	t_tokens	token_type;
 	char		**token_value;
-} t_inp;
+	char		**cmd_arr;
+} t_input;
 
 
 typedef struct s_struct_ptrs
 {
 	t_env_nodes *env;
 	t_env_nodes *export;
-	//char **cmd_arr;
-	t_inp		*inp;
+	t_input		*input;
+	//char		**cmd_arr;	//cmd_arr is used in unset, check if that still works since now cmd_arr is built from tokens 
 } t_struct_ptrs;
 
 //**************		ENV & EXPORT
@@ -69,6 +70,10 @@ int env(t_struct_ptrs *data);
 int pwd(t_struct_ptrs *data);
 int export(t_struct_ptrs *data);
 int unset(t_struct_ptrs *data);
+int	cd(t_struct_ptrs *data);
+
+//**************		CMD_ARR
+char	**create_cmd_args(t_struct_ptrs *data); 
 
 //**************		NODE UTILS
 int			append_node(t_list_base *list_to_modify, t_list_base *new_var);

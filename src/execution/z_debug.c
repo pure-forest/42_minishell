@@ -32,10 +32,10 @@ void    print_env_nodes(void *node)
 //     print_list((t_list_base *)head, print_inp_node);
 void    print_inp_nodes(void *node)
 {
-	t_inp   *inp_node;
+	t_input   *inp_node;
 	int		i;
 
-	inp_node = (t_inp *)node;
+	inp_node = (t_input *)node;
 	i = -1;
 	while (inp_node->token_value[++i])
 	{
