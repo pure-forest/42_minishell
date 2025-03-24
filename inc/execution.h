@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:58:09 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/22 13:12:10 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:59:21 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_input
 {
 	t_list_base	base;
 	t_tokens	token_type;
-	char		**token_value;
+	char		*token_value;
 	char		**cmd_arr;
 } t_input;
 
@@ -57,7 +57,7 @@ typedef struct s_struct_ptrs
 	t_env_nodes *env;
 	t_env_nodes *export;
 	t_input		*input;
-	//char		**cmd_arr;	//cmd_arr is used in unset, check if that still works since now cmd_arr is built from tokens 
+	//char		**cmd_arr;	//cmd_arr is used in unset, check if that still works since now cmd_arr is built from tokens
 } t_struct_ptrs;
 
 //**************		ENV & EXPORT
@@ -73,7 +73,7 @@ int unset(t_struct_ptrs *data);
 int	cd(t_struct_ptrs *data);
 
 //**************		CMD_ARR
-char	**create_cmd_args(t_struct_ptrs *data); 
+char	**create_cmd_args(t_struct_ptrs *data);
 
 //**************		NODE UTILS
 int			append_node(t_list_base *list_to_modify, t_list_base *new_var);
@@ -91,5 +91,6 @@ void free_env_nodes(t_env_nodes **root);
 void    print_list(t_list_base *head, void (*print_node)(void *));
 void    print_env_nodes(void *node);
 void    print_inp_nodes(void *node);
+void	print_cmd_arr(char **cmd_arr);
 
 #endif

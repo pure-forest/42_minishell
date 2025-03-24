@@ -40,7 +40,7 @@ int	create_export(t_struct_ptrs *data)
 			new_var->base.prev = NULL;
 		}
 		else
-			append_node((t_list_base *)data->export, (t_list_base *)new_var); // appemd now returns something so double check 
+			append_node((t_list_base *)data->export, (t_list_base *)new_var); // appemd now returns something so double check
 	}
 	return (1);
 }

@@ -6,6 +6,18 @@
 
 #include "../../inc/execution.h"
 
+void	print_cmd_arr(char **cmd_arr)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_arr[i])
+	{
+		printf("Arr[%d]: '%s'\n", i, cmd_arr[i]);
+		i++;
+	}
+}
+
 void    print_list(t_list_base *head, void (*print_node)(void *))
 {
 	t_list_base *curr = head;
@@ -33,14 +45,9 @@ void    print_env_nodes(void *node)
 void    print_inp_nodes(void *node)
 {
 	t_input   *inp_node;
-	int		i;
 
 	inp_node = (t_input *)node;
-	i = -1;
-	while (inp_node->token_value[++i])
-	{
-	   printf("Node at %p | Type: %d | Value[%d]: %s |  Next: %p | Prev: %p\n" ,
-			(void *)inp_node, inp_node->token_type, i, inp_node->token_value[i],
+	printf("Node at %p | Type: %d | Value: %s |  Next: %p | Prev: %p\n" ,
+			(void *)inp_node, inp_node->token_type, inp_node->token_value,
 			(void *)inp_node->base.next, (void *)inp_node->base.prev);
-	}
 }

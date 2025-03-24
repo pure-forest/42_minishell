@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2025/03/19 19:57:43 by gboggion          #+#    #+#             */
 /*   Updated: 2025/03/19 19:57:43 by gboggion         ###   ########.fr       */
 /*                                                                            */
@@ -14,133 +17,96 @@
 
 #define PATH_MAX 100
 
-//DEFINES
-//int		cd_to_home(t_struct_ptrs *data);
-//int		cd_error_print(char *path);
-// char	*get_varlist_value(t_struct_ptrs *data, var);
-// void	change_var_value(t_struct_ptrs *data, var_to_change, new_value);
-// int		update_pwd(t_struct_ptrs *data);
 
-/*int	cd(char	**cmd_arr)	//t_struct_ptrs *data)
+// DEFINES
+int		cd_to_home(t_struct_ptrs *data);
+void	cd_error_print(char *path, int err);
+char	*get_var_value(t_env_nodes *list, char *var);								//Should go in utils
+int		change_var_value(t_env_nodes *list, char *var_to_change, char *new_value);		//Should go in utils
+
+int	cd(t_struct_ptrs *data)
 {
-	printf("Path: %s\n", cmd_arr[1]);
-	//chdir(cmd_arr[1]);
-	return (chdir(cmd_arr[1]));
-}*/
+	char buff[PATH_MAX];
 
-int	add_to_cmd_arr(t_input *inp, int token_value)
-{
-	char	*arr;
-	char	*tmp;
-
-	arr = ft_calloc(11, sizeof(char *));
+	if (!data->input->cmd_arr[1] || (!ft_strcmp(data->input->cmd_arr[1], "~"))) //~ is this absoute or relative path?
+		return (cd_to_home(data));
+	else if (data->input->cmd_arr[1] && !data->input->cmd_arr[2])
+	{
+		if (chdir(data->input->cmd_arr[1]) == 0)
+		{
+			change_var_value(data->env, "OLDPWD=", get_var_value(data->env, "PWD="));
+			change_var_value(data->env, "PWD=", getcwd(buff, PATH_MAX));
+			return (SUCCESS);
+		}
+		else
+			return (cd_error_print(data->input->cmd_arr[1], 1), FAIL);
+	}
+	else
+		return (cd_error_print(data->input->cmd_arr[1], 2), FAIL);
 }
 
-
-char	**create_cmd_args(t_struct_ptrs *data)
+int	cd_to_home(t_struct_ptrs *data)
 {
-	t_input	*curr;
-	int		count;
+	char *home;
 
-	curr = NULL;
-	if (data->input)
+	change_var_value(data->env, "OLDPWD=", get_var_value(data->env, "PWD="));
+	home = get_var_value(data->env, "HOME=");
+	if (!home)
+		return (ft_putstr_fd("catshell: cd: HOME not set\n", 2), FAIL);		//CHANGE NAME OF SHELL????
+	if (!chdir(home))
+		return (change_var_value(data->env, "PWD=", home));
+	return (FAIL);
+}
+
+void	cd_error_print(char *path, int err)
+{
+	if (err == 1)
 	{
-		curr = (t_input *)data->input;
-		count = count_tokentype_amount(curr, ARG);
-		while(curr)
+		ft_putstr_fd("catshell: cd: ", 2);									//CHANGE NAME OF SHELL????
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return ;
+	}
+	if (err == 2)
+		return (ft_putstr_fd("cd: too many arguments\n", 2), (void)0);
+}
+
+/// THIS I CAN PUT IN A ENV/EXPORT UTILS FILE
+char	*get_var_value(t_env_nodes *list, char *var)
+{
+	t_env_nodes *curr;
+
+	curr = list;
+	if (curr)
+	{
+		while (curr)
 		{
-			if (curr->inp->token_type == ARG)
-				if (add_to_cmd_arr(data, data->inp->token_value))
-					return (FAIL);
-			curr = (t_input *)curr->base.next;
+			if (!ft_strcmp(var, curr->var_name))
+				return (curr->var_value);
+			curr = (t_env_nodes *)curr->base.next;
 		}
-		return (SUCCESS);
+	}
+	return (NULL);
+}
+
+int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value)  // does this have to be an int? will i need to check if a var got changed/found in future?
+{
+	t_env_nodes *curr;
+
+	curr = list;
+	if (curr)
+	{
+		while (curr)
+		{
+			if (!ft_strcmp(var_to_change, curr->var_name))
+			{
+				free (curr->var_value);
+				curr->var_value = NULL;
+				if (!(curr->var_value = ft_strdup(new_value)))
+					return (FAIL);
+			}
+			curr = (t_env_nodes *)curr->base.next;
+		}
 	}
 	return (FAIL);
 }
-
-/*int	cd(t_struct_ptrs *data)
-{
-	char	*cwd;
-	char	buff[PATH_MAX];
-	// if (!data->inp->token_value[1])
-	// 	return (cd_to_home(data));
-
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("My current working directory is %s\n", cwd);
-
-	if (chdir(data->inp->token_value[1]) != 0) //this cannot just be directly input, i need to create cmd arr
-		//return (cd_error_print(data->inp->token_value[1]));
-		return (printf("ERROR\n"), FAIL);
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		return (printf("My new directory is %s\n", cwd), SUCCESS);
-	return (FAIL);
-	// change_var_value(data, "OLDPWD", get_varlist_value(data, "PWD"));
-	// return (update_pwd(data));
-}*/
-
-// int	cd_to_home(t_struct_ptrs *data)
-// {
-// 	char	*home;
-
-// 	change_var_value(data, "OLDPWD", get_varlist_value("PWD"));
-// 	home = get_varlist_value("HOME");
-// 	if (!home)
-// 		return (ft_putstr_fd("catshell: cd: HOME not set\n", 2), FAIL);
-// 	if (chdir(home))
-// 		return (change_var_value(data, "PWD", home));
-// 	return (FAIL);
-// }
-
-// int	cd_error_print(char *path)
-// {
-// }
-
-// int	update_pwd(t_struct_ptrs *data)
-// {
-// 	//call getcwd because if it was successfull then it is updated and you can get the new value this way
-
-// }
-
-/// THIS I CAN PUT IN A ENV/EXPORT UTILS FILE
-// char	*get_varlist_value(t_struct_ptrs *data, var)
-// {
-
-// }
-
-// void	change_var_value(t_struct_ptrs *data, var_to_change, new_value)
-// {
-
-// }
-
-
-
-/*int	main(void)
-{
-	char	**cmd_arr;
-	char	*cwd;
-	char	buff[PATH_MAX];
-	int		res;
-
-	cmd_arr = malloc(sizeof (char *) *3);
-	if (!cmd_arr)
-		return (-1);
-	cmd_arr[0] = "cd";
-	//cmd_arr[1] = "/mnt/c/Users/gebog/Desktop/Hive/MiniShell/42_minishell/src/execution/";
-	cmd_arr[1] = "/mnt/c/Users/gebog/Desktop/Hive/MiniShell/";
-	//cmd_arr[1] = "../../";
-	//cmd_arr[1] = "/home";
-	cmd_arr[2] = NULL;
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("My working directory is %s\n", cwd);
-	res = cd(cmd_arr);
-	printf("Cd res: %d\n", res);
-	cwd = getcwd(buff, PATH_MAX);
-	if (cwd != NULL)
-		printf("My new directory is %s\n", cwd);
-
-	return (0);
-}*/
