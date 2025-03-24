@@ -43,10 +43,10 @@ void	print_token_list(t_token *lexer)
 	int	fix_dis;
 
 	i = 0;
-	fix_dis = 10;
+	fix_dis = 12;
 	printf("\n-------------start of lexer----------\n");
-	printf("| %-*s | %-*s |\n", fix_dis, "token", fix_dis, "toekn type");
-	printf("---------------------------\n");
+	printf("| %-*s | %-*s |\n", fix_dis, "token value", fix_dis, "token type");
+	printf("-------------------------------\n");
 	while (lexer)
 	{
 		printf("| %-*s | %-*d |\n", fix_dis, lexer->value, fix_dis, lexer->type);

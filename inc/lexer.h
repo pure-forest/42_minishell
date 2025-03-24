@@ -46,5 +46,6 @@ int					check_pipe(t_token *token_list);
 int					check_heredoc(t_token *token_list);
 t_token				*node_init(t_token_type type, char *token_value);
 int					append_node(t_token *node, t_token *head);
+int					tokenize_heredoc(t_token **token_list);
 
 #endif
