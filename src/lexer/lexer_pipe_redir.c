@@ -9,7 +9,6 @@ int	tokenize_pipe(char *str, int *i, t_token **token_list)
 	if (str[*i] == '|')
 	{
 		token_value = ft_substr(str, *i, 1);
-		printf("token_value = %s\n", token_value);
 		if (!token_value)
 			return (ERROR);
 		node = node_init(PIPE, token_value);

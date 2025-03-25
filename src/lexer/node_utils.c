@@ -39,10 +39,8 @@ int	append_node(t_token *node, t_token *head)
 
 void	print_token_list(t_token *lexer)
 {
-	int	i;
 	int	fix_dis;
 
-	i = 0;
 	fix_dis = 12;
 	printf("\n-------------start of lexer----------\n");
 	printf("| %-*s | %-*s |\n", fix_dis, "token value", fix_dis, "token type");

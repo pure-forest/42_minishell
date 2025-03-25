@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:58:51 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/20 15:16:42 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/03/25 16:41:28 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	print_parser_list(t_cmd_table *parser)
 	int	fix_dis_index;
 	int	fix_dis_cmd;
 	int	fix_dis_cmd_args;
-	int	fix_dis_redirection;
+	// int	fix_dis_redirection;
 
 	fix_dis_index = 6;
 	fix_dis_cmd = 10;
 	fix_dis_cmd_args = 12;
-	fix_dis_redirection = 12;
+	// fix_dis_redirection = 12;
 	printf("-----------------------------------------------------------------------------------------------\n");
 	printf("| %-*s | %-*s |  %-*s |  %-*s | %-*s | %-*s |\n", fix_dis_index, "index",
 		fix_dis_cmd_args, "input_file", fix_dis_cmd_args,

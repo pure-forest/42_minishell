@@ -43,7 +43,7 @@ int	tokenize_quote(char *str, int *i, t_token **token_list)
 		return (ERROR);
 	if (length > 0)
 	{
-		token_value = ft_substr(str, *i, length);
+		token_value = ft_substr(str, *i + 1, length - 2);
 		if (!token_value)
 			return (ERROR);
 		node = node_init(WORD, token_value);
@@ -79,17 +79,19 @@ int	calculate_valid_word(char *str)
 int	calculate_quote_length(char *str)
 {
 	int	i;
+	char	quote_mark;
 
 	if (!str || !*str || !ft_strchr("\'\"", str[0]))
 		return (0);
+	quote_mark = str[0];
 	i = 1;
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (str[i] == quote_mark)
 			break ;
 		i++;
 	}
-	if (str[i] != '\'' && str[i] != '\"')
+	if (str[i] != quote_mark)
 		return (ERROR);
 	return (i + 1);
 }
