@@ -1,8 +1,7 @@
 #include "../../../inc/execution.h"
 
-int		unset_vars(t_struct_ptrs *data, t_env_nodes **list_to_unset, int offset);
+int		unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset);
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr);
-void	free_one_env_node(t_env_nodes *node_to_free);
 
 int	unset(t_struct_ptrs *data)
 {
@@ -19,7 +18,7 @@ int	unset(t_struct_ptrs *data)
 		return (1);
 }
 
-int	unset_vars(t_struct_ptrs *data, t_env_nodes **list_to_unset, int offset) //static or not??
+int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //static or not??
 {
 	t_env_nodes	*curr;
 	t_env_nodes	*next;
@@ -31,11 +30,11 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **list_to_unset, int offset) //s
 	{
 		next = (t_env_nodes *)curr->base.next;
 		i = 0;
-		while (data->cmd_arr[++i])
+		while (data->input->cmd_arr[++i])
 		{
-			if (!ft_strncmp(data->cmd_arr[i], (curr->var_name + offset), \
+			if (!ft_strncmp(data->input->cmd_arr[i], (curr->var_name + offset), \
 			ft_strlen(curr->var_name + offset) - 1) && \
-			ft_strlen(data->cmd_arr[i]) == \
+			ft_strlen(data->input->cmd_arr[i]) == \
 			ft_strlen(curr->var_name + offset) - 1)
 			{
 				reassign_node_pointers(list_to_unset, curr);
@@ -62,11 +61,4 @@ void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static
 	}
 	else if (curr->base.prev && !curr->base.next)
 		curr->base.prev->next = NULL;
-}
-
-void	free_one_env_node(t_env_nodes *node_to_free)	//static or not??
-{
-	free(node_to_free->var_name);
-	free(node_to_free->var_value);
-	free(node_to_free);
 }

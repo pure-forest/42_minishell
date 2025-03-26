@@ -1,14 +1,23 @@
 #include "../../inc/execution.h"
 
-int	append_node(t_list_base *list_to_modify, t_list_base *new_var)
+int	append_node(t_list_base **list_to_modify, t_list_base *new_var)
 {
 	t_list_base	*last_var;
 
-	last_var = find_last(list_to_modify);
-	if (!last_var)
-		return (FAIL);
-	last_var->next = new_var;
-	new_var->prev = last_var;
+	last_var = NULL;
+	if (!*list_to_modify)
+	{
+		*list_to_modify = new_var;
+		new_var->prev = NULL;
+	}
+	else
+	{
+		last_var = find_last(*list_to_modify);
+		if (!last_var)
+			return (FAIL);
+		last_var->next = new_var;
+		new_var->prev = last_var;
+	}
 	return (SUCCESS);
 }
 

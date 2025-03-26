@@ -29,4 +29,3 @@ char	*ft_strndup(const char *s, size_t len)
 	str[i] = 0;
 	return (str);
 }
-

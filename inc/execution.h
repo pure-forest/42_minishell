@@ -1,35 +1,34 @@
 #ifndef EXECUTION_H
-#define EXECUTION_H
+# define EXECUTION_H
 
-#include <stdlib.h> //malloc + other functions
-#include <stdio.h>	//printf
-#include <unistd.h> //getcwd
-#include "../libft/libft.h"
+# include <stdlib.h> //malloc + other functions
+# include <stdio.h>	//printf
+# include <unistd.h> //getcwd
+# include <limits.h> //PATH_MAX
+# include "../libft/libft.h"
 
-#define FAIL 1
-#define SUCCESS 0
+# define FAIL 1
+# define SUCCESS 0
 
 typedef struct s_list_base
 {
-	struct s_list_base *next;
-	struct s_list_base *prev;
-} t_list_base;
+	struct s_list_base	*next;
+	struct s_list_base	*prev;
+}	t_list_base;
 
 typedef struct s_env_nodes
 {
-	t_list_base base;
-	char *var_name;
-	char *var_value;
-	int copied;
-	// struct s_env_nodes	*prev;
-	// struct s_env_nodes	*next;
-} t_env_nodes;
+	t_list_base	base;
+	char		*var_name;
+	char		*var_value;
+	int			copied;
+}	t_env_nodes;
 
-typedef enum
+typedef enum s_tokens
 {
 	CMD,
 	ARG,
-} t_tokens;
+}	t_tokens;
 
 typedef struct s_input
 {
@@ -37,48 +36,50 @@ typedef struct s_input
 	t_tokens	token_type;
 	char		*token_value;
 	char		**cmd_arr;
-} t_input;
-
+}	t_input;
 
 typedef struct s_struct_ptrs
 {
-	t_env_nodes *env;
-	t_env_nodes *export;
+	t_env_nodes	*env;
+	t_env_nodes	*export;
 	t_input		*input;
-	//char		**cmd_arr;	//cmd_arr is used in unset, check if that still works since now cmd_arr is built from tokens
-} t_struct_ptrs;
+}	t_struct_ptrs;
 
-//**************		ENV & EXPORT
-int create_env(char **envp, t_struct_ptrs *data);
-// int create_export(char **envp, t_struct_ptrs *data);
-int create_export(t_struct_ptrs *data); // new version?
+//**************		ENV & EXPORT -- +UTILS
+int			create_env(char **envp, t_struct_ptrs *data);
+int			create_export(t_struct_ptrs *data);
+char		*get_var_value(t_env_nodes *list, char *var);
+int			change_var_value(t_env_nodes *list, char *var_to_change, \
+								char *new_value, int offset);
+void		update_var_in_both(t_env_nodes *env, t_env_nodes *export, \
+								char *var_to_change, char *new_value);
+t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
+int			update_env(t_struct_ptrs *data);
 
 //**************		BUILTINS
-int env(t_struct_ptrs *data);
-int pwd(t_struct_ptrs *data);
-int export(t_struct_ptrs *data);
-int unset(t_struct_ptrs *data);
-int	cd(t_struct_ptrs *data);
+int			env(t_struct_ptrs *data);
+int			pwd(t_struct_ptrs *data);
+int			export(t_struct_ptrs *data);
+int			unset(t_struct_ptrs *data);
+int			cd(t_struct_ptrs *data);
 
-//**************		CMD_ARR
-char	**create_cmd_args(t_struct_ptrs *data);
-
-//**************		NODE UTILS
-int			append_node(t_list_base *list_to_modify, t_list_base *new_var);
-t_list_base *find_last(t_list_base *root);
+//**************		NODE UTILS;
+int			append_node(t_list_base **list_to_modify, t_list_base *new_var);
+t_list_base	*find_last(t_list_base *root);
+void		free_one_env_node(t_env_nodes *node_to_free);
 
 //**************		STRING UTILS
-int 	ft_strcmp(char *s1, char *s2);
-char	*ft_strndup(const char *s, size_t len);
+int			ft_strcmp(char *s1, char *s2);
+char		*ft_strndup(const char *s, size_t len);
 
 //**************		ERROR HANDLING
-void error_handling(t_struct_ptrs *data);
-void free_env_nodes(t_env_nodes **root);
+void		error_handling(t_struct_ptrs *data);
+void		free_env_nodes(t_env_nodes **root);
 
 //*************			DEBUGGING __ DELETEEEEEEEE!!!!!!!!!!!!!!!!!
-void    print_list(t_list_base *head, void (*print_node)(void *));
-void    print_env_nodes(void *node);
-void    print_inp_nodes(void *node);
-void	print_cmd_arr(char **cmd_arr);
+void		print_list(t_list_base *head, void (*print_node)(void *));
+void		print_env_nodes(void *node);
+void		print_inp_nodes(void *node);
+void		print_cmd_arr(char **cmd_arr);
 
 #endif
