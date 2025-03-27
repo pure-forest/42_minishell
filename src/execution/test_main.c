@@ -14,7 +14,7 @@ int	main(int ac, char **av, char **envp)
 	data = (t_struct_ptrs){0};
 	if (!(create_env(envp, &data)))
 		return (-1);
-   if (!(create_export(&data)))
+  	 if (!(create_export(&data)))
 		return (-1);
 
 	init_cmd_arr(&data);

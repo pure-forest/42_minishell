@@ -25,7 +25,7 @@ t_token *create_token_list(char *str)
 	return (token_list);
 }
 
-t_token	*token_init(char *str)
+t_token	*lexer(char *str)
 {
 	t_token *token_list;
 
@@ -41,7 +41,5 @@ t_token	*token_init(char *str)
 		return (free_lexer(&token_list), NULL);
 	if (check_heredoc(token_list) == ERROR)
 		return (free_lexer(&token_list), NULL);
-	// if (tokenize_heredoc(&token_list) == ERROR)
-	// 	return (free_lexer(&token_list), NULL);
 	return (token_list);
 }

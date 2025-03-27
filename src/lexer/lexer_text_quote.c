@@ -17,12 +17,12 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 		token_value = ft_substr(str, *i, length);
 		if (!token_value)
 			return (ERROR);
-		node = node_init(WORD, token_value);
+		node = token_init(WORD, token_value);
 		if (!node)
 			return (ERROR);
 		if (!(*token_list))
 			(*token_list) = node;
-		else if (append_node(node, *token_list) == ERROR)
+		else if (append_node((t_list_base *)token_list, (t_list_base *)node) == ERROR)
 			return (ERROR);
 		*i += length;
 	}
@@ -46,12 +46,12 @@ int	tokenize_quote(char *str, int *i, t_token **token_list)
 		token_value = ft_substr(str, *i + 1, length - 2);
 		if (!token_value)
 			return (ERROR);
-		node = node_init(WORD, token_value);
+		node = token_init(WORD, token_value);
 		if (!node)
 			return (ERROR);
 		if (!(*token_list))
 			(*token_list) = node;
-		else if (append_node(node, *token_list) == ERROR)
+		else if (append_node((t_list_base *)token_list, (t_list_base *)node) == ERROR)
 			return (ERROR);
 		*i += length;
 	}

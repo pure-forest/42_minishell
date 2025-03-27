@@ -64,8 +64,8 @@ int	cd(t_struct_ptrs *data);
 char	**create_cmd_args(t_struct_ptrs *data);
 
 //**************		NODE UTILS
-// int			append_node(t_list_base *list_to_modify, t_list_base *new_var);
-// t_list_base *find_last(t_list_base *root);
+int			append_node(t_list_base *list_to_modify, t_list_base *new_var);
+t_list_base *find_last(t_list_base *root);
 
 //**************		STRING UTILS
 int 	ft_strcmp(char *s1, char *s2);

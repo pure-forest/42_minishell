@@ -9,9 +9,9 @@
 # include <stdbool.h>
 
 # include "../libft/libft.h"
+# include "lexer.h"
 # include "parsing.h"
 # include "execution.h"
-# include "lexer.h"
 
 # define PINK "\033[1;38;5;218m"
 # define BLUE "\033[1;34m"
