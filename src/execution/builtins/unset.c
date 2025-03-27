@@ -24,7 +24,7 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 	t_env_nodes	*next;
 	int			i;
 
-	curr = *list_to_unset;
+	curr = *lst_to_unset;
 	next = NULL;
 	while (curr)
 	{
@@ -37,7 +37,7 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 			ft_strlen(data->input->cmd_arr[i]) == \
 			ft_strlen(curr->var_name + offset) - 1)
 			{
-				reassign_node_pointers(list_to_unset, curr);
+				reassign_node_pointers(lst_to_unset, curr);
 				free_one_env_node(curr);
 				break ;
 			}

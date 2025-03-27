@@ -62,6 +62,7 @@ int			pwd(t_struct_ptrs *data);
 int			export(t_struct_ptrs *data);
 int			unset(t_struct_ptrs *data);
 int			cd(t_struct_ptrs *data);
+int			echo(t_struct_ptrs *data);
 
 //**************		NODE UTILS;
 int			append_node(t_list_base **list_to_modify, t_list_base *new_var);
