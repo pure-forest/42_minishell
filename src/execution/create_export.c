@@ -2,32 +2,26 @@
 
 int			set_var(t_env_nodes *new_var, t_env_nodes *env);
 static int	is_export_sorted(t_env_nodes *env);
-int			ft_strcmp(char *s1, char *s2);
 
 int	create_export(t_struct_ptrs *data)
 {
 	t_env_nodes	*new_var;
 
 	if (!(data))
-		return (0);
+		return (FAIL);
 	while (is_export_sorted(data->env))
 	{
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
-			return (0);
+			return (FAIL);
 		*new_var = (t_env_nodes){0};
 		new_var->base.next = NULL;
-		if (!(set_var(new_var, data->env)))
-			return (free(new_var), error_handling(data), -1); //needs double checking
-		if (!data->export)
-		{
-			data->export = new_var;
-			new_var->base.prev = NULL;
-		}
-		else
-			append_node((t_list_base *)data->export, (t_list_base *)new_var); // appemd now returns something so double check
+		if (set_var(new_var, data->env))
+			return (free(new_var), error_handling(data), FAIL);
+		if (append_node((t_list_base **)&data->export, (t_list_base *)new_var))
+			return (free_one_env_node(new_var), FAIL);
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int	set_var(t_env_nodes *new_var, t_env_nodes *env)
@@ -45,15 +39,15 @@ int	set_var(t_env_nodes *new_var, t_env_nodes *env)
 		curr = (t_env_nodes *)curr->base.next;
 	}
 	if (!smallest)
-		return (0);
+		return (FAIL);
 	new_var->var_name = ft_strjoin("declare -x ", smallest->var_name);
 	if (!new_var->var_name)
-		return (0);
+		return (FAIL);
 	new_var->var_value = ft_strdup(smallest->var_value);
 	if (!new_var->var_value)
-		return (free(new_var->var_name), 0);
+		return (free(new_var->var_name), FAIL);
 	smallest->copied = 1;
-	return (1);
+	return (SUCCESS);
 }
 
 static int	is_export_sorted(t_env_nodes *env)
@@ -64,9 +58,8 @@ static int	is_export_sorted(t_env_nodes *env)
 	while (curr)
 	{
 		if (curr->copied == 0)
-			return (1);
+			return (FAIL);
 		curr = (t_env_nodes *)curr->base.next;
 	}
-	return (0);
+	return (SUCCESS);
 }
-

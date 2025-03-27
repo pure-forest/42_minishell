@@ -24,3 +24,10 @@ void	free_env_nodes(t_env_nodes **root)
 	}
 	*root = NULL;
 }
+
+void	free_one_env_node(t_env_nodes *node_to_free)
+{
+	free(node_to_free->var_name);
+	free(node_to_free->var_value);
+	free(node_to_free);
+}
