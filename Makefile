@@ -11,14 +11,12 @@ END = \033[0m
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-LEXER_DIR=${SRCDIR}/lexer
-LEXER_INC=${INCDIR}/parsing.h
-LEXER_SRC=${addprefix ${LEXER_DIR=}/, *.c}
-LEXER_OBJ=${LEXER_SRC:${LEXER_DIR=}%.c=${OBJDIR}/lexer/%.o}
+SRC=${addprefix ${SRCDIR}/, main.c}
+OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
 PARSE_DIR=${SRCDIR}/parsing
 PARSE_INC=${INCDIR}/parsing.h
-PARSE_SRC=${addprefix ${PARSE_DIR}/, *.c}
+PARSE_SRC=${addprefix ${PARSE_DIR}/, parser.c parser_utils.c}
 PARSE_OBJ=${PARSE_SRC:${PARSE_DIR}%.c=${OBJDIR}/parsing/%.o}
 
 EXECUTE_DIR=${SRCDIR}/execution
@@ -26,9 +24,11 @@ EXECUTE_INC=${INCDIR}/execution.h
 EXECUTE_SRC=${addprefix ${EXECUTE_DIR}/, node_utils.c}
 EXECUTE_OBJ=${EXECUTE_SRC:${EXECUTE_DIR}%.c=${OBJDIR}/execution/%.o}
 
-SRC=${addprefix ${SRCDIR}/, main.c}
-OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
-
+LEXER_DIR=${SRCDIR}/lexer
+LEXER_INC=${INCDIR}/parsing.h
+LEXER_SRC=${addprefix ${LEXER_DIR}/, lexer.c lexer_utils.c lexer_text_quote.c \
+			lexer_reprocess_token.c lexer_pipe_redir.c}
+LEXER_OBJ=${LEXER_SRC:${LEXER_DIR}%.c=${OBJDIR}/lexer/%.o}
 
 all:$(LIBFT_A) $(BINDIR)/${NAME}
 
@@ -58,8 +58,8 @@ ${OBJDIR}/execution/%.o:${EXECUTE_DIR}/%.c ${EXECUTE_INC}
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-$(BINDIR)/${NAME}:$(LIBFT_A) ${LEXER_OBJ} ${PARSE_OBJ} ${EXECUTE_OBJ} ${OBJ} | $(BINDIR)
-	@$(CC) ${LEXER_OBJ} $(PARSE_OBJ) ${EXECUTE_OBJ} $(OBJ) $(LIBFT_A) \
+$(BINDIR)/${NAME}:$(LIBFT_A) ${LEXER_OBJ} ${PARSE_OBJ} $(EXECUTE_OBJ) ${OBJ} | $(BINDIR)
+	@$(CC) ${LEXER_OBJ} $(PARSE_OBJ) $(EXECUTE_OBJ) $(OBJ) $(LIBFT_A) \
 	-lreadline -o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
@@ -75,6 +75,6 @@ fclean:clean
 
 mac:all clean
 
-re: fclean all
+re: fclean mac
 
 .PHONY: all clean fclean mac re

@@ -76,6 +76,8 @@ void	print_double_ptr(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		printf("str[%d] = %s\n", i, str[i]);
