@@ -22,7 +22,8 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 			return (ERROR);
 		if (!(*token_list))
 			(*token_list) = node;
-		else if (append_node((t_list_base **)token_list, (t_list_base *)node) == ERROR)
+		else if (append_node((t_list_base **)token_list,
+				(t_list_base *)node) == ERROR)
 			return (ERROR);
 		*i += length;
 	}
@@ -49,7 +50,8 @@ int	tokenize_quote(char *str, int *i, t_token **token_list)
 		node = token_init(WORD, token_value);
 		if (!node)
 			return (ERROR);
-		if (append_node((t_list_base **)token_list, (t_list_base *)node) == ERROR)
+		if (append_node((t_list_base **)token_list,
+				(t_list_base *)node) == ERROR)
 			return (ERROR);
 		*i += length;
 	}
@@ -71,15 +73,15 @@ int	calculate_valid_word(char *str)
 			break ;
 		i++;
 	}
-	return (i + 1);
+	return (i);
 }
 
 int	calculate_quote_length(char *str)
 {
-	int	i;
+	int		i;
 	char	quote_mark;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	if (!ft_strchr("\'\"", str[0]))
 		return (0);

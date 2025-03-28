@@ -1,17 +1,17 @@
 #include "../../inc/parsing.h"
 
-void	free_cmd_table(t_cmd_table **head)
+void	free_cmd_table(t_input **head)
 {
-	t_cmd_table	*temp;
+	t_input	*temp;
 
 	if (!(*head))
 		return ;
 	while ((*head))
 	{
 		temp = (*head);
-		*head = (t_cmd_table *)((*head)->next);
-		if (temp->cmd_args)
-			ft_free_double_ptr(temp->cmd_args);
+		*head = (t_input *)((*head)->base.next);
+		if (temp->cmd_arr)
+			ft_free_double_ptr(temp->cmd_arr);
 		if (temp->cmd)
 		{
 			free(temp->cmd);
@@ -23,7 +23,7 @@ void	free_cmd_table(t_cmd_table **head)
 	return ;
 }
 
-void	print_cmd_table(t_cmd_table *head)
+void	print_input(t_input *head)
 {
 	int			fix_dis;
 	int			fix_dis_index;
@@ -34,10 +34,10 @@ void	print_cmd_table(t_cmd_table *head)
 	printf("\n----------start of cmd table--------\n");
 	printf("| %-*s | %-*s |\n", fix_dis_index, "index", fix_dis, "cmd args");
 	printf("--------------------------------------\n");
-	while (head->cmd_args[i])
+	while (head->cmd_arr[i])
 	{
-		printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->cmd_args)[i]);
+		printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->cmd_arr)[i]);
 		i++;
 	}
-	printf("\n-----------end of cmd table--------\n");
+	printf("-----------end of cmd table--------\n");
 }

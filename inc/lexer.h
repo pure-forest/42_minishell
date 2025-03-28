@@ -2,13 +2,7 @@
 # define LEXER_H
 
 # include "minishell.h"
-# include "execution.h"
-# include "token.h"
-
-# define ERROR -1
-# define FT_SPACE " \t\n"
-# define FT_DELIMINATER "|;&()\"\'<>"
-
+# include "structure.h"
 
 //main lexer functions
 t_token				*lexer(char *str);
