@@ -1,38 +1,39 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/22 20:42:29 by ydeng            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minishell.h"
 
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
-	char		*read_line;
-	t_token		*token;
-	t_cmd_table	*cmd_table;
+	char			*read_line;
+	t_struct_ptrs 	data;
+	t_token			*token;
+	t_cmd_table 	*cmd;
+	int				ret_val = 0;
 
+	(void)ac;
+	(void)av;
 	token = NULL;
-	cmd_table = NULL;
+	data = (t_struct_ptrs){0};
 	while (1)
 	{
 		read_line = readline(PROMPT);
+		if (create_env(envp, &data))
+			return (FAIL);
+  		if (create_export(&data))
+	  		return (FAIL);
 		if (read_line && *read_line)
 			add_history(read_line);
-		token = token_init(read_line);
-		free(read_line);
-		if (token)
-			print_token_list(token);
-		// cmd_table_init(read_line, &cmd_table);
-		// print_parser_list(cmd_table);
+		if (read_line)
+		{
+			token = lexer(read_line);
+			free(read_line);
+		}
+		// if (token)
+		// 	print_token_list(token);
+		cmd = parser(token);
+		data.input = get_cmd_table(cmd);
+		ret_val = echo(&data);
+		if (ret_val == -1)
+			printf("Error\n");
 		free_lexer(&token);
-		// free_cmd_table(&cmd_table);
 	}
 	return (0);
 }

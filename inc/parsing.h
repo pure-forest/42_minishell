@@ -1,24 +1,24 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "minishell.h"
 # include "lexer.h"
+# include "minishell.h"
+# include "token.h"
 
 typedef struct s_cmd_table
 {
-	char				*cmd;
-	char				**cmd_args; //need to pass it to the execv() function
+	t_list_base	base;
+	char *cmd; // the first WORD token in the list & the first WORD token after pipe
+	t_token *args;   // all the other WORD token after *cmd before pipe
+	char **cmd_args; // need to pass it to the execv() function, including *cmd
 	int					index;
-	char				*input_file;
-	char				*output_file;
-	int					redirection;
-	bool				have_pipe;
+	char *heredoc_name;   // a string????
+	t_token *redirection; // points to the redirection token???
 	struct s_cmd_table	*next;
 }						t_cmd_table;
 
-void					cmd_table_init(char *str, t_cmd_table **cmd);
-void					print_parser_list(t_cmd_table *parser);
+t_cmd_table				*parser(t_token *token_list);
 void					free_cmd_table(t_cmd_table **head);
-void					trim_and_free(char **src);
-
+void					print_cmd_table(t_cmd_table *head);
+t_input					*get_cmd_table(t_cmd_table *cmd_table);
 #endif
