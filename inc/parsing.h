@@ -20,4 +20,5 @@ typedef struct s_cmd_table
 t_cmd_table				*parser(t_token *token_list);
 void					free_cmd_table(t_cmd_table **head);
 void					print_cmd_table(t_cmd_table *head);
+t_input					*get_cmd_table(t_cmd_table *cmd_table);
 #endif

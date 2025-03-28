@@ -9,7 +9,7 @@ static t_token *create_token_list(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("str %s address %p\n", str, str);
+		// printf("str %s address %p\n", str, str);
 		if (tokenize_pipe(str, &i, &token_list) == ERROR)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == ERROR)
@@ -18,11 +18,11 @@ static t_token *create_token_list(char *str)
 			break;
 		if (tokenize_quote(str, &i, &token_list) == ERROR)
 			break;
-		
+
 		while (str[i] && ft_strchr(FT_SPACE, str[i]))
 			i++;
 	}
-	printf("str %s address %p\n", str, str);
+	// printf("str %s address %p\n", str, str);
 	if (str[i] != '\0')
 		return (NULL);
 	return (token_list);

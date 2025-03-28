@@ -46,3 +46,12 @@ t_cmd_table	*parser(t_token *token_list)
 	temp = cmd_table_init(cmd_args);
 	return (temp);
 }
+
+t_input	*get_cmd_table(t_cmd_table *cmd_table)
+{
+	t_input	*temp;
+
+	temp = ft_calloc(1, sizeof(char));
+	temp->cmd_arr = cmd_table->cmd_args;
+	return (temp);
+}
