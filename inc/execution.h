@@ -43,6 +43,7 @@ typedef struct s_struct_ptrs
 	t_env_nodes	*env;
 	t_env_nodes	*export;
 	t_input		*input;
+	int			exit_code;
 }	t_struct_ptrs;
 
 //**************		ENV & EXPORT -- +UTILS
@@ -55,6 +56,9 @@ void		update_var_in_both(t_env_nodes *env, t_env_nodes *export, \
 								char *var_to_change, char *new_value);
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 int			update_env(t_struct_ptrs *data);
+
+//**************
+void		execute(t_struct_ptrs *data);
 
 //**************		BUILTINS
 int			env(t_struct_ptrs *data);
