@@ -24,6 +24,21 @@ int	cmd_arr_num(t_token *token_list)
 	return (num);
 }
 
+void	mock_execution(t_token *token_list)
+{
+	int	fd;
+
+	while (token_list)
+	{
+		if (token_list->type == INFILE)
+		{
+			fd = open(token_list->value, O_RDONLY);
+			printf("fd = %d\n", fd);
+		}
+		token_list = (t_token *)(token_list->base.next);
+	}
+}
+
 t_input	*parser(t_token *token_list)
 {
 	char	**cmd_arr;
@@ -31,13 +46,14 @@ t_input	*parser(t_token *token_list)
 	t_input *temp;
 	int		i;
 
+	mock_execution(token_list);
 	i = 0;
 	temp = NULL;
 	size = cmd_arr_num(token_list);
 	cmd_arr = ft_calloc(size + 1, sizeof(char *));
 	if (!cmd_arr)
 		return (NULL);
-	while ((t_token *)(token_list) && token_list->type == WORD)
+	while (token_list && token_list->type == WORD)
 	{
 		cmd_arr[i] = ft_strdup(token_list->value);
 		if (!cmd_arr[i])

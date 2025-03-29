@@ -17,7 +17,7 @@ int					check_pipe(t_token *token_list);
 void				free_lexer(t_token **head);
 void				print_token_list(t_token *lexer);
 
-//not sure if we need to do this in lexer????
+//node functions
 t_token				*token_init(t_token_type type, char *token_value);
 
 
