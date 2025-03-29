@@ -35,6 +35,7 @@ void					free_one_env_node(t_env_nodes *node_to_free);
 //**************		STRING UTILS
 int						ft_strcmp(char *s1, char *s2);
 char					*ft_strndup(const char *s, size_t len);
+char					*ft_strjoin_and_free(char const *s1, char const *s2);
 
 //**************		ERROR HANDLING
 void					error_handling(t_struct_ptrs *data);

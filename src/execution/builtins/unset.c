@@ -8,14 +8,14 @@ int	unset(t_struct_ptrs *data)
 	int			var_unset;
 
 	var_unset = 0;
-	if (data->env && unset_vars(data, &data->env, 0))
+	if (data->env && !unset_vars(data, &data->env, 0))
 		var_unset += 1;
-	if (data->export && unset_vars(data, &data->export, 11))
+	if (data->export && !unset_vars(data, &data->export, 11))
 		var_unset += 1;
 	if (var_unset != 0)
-		return (0);
+		return (SUCCESS);
 	else
-		return (1);
+		return (FAIL);
 }
 
 int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //static or not??
@@ -33,9 +33,9 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 		while (data->input->cmd_arr[++i])
 		{
 			if (!ft_strncmp(data->input->cmd_arr[i], (curr->var_name + offset), \
-			ft_strlen(curr->var_name + offset) - 1) && \
+			ft_strlen(curr->var_name + offset)) && \
 			ft_strlen(data->input->cmd_arr[i]) == \
-			ft_strlen(curr->var_name + offset) - 1)
+			ft_strlen(curr->var_name + offset))
 			{
 				reassign_node_pointers(lst_to_unset, curr);
 				free_one_env_node(curr);
@@ -44,7 +44,7 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 		}
 		curr = next;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static or not??

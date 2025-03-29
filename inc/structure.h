@@ -20,6 +20,7 @@ typedef struct s_env_nodes
 typedef enum e_token_num
 {
 	WORD,
+	QUOTE,
 	INPUT, // >
 	OUTPUT, // <
 	HEREDOC, // <<

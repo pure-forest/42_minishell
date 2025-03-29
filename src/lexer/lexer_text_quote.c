@@ -81,6 +81,7 @@ int	calculate_quote_length(char *str)
 	int		i;
 	char	quote_mark;
 
+	// printf("str = %s\n", str);
 	if (!str || !*str)
 		return (0);
 	if (!ft_strchr("\'\"", str[0]))
@@ -90,7 +91,7 @@ int	calculate_quote_length(char *str)
 	while (str[i])
 	{
 		if (str[i] == quote_mark)
-			break ;
+			break;
 		i++;
 	}
 	if (str[i] != quote_mark)

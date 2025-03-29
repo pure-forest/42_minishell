@@ -1,0 +1,14 @@
+{
+   <Readline>
+   Memcheck:Leak
+   ...
+   fun:readline
+   ...
+}
+{
+   <Readline/AddHistory>
+   Memcheck:Leak
+   ...
+   fun:add_history
+   ...
+}
