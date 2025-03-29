@@ -42,11 +42,8 @@ void	free_lexer(t_token **head)
 	{
 		temp = (*head);
 		(*head) = (t_token *)(*head)->base.next;
-		if (temp->value)
-		{
-			free(temp->value);
-			temp->value = NULL;
-		}
+		free(temp->value);
+		temp->value = NULL;
 		free(temp);
 		temp = NULL;
 	}

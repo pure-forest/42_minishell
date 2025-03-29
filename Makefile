@@ -5,6 +5,7 @@ BINDIR=bin
 INCDIR=inc
 CC=cc
 FLAGS=-Wall -Wextra -Werror -g
+SANITIZER=-fsanitize=address -fno-omit-frame-pointer
 PINK = \033[38;5;218m
 END = \033[0m
 
@@ -13,14 +14,14 @@ LIBFT_A = ${LIBFT_DIR}/libft.a
 
 LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c lexer_pipe_redir.c
 PARSER= parser.c parser_utils.c
-BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c
+BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c
 EXECUTE= create_env.c create_export.c env_export_utils.c \
 		node_utils.c error_handling.c string_utils.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 	$(addprefix ${SRCDIR}/lexer/, $(LEXER)) \
-	$(addprefix $(SRCDIR)/parsing/, $(PARSER)) \
+	$(addprefix $(SRCDIR)/parser/, $(PARSER)) \
 	$(addprefix $(SRCDIR)/execution/, $(EXECUTE)) \
 	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN))
 
@@ -44,7 +45,8 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 
 $(BINDIR)/${NAME}:$(LIBFT_A) ${OBJ} | $(BINDIR)
 	@$(CC) $(OBJ) $(LIBFT_A) \
-	-lreadline -o $(BINDIR)/$(NAME)
+	-lreadline \
+	-o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
 clean:
@@ -59,6 +61,6 @@ fclean:clean
 
 mac:all clean
 
-re: fclean mac
+re: fclean all
 
 .PHONY: all clean fclean mac re

@@ -7,9 +7,9 @@ static t_token *create_token_list(char *str)
 
 	token_list = NULL;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
-		// printf("str %s address %p\n", str, str);
+		// printf("str[%d] = %c\n", i, str[i]);
 		if (tokenize_pipe(str, &i, &token_list) == ERROR)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == ERROR)
@@ -18,11 +18,9 @@ static t_token *create_token_list(char *str)
 			break;
 		if (tokenize_quote(str, &i, &token_list) == ERROR)
 			break;
-
-		while (str[i] && ft_strchr(FT_SPACE, str[i]))
+		while (str && str[i] && ft_strchr(FT_SPACE, str[i]))
 			i++;
 	}
-	// printf("str %s address %p\n", str, str);
 	if (str[i] != '\0')
 		return (NULL);
 	return (token_list);
@@ -36,10 +34,7 @@ t_token	*lexer(char *str)
 		return (NULL);
 	token_list = create_token_list(str);
 	if (!token_list)
-	{
-		ft_putstr_fd("Error\n", 2);
 		return (NULL);
-	}
 	if (check_pipe(token_list) == ERROR)
 		return (free_lexer(&token_list), NULL);
 	if (check_redir_file(token_list) == ERROR)

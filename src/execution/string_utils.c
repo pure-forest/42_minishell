@@ -29,3 +29,27 @@ char	*ft_strndup(const char *s, size_t len)
 	str[i] = 0;
 	return (str);
 }
+
+char	*ft_strjoin_and_free(char const *s1, char const *s2)
+{
+	char	*s_new;
+	int		i;
+	int		j;
+
+	if (s1 && s2)
+	{
+		s_new = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		if (!s_new)
+			return (free((char *)s1), free((char *)s2), NULL);
+		i = 0;
+		j = 0;
+		while (s1[i])
+			s_new[i++] = s1[j++];
+		j = 0;
+		while (s2[j])
+			s_new[i++] = s2[j++];
+		s_new[i] = 0;
+		return (free((char *)s1), free((char *)s2), s_new);
+	}
+	return (0);
+}
