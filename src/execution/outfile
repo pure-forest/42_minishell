@@ -1,0 +1,1575 @@
+SYSTEMD_EXEC_PID=2015389
+SSH_AUTH_SOCK=/run/user/6311/keyring/ssh
+SESSION_MANAGER=local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc
+LANG=en_US.UTF-8
+LANGUAGE=en
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+FT_HOOK_NAME=login-user
+FT_HOOK_PATHNAME=login-user.d
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/gboggion
+LIBVIRT_DEFAULT_URI=qemu:///system
+GPG_AGENT_INFO=/run/user/6311/gnupg/S.gpg-agent:0:1
+DESKTOP_SESSION=ubuntu
+QT_IM_MODULE=ibus
+XDG_MENU_PREFIX=gnome-
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session27
+PWD=/home/gboggion/Studies/Minishell/42_minishell/src/execution
+USER=gboggion
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/6311/bus
+DOCKER_HOST=unix:///run/user/6311/docker.sock
+SSH_AGENT_LAUNCHER=gnome-keyring
+GTK_MODULES=gail:atk-bridge
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+GTK_IM_MODULE=ibus
+XDG_SESSION_DESKTOP=ubuntu
+QT_ACCESSIBILITY=1
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+KRB5CCNAME=FILE:/tmp/krb5cc_6311_05GGcq
+LOGNAME=gboggion
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SERVICE=:1.183
+HOME=/home/gboggion
+PATH=/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+XMODIFIERS=@im=ibus
+XDG_RUNTIME_DIR=/run/user/6311
+XDG_SESSION_TYPE=x11
+SHELL=/bin/zsh
+VTE_VERSION=6800
+MACADDRESS=38:f9:d3:91:9f:fd
+GDM_LANG=en
+XAUTHORITY=/home/gboggion/.Xauthority
+COLORTERM=truecolor
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+GDMSESSION=ubuntu
+DISPLAY=:0
+SHLVL=1
+OLDPWD=/home/gboggion
+ZSH=/home/gboggion/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+MAIL=gboggion@student.hive.fi
+_=/home/gboggion/Studies/Minishell/42_minishell/src/execution/./exec
+
+
+ENV printed
+
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/6311/bus"
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x DOCKER_HOST="unix:///run/user/6311/docker.sock"
+declare -x FT_HOOK_NAME="login-user"
+declare -x FT_HOOK_PATHNAME="login-user.d"
+declare -x GDMSESSION="ubuntu"
+declare -x GDM_LANG="en"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc"
+declare -x GNOME_TERMINAL_SERVICE=":1.183"
+declare -x GPG_AGENT_INFO="/run/user/6311/gnupg/S.gpg-agent:0:1"
+declare -x GTK_IM_MODULE="ibus"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HOME="/home/gboggion"
+declare -x KRB5CCNAME="FILE:/tmp/krb5cc_6311_05GGcq"
+declare -x LANG="en_US.UTF-8"
+declare -x LANGUAGE="en"
+declare -x LESS="-R"
+declare -x LIBVIRT_DEFAULT_URI="qemu:///system"
+declare -x LOGNAME="gboggion"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+declare -x MACADDRESS="38:f9:d3:91:9f:fd"
+declare -x MAIL="gboggion@student.hive.fi"
+declare -x OLDPWD="/home/gboggion"
+declare -x PAGER="less"
+declare -x PATH="/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+declare -x PWD="/home/gboggion/Studies/Minishell/42_minishell/src/execution"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="1"
+declare -x SSH_AGENT_LAUNCHER="gnome-keyring"
+declare -x SSH_AUTH_SOCK="/run/user/6311/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="2015389"
+declare -x TERM="xterm-256color"
+declare -x USER="gboggion"
+declare -x VTE_VERSION="6800"
+declare -x XAUTHORITY="/home/gboggion/.Xauthority"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop"
+declare -x XDG_GREETER_DATA_DIR="/var/lib/lightdm-data/gboggion"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/6311"
+declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_PATH="/org/freedesktop/DisplayManager/Session27"
+declare -x XDG_SESSION_TYPE="x11"
+declare -x XMODIFIERS="@im=ibus"
+declare -x ZSH="/home/gboggion/.oh-my-zsh"
+
+
+Printing CMD_ARR
+
+Arr[0]: 'export'
+Arr[1]: 'A1='
+Arr[2]: 'T2='
+Arr[3]: 'G1=test'
+Arr[4]: 'Z1'
+
+
+Processing Execute export T1 T2= G1=test:
+
+
+Execute Exit Code: 0
+
+
+
+
+PRINTING ENV AFTER SETTING:
+
+SYSTEMD_EXEC_PID=2015389
+SSH_AUTH_SOCK=/run/user/6311/keyring/ssh
+SESSION_MANAGER=local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc
+LANG=en_US.UTF-8
+LANGUAGE=en
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+FT_HOOK_NAME=login-user
+FT_HOOK_PATHNAME=login-user.d
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/gboggion
+LIBVIRT_DEFAULT_URI=qemu:///system
+GPG_AGENT_INFO=/run/user/6311/gnupg/S.gpg-agent:0:1
+DESKTOP_SESSION=ubuntu
+QT_IM_MODULE=ibus
+XDG_MENU_PREFIX=gnome-
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session27
+PWD=/home/gboggion/Studies/Minishell/42_minishell/src/execution
+USER=gboggion
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/6311/bus
+DOCKER_HOST=unix:///run/user/6311/docker.sock
+SSH_AGENT_LAUNCHER=gnome-keyring
+GTK_MODULES=gail:atk-bridge
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+GTK_IM_MODULE=ibus
+XDG_SESSION_DESKTOP=ubuntu
+QT_ACCESSIBILITY=1
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+KRB5CCNAME=FILE:/tmp/krb5cc_6311_05GGcq
+LOGNAME=gboggion
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SERVICE=:1.183
+HOME=/home/gboggion
+PATH=/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+XMODIFIERS=@im=ibus
+XDG_RUNTIME_DIR=/run/user/6311
+XDG_SESSION_TYPE=x11
+SHELL=/bin/zsh
+VTE_VERSION=6800
+MACADDRESS=38:f9:d3:91:9f:fd
+GDM_LANG=en
+XAUTHORITY=/home/gboggion/.Xauthority
+COLORTERM=truecolor
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+GDMSESSION=ubuntu
+DISPLAY=:0
+SHLVL=1
+OLDPWD=/home/gboggion
+ZSH=/home/gboggion/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+MAIL=gboggion@student.hive.fi
+_=/home/gboggion/Studies/Minishell/42_minishell/src/execution/./exec
+A1=
+T2=
+G1=test
+
+
+PRINTING EXPORT AFTER SETTING:
+
+declare -x A1=""
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/6311/bus"
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x DOCKER_HOST="unix:///run/user/6311/docker.sock"
+declare -x FT_HOOK_NAME="login-user"
+declare -x FT_HOOK_PATHNAME="login-user.d"
+declare -x G1="test"
+declare -x GDMSESSION="ubuntu"
+declare -x GDM_LANG="en"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc"
+declare -x GNOME_TERMINAL_SERVICE=":1.183"
+declare -x GPG_AGENT_INFO="/run/user/6311/gnupg/S.gpg-agent:0:1"
+declare -x GTK_IM_MODULE="ibus"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HOME="/home/gboggion"
+declare -x KRB5CCNAME="FILE:/tmp/krb5cc_6311_05GGcq"
+declare -x LANG="en_US.UTF-8"
+declare -x LANGUAGE="en"
+declare -x LESS="-R"
+declare -x LIBVIRT_DEFAULT_URI="qemu:///system"
+declare -x LOGNAME="gboggion"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+declare -x MACADDRESS="38:f9:d3:91:9f:fd"
+declare -x MAIL="gboggion@student.hive.fi"
+declare -x OLDPWD="/home/gboggion"
+declare -x PAGER="less"
+declare -x PATH="/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+declare -x PWD="/home/gboggion/Studies/Minishell/42_minishell/src/execution"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="1"
+declare -x SSH_AGENT_LAUNCHER="gnome-keyring"
+declare -x SSH_AUTH_SOCK="/run/user/6311/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="2015389"
+declare -x T2=""
+declare -x TERM="xterm-256color"
+declare -x USER="gboggion"
+declare -x VTE_VERSION="6800"
+declare -x XAUTHORITY="/home/gboggion/.Xauthority"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop"
+declare -x XDG_GREETER_DATA_DIR="/var/lib/lightdm-data/gboggion"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/6311"
+declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_PATH="/org/freedesktop/DisplayManager/Session27"
+declare -x XDG_SESSION_TYPE="x11"
+declare -x XMODIFIERS="@im=ibus"
+declare -x Z1
+declare -x ZSH="/home/gboggion/.oh-my-zsh"
+
+
+Printing CMD_ARR_TWO
+
+Arr[0]: 'unset'
+Arr[1]: 'A1'
+Arr[2]: 'G1'
+
+
+Processing Execute unset T1 G1
+
+
+Var Name: SYSTEMD_EXEC_PID=
+Cmp_len = 16
+Cmp func ret = -18
+Len_arr: 2		Len_var = 16
+
+Var Name: SYSTEMD_EXEC_PID=
+Cmp_len = 16
+Cmp func ret = -12
+Len_arr: 2		Len_var = 16
+
+Var Name: SSH_AUTH_SOCK=
+Cmp_len = 13
+Cmp func ret = -18
+Len_arr: 2		Len_var = 13
+
+Var Name: SSH_AUTH_SOCK=
+Cmp_len = 13
+Cmp func ret = -12
+Len_arr: 2		Len_var = 13
+
+Var Name: SESSION_MANAGER=
+Cmp_len = 15
+Cmp func ret = -18
+Len_arr: 2		Len_var = 15
+
+Var Name: SESSION_MANAGER=
+Cmp_len = 15
+Cmp func ret = -12
+Len_arr: 2		Len_var = 15
+
+Var Name: GNOME_TERMINAL_SCREEN=
+Cmp_len = 21
+Cmp func ret = -6
+Len_arr: 2		Len_var = 21
+
+Var Name: GNOME_TERMINAL_SCREEN=
+Cmp_len = 21
+Cmp func ret = -29
+Len_arr: 2		Len_var = 21
+
+Var Name: LANG=
+Cmp_len = 4
+Cmp func ret = -11
+Len_arr: 2		Len_var = 4
+
+Var Name: LANG=
+Cmp_len = 4
+Cmp func ret = -5
+Len_arr: 2		Len_var = 4
+
+Var Name: LANGUAGE=
+Cmp_len = 8
+Cmp func ret = -11
+Len_arr: 2		Len_var = 8
+
+Var Name: LANGUAGE=
+Cmp_len = 8
+Cmp func ret = -5
+Len_arr: 2		Len_var = 8
+
+Var Name: XDG_CURRENT_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -23
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_CURRENT_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -17
+Len_arr: 2		Len_var = 19
+
+Var Name: FT_HOOK_NAME=
+Cmp_len = 12
+Cmp func ret = -5
+Len_arr: 2		Len_var = 12
+
+Var Name: FT_HOOK_NAME=
+Cmp_len = 12
+Cmp func ret = 1
+Len_arr: 2		Len_var = 12
+
+Var Name: FT_HOOK_PATHNAME=
+Cmp_len = 16
+Cmp func ret = -5
+Len_arr: 2		Len_var = 16
+
+Var Name: FT_HOOK_PATHNAME=
+Cmp_len = 16
+Cmp func ret = 1
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_GREETER_DATA_DIR=
+Cmp_len = 20
+Cmp func ret = -23
+Len_arr: 2		Len_var = 20
+
+Var Name: XDG_GREETER_DATA_DIR=
+Cmp_len = 20
+Cmp func ret = -17
+Len_arr: 2		Len_var = 20
+
+Var Name: LIBVIRT_DEFAULT_URI=
+Cmp_len = 19
+Cmp func ret = -11
+Len_arr: 2		Len_var = 19
+
+Var Name: LIBVIRT_DEFAULT_URI=
+Cmp_len = 19
+Cmp func ret = -5
+Len_arr: 2		Len_var = 19
+
+Var Name: GPG_AGENT_INFO=
+Cmp_len = 14
+Cmp func ret = -6
+Len_arr: 2		Len_var = 14
+
+Var Name: GPG_AGENT_INFO=
+Cmp_len = 14
+Cmp func ret = -31
+Len_arr: 2		Len_var = 14
+
+Var Name: DESKTOP_SESSION=
+Cmp_len = 15
+Cmp func ret = -3
+Len_arr: 2		Len_var = 15
+
+Var Name: DESKTOP_SESSION=
+Cmp_len = 15
+Cmp func ret = 3
+Len_arr: 2		Len_var = 15
+
+Var Name: QT_IM_MODULE=
+Cmp_len = 12
+Cmp func ret = -16
+Len_arr: 2		Len_var = 12
+
+Var Name: QT_IM_MODULE=
+Cmp_len = 12
+Cmp func ret = -10
+Len_arr: 2		Len_var = 12
+
+Var Name: XDG_MENU_PREFIX=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_MENU_PREFIX=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_SESSION_PATH=
+Cmp_len = 16
+Cmp func ret = -23
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_SESSION_PATH=
+Cmp_len = 16
+Cmp func ret = -17
+Len_arr: 2		Len_var = 16
+
+Var Name: PWD=
+Cmp_len = 3
+Cmp func ret = -15
+Len_arr: 2		Len_var = 3
+
+Var Name: PWD=
+Cmp_len = 3
+Cmp func ret = -9
+Len_arr: 2		Len_var = 3
+
+Var Name: USER=
+Cmp_len = 4
+Cmp func ret = -20
+Len_arr: 2		Len_var = 4
+
+Var Name: USER=
+Cmp_len = 4
+Cmp func ret = -14
+Len_arr: 2		Len_var = 4
+
+Var Name: DBUS_SESSION_BUS_ADDRESS=
+Cmp_len = 24
+Cmp func ret = -3
+Len_arr: 2		Len_var = 24
+
+Var Name: DBUS_SESSION_BUS_ADDRESS=
+Cmp_len = 24
+Cmp func ret = 3
+Len_arr: 2		Len_var = 24
+
+Var Name: DOCKER_HOST=
+Cmp_len = 11
+Cmp func ret = -3
+Len_arr: 2		Len_var = 11
+
+Var Name: DOCKER_HOST=
+Cmp_len = 11
+Cmp func ret = 3
+Len_arr: 2		Len_var = 11
+
+Var Name: SSH_AGENT_LAUNCHER=
+Cmp_len = 18
+Cmp func ret = -18
+Len_arr: 2		Len_var = 18
+
+Var Name: SSH_AGENT_LAUNCHER=
+Cmp_len = 18
+Cmp func ret = -12
+Len_arr: 2		Len_var = 18
+
+Var Name: GTK_MODULES=
+Cmp_len = 11
+Cmp func ret = -6
+Len_arr: 2		Len_var = 11
+
+Var Name: GTK_MODULES=
+Cmp_len = 11
+Cmp func ret = -35
+Len_arr: 2		Len_var = 11
+
+Var Name: XDG_CONFIG_DIRS=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_CONFIG_DIRS=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: GTK_IM_MODULE=
+Cmp_len = 13
+Cmp func ret = -6
+Len_arr: 2		Len_var = 13
+
+Var Name: GTK_IM_MODULE=
+Cmp_len = 13
+Cmp func ret = -35
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_SESSION_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -23
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_SESSION_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -17
+Len_arr: 2		Len_var = 19
+
+Var Name: QT_ACCESSIBILITY=
+Cmp_len = 16
+Cmp func ret = -16
+Len_arr: 2		Len_var = 16
+
+Var Name: QT_ACCESSIBILITY=
+Cmp_len = 16
+Cmp func ret = -10
+Len_arr: 2		Len_var = 16
+
+Var Name: GNOME_DESKTOP_SESSION_ID=
+Cmp_len = 24
+Cmp func ret = -6
+Len_arr: 2		Len_var = 24
+
+Var Name: GNOME_DESKTOP_SESSION_ID=
+Cmp_len = 24
+Cmp func ret = -29
+Len_arr: 2		Len_var = 24
+
+Var Name: KRB5CCNAME=
+Cmp_len = 10
+Cmp func ret = -10
+Len_arr: 2		Len_var = 10
+
+Var Name: KRB5CCNAME=
+Cmp_len = 10
+Cmp func ret = -4
+Len_arr: 2		Len_var = 10
+
+Var Name: LOGNAME=
+Cmp_len = 7
+Cmp func ret = -11
+Len_arr: 2		Len_var = 7
+
+Var Name: LOGNAME=
+Cmp_len = 7
+Cmp func ret = -5
+Len_arr: 2		Len_var = 7
+
+Var Name: XDG_SEAT_PATH=
+Cmp_len = 13
+Cmp func ret = -23
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_SEAT_PATH=
+Cmp_len = 13
+Cmp func ret = -17
+Len_arr: 2		Len_var = 13
+
+Var Name: GNOME_TERMINAL_SERVICE=
+Cmp_len = 22
+Cmp func ret = -6
+Len_arr: 2		Len_var = 22
+
+Var Name: GNOME_TERMINAL_SERVICE=
+Cmp_len = 22
+Cmp func ret = -29
+Len_arr: 2		Len_var = 22
+
+Var Name: HOME=
+Cmp_len = 4
+Cmp func ret = -7
+Len_arr: 2		Len_var = 4
+
+Var Name: HOME=
+Cmp_len = 4
+Cmp func ret = -1
+Len_arr: 2		Len_var = 4
+
+Var Name: PATH=
+Cmp_len = 4
+Cmp func ret = -15
+Len_arr: 2		Len_var = 4
+
+Var Name: PATH=
+Cmp_len = 4
+Cmp func ret = -9
+Len_arr: 2		Len_var = 4
+
+Var Name: XDG_DATA_DIRS=
+Cmp_len = 13
+Cmp func ret = -23
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_DATA_DIRS=
+Cmp_len = 13
+Cmp func ret = -17
+Len_arr: 2		Len_var = 13
+
+Var Name: XMODIFIERS=
+Cmp_len = 10
+Cmp func ret = -23
+Len_arr: 2		Len_var = 10
+
+Var Name: XMODIFIERS=
+Cmp_len = 10
+Cmp func ret = -17
+Len_arr: 2		Len_var = 10
+
+Var Name: XDG_RUNTIME_DIR=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_RUNTIME_DIR=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_SESSION_TYPE=
+Cmp_len = 16
+Cmp func ret = -23
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_SESSION_TYPE=
+Cmp_len = 16
+Cmp func ret = -17
+Len_arr: 2		Len_var = 16
+
+Var Name: SHELL=
+Cmp_len = 5
+Cmp func ret = -18
+Len_arr: 2		Len_var = 5
+
+Var Name: SHELL=
+Cmp_len = 5
+Cmp func ret = -12
+Len_arr: 2		Len_var = 5
+
+Var Name: VTE_VERSION=
+Cmp_len = 11
+Cmp func ret = -21
+Len_arr: 2		Len_var = 11
+
+Var Name: VTE_VERSION=
+Cmp_len = 11
+Cmp func ret = -15
+Len_arr: 2		Len_var = 11
+
+Var Name: MACADDRESS=
+Cmp_len = 10
+Cmp func ret = -12
+Len_arr: 2		Len_var = 10
+
+Var Name: MACADDRESS=
+Cmp_len = 10
+Cmp func ret = -6
+Len_arr: 2		Len_var = 10
+
+Var Name: GDM_LANG=
+Cmp_len = 8
+Cmp func ret = -6
+Len_arr: 2		Len_var = 8
+
+Var Name: GDM_LANG=
+Cmp_len = 8
+Cmp func ret = -19
+Len_arr: 2		Len_var = 8
+
+Var Name: XAUTHORITY=
+Cmp_len = 10
+Cmp func ret = -23
+Len_arr: 2		Len_var = 10
+
+Var Name: XAUTHORITY=
+Cmp_len = 10
+Cmp func ret = -17
+Len_arr: 2		Len_var = 10
+
+Var Name: COLORTERM=
+Cmp_len = 9
+Cmp func ret = -2
+Len_arr: 2		Len_var = 9
+
+Var Name: COLORTERM=
+Cmp_len = 9
+Cmp func ret = 4
+Len_arr: 2		Len_var = 9
+
+Var Name: XDG_SESSION_CLASS=
+Cmp_len = 17
+Cmp func ret = -23
+Len_arr: 2		Len_var = 17
+
+Var Name: XDG_SESSION_CLASS=
+Cmp_len = 17
+Cmp func ret = -17
+Len_arr: 2		Len_var = 17
+
+Var Name: TERM=
+Cmp_len = 4
+Cmp func ret = -19
+Len_arr: 2		Len_var = 4
+
+Var Name: TERM=
+Cmp_len = 4
+Cmp func ret = -13
+Len_arr: 2		Len_var = 4
+
+Var Name: GDMSESSION=
+Cmp_len = 10
+Cmp func ret = -6
+Len_arr: 2		Len_var = 10
+
+Var Name: GDMSESSION=
+Cmp_len = 10
+Cmp func ret = -19
+Len_arr: 2		Len_var = 10
+
+Var Name: DISPLAY=
+Cmp_len = 7
+Cmp func ret = -3
+Len_arr: 2		Len_var = 7
+
+Var Name: DISPLAY=
+Cmp_len = 7
+Cmp func ret = 3
+Len_arr: 2		Len_var = 7
+
+Var Name: SHLVL=
+Cmp_len = 5
+Cmp func ret = -18
+Len_arr: 2		Len_var = 5
+
+Var Name: SHLVL=
+Cmp_len = 5
+Cmp func ret = -12
+Len_arr: 2		Len_var = 5
+
+Var Name: OLDPWD=
+Cmp_len = 6
+Cmp func ret = -14
+Len_arr: 2		Len_var = 6
+
+Var Name: OLDPWD=
+Cmp_len = 6
+Cmp func ret = -8
+Len_arr: 2		Len_var = 6
+
+Var Name: ZSH=
+Cmp_len = 3
+Cmp func ret = -25
+Len_arr: 2		Len_var = 3
+
+Var Name: ZSH=
+Cmp_len = 3
+Cmp func ret = -19
+Len_arr: 2		Len_var = 3
+
+Var Name: PAGER=
+Cmp_len = 5
+Cmp func ret = -15
+Len_arr: 2		Len_var = 5
+
+Var Name: PAGER=
+Cmp_len = 5
+Cmp func ret = -9
+Len_arr: 2		Len_var = 5
+
+Var Name: LESS=
+Cmp_len = 4
+Cmp func ret = -11
+Len_arr: 2		Len_var = 4
+
+Var Name: LESS=
+Cmp_len = 4
+Cmp func ret = -5
+Len_arr: 2		Len_var = 4
+
+Var Name: LSCOLORS=
+Cmp_len = 8
+Cmp func ret = -11
+Len_arr: 2		Len_var = 8
+
+Var Name: LSCOLORS=
+Cmp_len = 8
+Cmp func ret = -5
+Len_arr: 2		Len_var = 8
+
+Var Name: LS_COLORS=
+Cmp_len = 9
+Cmp func ret = -11
+Len_arr: 2		Len_var = 9
+
+Var Name: LS_COLORS=
+Cmp_len = 9
+Cmp func ret = -5
+Len_arr: 2		Len_var = 9
+
+Var Name: MAIL=
+Cmp_len = 4
+Cmp func ret = -12
+Len_arr: 2		Len_var = 4
+
+Var Name: MAIL=
+Cmp_len = 4
+Cmp func ret = -6
+Len_arr: 2		Len_var = 4
+
+Var Name: _=
+Cmp_len = 1
+Cmp func ret = -30
+Len_arr: 2		Len_var = 1
+
+Var Name: _=
+Cmp_len = 1
+Cmp func ret = -24
+Len_arr: 2		Len_var = 1
+
+Var Name: A1=
+Cmp_len = 2
+Cmp func ret = 0
+Len_arr: 2		Len_var = 2
+
+Var Name: T2=
+Cmp_len = 2
+Cmp func ret = -19
+Len_arr: 2		Len_var = 2
+
+Var Name: T2=
+Cmp_len = 2
+Cmp func ret = -13
+Len_arr: 2		Len_var = 2
+
+Var Name: G1=
+Cmp_len = 2
+Cmp func ret = -6
+Len_arr: 2		Len_var = 2
+
+Var Name: G1=
+Cmp_len = 2
+Cmp func ret = 0
+Len_arr: 2		Len_var = 2
+
+Var Name: A1=
+Cmp_len = 2
+Cmp func ret = 0
+Len_arr: 2		Len_var = 2
+
+Var Name: COLORTERM=
+Cmp_len = 9
+Cmp func ret = -2
+Len_arr: 2		Len_var = 9
+
+Var Name: COLORTERM=
+Cmp_len = 9
+Cmp func ret = 4
+Len_arr: 2		Len_var = 9
+
+Var Name: DBUS_SESSION_BUS_ADDRESS=
+Cmp_len = 24
+Cmp func ret = -3
+Len_arr: 2		Len_var = 24
+
+Var Name: DBUS_SESSION_BUS_ADDRESS=
+Cmp_len = 24
+Cmp func ret = 3
+Len_arr: 2		Len_var = 24
+
+Var Name: DESKTOP_SESSION=
+Cmp_len = 15
+Cmp func ret = -3
+Len_arr: 2		Len_var = 15
+
+Var Name: DESKTOP_SESSION=
+Cmp_len = 15
+Cmp func ret = 3
+Len_arr: 2		Len_var = 15
+
+Var Name: DISPLAY=
+Cmp_len = 7
+Cmp func ret = -3
+Len_arr: 2		Len_var = 7
+
+Var Name: DISPLAY=
+Cmp_len = 7
+Cmp func ret = 3
+Len_arr: 2		Len_var = 7
+
+Var Name: DOCKER_HOST=
+Cmp_len = 11
+Cmp func ret = -3
+Len_arr: 2		Len_var = 11
+
+Var Name: DOCKER_HOST=
+Cmp_len = 11
+Cmp func ret = 3
+Len_arr: 2		Len_var = 11
+
+Var Name: FT_HOOK_NAME=
+Cmp_len = 12
+Cmp func ret = -5
+Len_arr: 2		Len_var = 12
+
+Var Name: FT_HOOK_NAME=
+Cmp_len = 12
+Cmp func ret = 1
+Len_arr: 2		Len_var = 12
+
+Var Name: FT_HOOK_PATHNAME=
+Cmp_len = 16
+Cmp func ret = -5
+Len_arr: 2		Len_var = 16
+
+Var Name: FT_HOOK_PATHNAME=
+Cmp_len = 16
+Cmp func ret = 1
+Len_arr: 2		Len_var = 16
+
+Var Name: G1=
+Cmp_len = 2
+Cmp func ret = -6
+Len_arr: 2		Len_var = 2
+
+Var Name: G1=
+Cmp_len = 2
+Cmp func ret = 0
+Len_arr: 2		Len_var = 2
+
+Var Name: GDMSESSION=
+Cmp_len = 10
+Cmp func ret = -6
+Len_arr: 2		Len_var = 10
+
+Var Name: GDMSESSION=
+Cmp_len = 10
+Cmp func ret = -19
+Len_arr: 2		Len_var = 10
+
+Var Name: GDM_LANG=
+Cmp_len = 8
+Cmp func ret = -6
+Len_arr: 2		Len_var = 8
+
+Var Name: GDM_LANG=
+Cmp_len = 8
+Cmp func ret = -19
+Len_arr: 2		Len_var = 8
+
+Var Name: GNOME_DESKTOP_SESSION_ID=
+Cmp_len = 24
+Cmp func ret = -6
+Len_arr: 2		Len_var = 24
+
+Var Name: GNOME_DESKTOP_SESSION_ID=
+Cmp_len = 24
+Cmp func ret = -29
+Len_arr: 2		Len_var = 24
+
+Var Name: GNOME_TERMINAL_SCREEN=
+Cmp_len = 21
+Cmp func ret = -6
+Len_arr: 2		Len_var = 21
+
+Var Name: GNOME_TERMINAL_SCREEN=
+Cmp_len = 21
+Cmp func ret = -29
+Len_arr: 2		Len_var = 21
+
+Var Name: GNOME_TERMINAL_SERVICE=
+Cmp_len = 22
+Cmp func ret = -6
+Len_arr: 2		Len_var = 22
+
+Var Name: GNOME_TERMINAL_SERVICE=
+Cmp_len = 22
+Cmp func ret = -29
+Len_arr: 2		Len_var = 22
+
+Var Name: GPG_AGENT_INFO=
+Cmp_len = 14
+Cmp func ret = -6
+Len_arr: 2		Len_var = 14
+
+Var Name: GPG_AGENT_INFO=
+Cmp_len = 14
+Cmp func ret = -31
+Len_arr: 2		Len_var = 14
+
+Var Name: GTK_IM_MODULE=
+Cmp_len = 13
+Cmp func ret = -6
+Len_arr: 2		Len_var = 13
+
+Var Name: GTK_IM_MODULE=
+Cmp_len = 13
+Cmp func ret = -35
+Len_arr: 2		Len_var = 13
+
+Var Name: GTK_MODULES=
+Cmp_len = 11
+Cmp func ret = -6
+Len_arr: 2		Len_var = 11
+
+Var Name: GTK_MODULES=
+Cmp_len = 11
+Cmp func ret = -35
+Len_arr: 2		Len_var = 11
+
+Var Name: HOME=
+Cmp_len = 4
+Cmp func ret = -7
+Len_arr: 2		Len_var = 4
+
+Var Name: HOME=
+Cmp_len = 4
+Cmp func ret = -1
+Len_arr: 2		Len_var = 4
+
+Var Name: KRB5CCNAME=
+Cmp_len = 10
+Cmp func ret = -10
+Len_arr: 2		Len_var = 10
+
+Var Name: KRB5CCNAME=
+Cmp_len = 10
+Cmp func ret = -4
+Len_arr: 2		Len_var = 10
+
+Var Name: LANG=
+Cmp_len = 4
+Cmp func ret = -11
+Len_arr: 2		Len_var = 4
+
+Var Name: LANG=
+Cmp_len = 4
+Cmp func ret = -5
+Len_arr: 2		Len_var = 4
+
+Var Name: LANGUAGE=
+Cmp_len = 8
+Cmp func ret = -11
+Len_arr: 2		Len_var = 8
+
+Var Name: LANGUAGE=
+Cmp_len = 8
+Cmp func ret = -5
+Len_arr: 2		Len_var = 8
+
+Var Name: LESS=
+Cmp_len = 4
+Cmp func ret = -11
+Len_arr: 2		Len_var = 4
+
+Var Name: LESS=
+Cmp_len = 4
+Cmp func ret = -5
+Len_arr: 2		Len_var = 4
+
+Var Name: LIBVIRT_DEFAULT_URI=
+Cmp_len = 19
+Cmp func ret = -11
+Len_arr: 2		Len_var = 19
+
+Var Name: LIBVIRT_DEFAULT_URI=
+Cmp_len = 19
+Cmp func ret = -5
+Len_arr: 2		Len_var = 19
+
+Var Name: LOGNAME=
+Cmp_len = 7
+Cmp func ret = -11
+Len_arr: 2		Len_var = 7
+
+Var Name: LOGNAME=
+Cmp_len = 7
+Cmp func ret = -5
+Len_arr: 2		Len_var = 7
+
+Var Name: LSCOLORS=
+Cmp_len = 8
+Cmp func ret = -11
+Len_arr: 2		Len_var = 8
+
+Var Name: LSCOLORS=
+Cmp_len = 8
+Cmp func ret = -5
+Len_arr: 2		Len_var = 8
+
+Var Name: LS_COLORS=
+Cmp_len = 9
+Cmp func ret = -11
+Len_arr: 2		Len_var = 9
+
+Var Name: LS_COLORS=
+Cmp_len = 9
+Cmp func ret = -5
+Len_arr: 2		Len_var = 9
+
+Var Name: MACADDRESS=
+Cmp_len = 10
+Cmp func ret = -12
+Len_arr: 2		Len_var = 10
+
+Var Name: MACADDRESS=
+Cmp_len = 10
+Cmp func ret = -6
+Len_arr: 2		Len_var = 10
+
+Var Name: MAIL=
+Cmp_len = 4
+Cmp func ret = -12
+Len_arr: 2		Len_var = 4
+
+Var Name: MAIL=
+Cmp_len = 4
+Cmp func ret = -6
+Len_arr: 2		Len_var = 4
+
+Var Name: OLDPWD=
+Cmp_len = 6
+Cmp func ret = -14
+Len_arr: 2		Len_var = 6
+
+Var Name: OLDPWD=
+Cmp_len = 6
+Cmp func ret = -8
+Len_arr: 2		Len_var = 6
+
+Var Name: PAGER=
+Cmp_len = 5
+Cmp func ret = -15
+Len_arr: 2		Len_var = 5
+
+Var Name: PAGER=
+Cmp_len = 5
+Cmp func ret = -9
+Len_arr: 2		Len_var = 5
+
+Var Name: PATH=
+Cmp_len = 4
+Cmp func ret = -15
+Len_arr: 2		Len_var = 4
+
+Var Name: PATH=
+Cmp_len = 4
+Cmp func ret = -9
+Len_arr: 2		Len_var = 4
+
+Var Name: PWD=
+Cmp_len = 3
+Cmp func ret = -15
+Len_arr: 2		Len_var = 3
+
+Var Name: PWD=
+Cmp_len = 3
+Cmp func ret = -9
+Len_arr: 2		Len_var = 3
+
+Var Name: QT_ACCESSIBILITY=
+Cmp_len = 16
+Cmp func ret = -16
+Len_arr: 2		Len_var = 16
+
+Var Name: QT_ACCESSIBILITY=
+Cmp_len = 16
+Cmp func ret = -10
+Len_arr: 2		Len_var = 16
+
+Var Name: QT_IM_MODULE=
+Cmp_len = 12
+Cmp func ret = -16
+Len_arr: 2		Len_var = 12
+
+Var Name: QT_IM_MODULE=
+Cmp_len = 12
+Cmp func ret = -10
+Len_arr: 2		Len_var = 12
+
+Var Name: SESSION_MANAGER=
+Cmp_len = 15
+Cmp func ret = -18
+Len_arr: 2		Len_var = 15
+
+Var Name: SESSION_MANAGER=
+Cmp_len = 15
+Cmp func ret = -12
+Len_arr: 2		Len_var = 15
+
+Var Name: SHELL=
+Cmp_len = 5
+Cmp func ret = -18
+Len_arr: 2		Len_var = 5
+
+Var Name: SHELL=
+Cmp_len = 5
+Cmp func ret = -12
+Len_arr: 2		Len_var = 5
+
+Var Name: SHLVL=
+Cmp_len = 5
+Cmp func ret = -18
+Len_arr: 2		Len_var = 5
+
+Var Name: SHLVL=
+Cmp_len = 5
+Cmp func ret = -12
+Len_arr: 2		Len_var = 5
+
+Var Name: SSH_AGENT_LAUNCHER=
+Cmp_len = 18
+Cmp func ret = -18
+Len_arr: 2		Len_var = 18
+
+Var Name: SSH_AGENT_LAUNCHER=
+Cmp_len = 18
+Cmp func ret = -12
+Len_arr: 2		Len_var = 18
+
+Var Name: SSH_AUTH_SOCK=
+Cmp_len = 13
+Cmp func ret = -18
+Len_arr: 2		Len_var = 13
+
+Var Name: SSH_AUTH_SOCK=
+Cmp_len = 13
+Cmp func ret = -12
+Len_arr: 2		Len_var = 13
+
+Var Name: SYSTEMD_EXEC_PID=
+Cmp_len = 16
+Cmp func ret = -18
+Len_arr: 2		Len_var = 16
+
+Var Name: SYSTEMD_EXEC_PID=
+Cmp_len = 16
+Cmp func ret = -12
+Len_arr: 2		Len_var = 16
+
+Var Name: T2=
+Cmp_len = 2
+Cmp func ret = -19
+Len_arr: 2		Len_var = 2
+
+Var Name: T2=
+Cmp_len = 2
+Cmp func ret = -13
+Len_arr: 2		Len_var = 2
+
+Var Name: TERM=
+Cmp_len = 4
+Cmp func ret = -19
+Len_arr: 2		Len_var = 4
+
+Var Name: TERM=
+Cmp_len = 4
+Cmp func ret = -13
+Len_arr: 2		Len_var = 4
+
+Var Name: USER=
+Cmp_len = 4
+Cmp func ret = -20
+Len_arr: 2		Len_var = 4
+
+Var Name: USER=
+Cmp_len = 4
+Cmp func ret = -14
+Len_arr: 2		Len_var = 4
+
+Var Name: VTE_VERSION=
+Cmp_len = 11
+Cmp func ret = -21
+Len_arr: 2		Len_var = 11
+
+Var Name: VTE_VERSION=
+Cmp_len = 11
+Cmp func ret = -15
+Len_arr: 2		Len_var = 11
+
+Var Name: XAUTHORITY=
+Cmp_len = 10
+Cmp func ret = -23
+Len_arr: 2		Len_var = 10
+
+Var Name: XAUTHORITY=
+Cmp_len = 10
+Cmp func ret = -17
+Len_arr: 2		Len_var = 10
+
+Var Name: XDG_CONFIG_DIRS=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_CONFIG_DIRS=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_CURRENT_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -23
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_CURRENT_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -17
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_DATA_DIRS=
+Cmp_len = 13
+Cmp func ret = -23
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_DATA_DIRS=
+Cmp_len = 13
+Cmp func ret = -17
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_GREETER_DATA_DIR=
+Cmp_len = 20
+Cmp func ret = -23
+Len_arr: 2		Len_var = 20
+
+Var Name: XDG_GREETER_DATA_DIR=
+Cmp_len = 20
+Cmp func ret = -17
+Len_arr: 2		Len_var = 20
+
+Var Name: XDG_MENU_PREFIX=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_MENU_PREFIX=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_RUNTIME_DIR=
+Cmp_len = 15
+Cmp func ret = -23
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_RUNTIME_DIR=
+Cmp_len = 15
+Cmp func ret = -17
+Len_arr: 2		Len_var = 15
+
+Var Name: XDG_SEAT_PATH=
+Cmp_len = 13
+Cmp func ret = -23
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_SEAT_PATH=
+Cmp_len = 13
+Cmp func ret = -17
+Len_arr: 2		Len_var = 13
+
+Var Name: XDG_SESSION_CLASS=
+Cmp_len = 17
+Cmp func ret = -23
+Len_arr: 2		Len_var = 17
+
+Var Name: XDG_SESSION_CLASS=
+Cmp_len = 17
+Cmp func ret = -17
+Len_arr: 2		Len_var = 17
+
+Var Name: XDG_SESSION_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -23
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_SESSION_DESKTOP=
+Cmp_len = 19
+Cmp func ret = -17
+Len_arr: 2		Len_var = 19
+
+Var Name: XDG_SESSION_PATH=
+Cmp_len = 16
+Cmp func ret = -23
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_SESSION_PATH=
+Cmp_len = 16
+Cmp func ret = -17
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_SESSION_TYPE=
+Cmp_len = 16
+Cmp func ret = -23
+Len_arr: 2		Len_var = 16
+
+Var Name: XDG_SESSION_TYPE=
+Cmp_len = 16
+Cmp func ret = -17
+Len_arr: 2		Len_var = 16
+
+Var Name: XMODIFIERS=
+Cmp_len = 10
+Cmp func ret = -23
+Len_arr: 2		Len_var = 10
+
+Var Name: XMODIFIERS=
+Cmp_len = 10
+Cmp func ret = -17
+Len_arr: 2		Len_var = 10
+
+Var Name: Z1
+Cmp_len = 1
+Cmp func ret = -25
+Len_arr: 2		Len_var = 1
+
+Var Name: Z1
+Cmp_len = 1
+Cmp func ret = -19
+Len_arr: 2		Len_var = 1
+
+Var Name: ZSH=
+Cmp_len = 3
+Cmp func ret = -25
+Len_arr: 2		Len_var = 3
+
+Var Name: ZSH=
+Cmp_len = 3
+Cmp func ret = -19
+Len_arr: 2		Len_var = 3
+
+Var Name: _=
+Cmp_len = 1
+Cmp func ret = -30
+Len_arr: 2		Len_var = 1
+
+Var Name: _=
+Cmp_len = 1
+Cmp func ret = -24
+Len_arr: 2		Len_var = 1
+
+Execute Exit Code: 0
+
+
+
+
+PRINTING ENV:
+
+SYSTEMD_EXEC_PID=2015389
+SSH_AUTH_SOCK=/run/user/6311/keyring/ssh
+SESSION_MANAGER=local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc
+LANG=en_US.UTF-8
+LANGUAGE=en
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+FT_HOOK_NAME=login-user
+FT_HOOK_PATHNAME=login-user.d
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/gboggion
+LIBVIRT_DEFAULT_URI=qemu:///system
+GPG_AGENT_INFO=/run/user/6311/gnupg/S.gpg-agent:0:1
+DESKTOP_SESSION=ubuntu
+QT_IM_MODULE=ibus
+XDG_MENU_PREFIX=gnome-
+XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session27
+PWD=/home/gboggion/Studies/Minishell/42_minishell/src/execution
+USER=gboggion
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/6311/bus
+DOCKER_HOST=unix:///run/user/6311/docker.sock
+SSH_AGENT_LAUNCHER=gnome-keyring
+GTK_MODULES=gail:atk-bridge
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+GTK_IM_MODULE=ibus
+XDG_SESSION_DESKTOP=ubuntu
+QT_ACCESSIBILITY=1
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+KRB5CCNAME=FILE:/tmp/krb5cc_6311_05GGcq
+LOGNAME=gboggion
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+GNOME_TERMINAL_SERVICE=:1.183
+HOME=/home/gboggion
+PATH=/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+XMODIFIERS=@im=ibus
+XDG_RUNTIME_DIR=/run/user/6311
+XDG_SESSION_TYPE=x11
+SHELL=/bin/zsh
+VTE_VERSION=6800
+MACADDRESS=38:f9:d3:91:9f:fd
+GDM_LANG=en
+XAUTHORITY=/home/gboggion/.Xauthority
+COLORTERM=truecolor
+XDG_SESSION_CLASS=user
+TERM=xterm-256color
+GDMSESSION=ubuntu
+DISPLAY=:0
+SHLVL=1
+OLDPWD=/home/gboggion
+ZSH=/home/gboggion/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+MAIL=gboggion@student.hive.fi
+_=/home/gboggion/Studies/Minishell/42_minishell/src/execution/./exec
+T2=
+
+
+PRINTING EXPORT:
+
+declare -x COLORTERM="truecolor"
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/6311/bus"
+declare -x DESKTOP_SESSION="ubuntu"
+declare -x DISPLAY=":0"
+declare -x DOCKER_HOST="unix:///run/user/6311/docker.sock"
+declare -x FT_HOOK_NAME="login-user"
+declare -x FT_HOOK_PATHNAME="login-user.d"
+declare -x GDMSESSION="ubuntu"
+declare -x GDM_LANG="en"
+declare -x GNOME_DESKTOP_SESSION_ID="this-is-deprecated"
+declare -x GNOME_TERMINAL_SCREEN="/org/gnome/Terminal/screen/d4c333bc_b1e4_4b02_a286_eb2a3fcde4bc"
+declare -x GNOME_TERMINAL_SERVICE=":1.183"
+declare -x GPG_AGENT_INFO="/run/user/6311/gnupg/S.gpg-agent:0:1"
+declare -x GTK_IM_MODULE="ibus"
+declare -x GTK_MODULES="gail:atk-bridge"
+declare -x HOME="/home/gboggion"
+declare -x KRB5CCNAME="FILE:/tmp/krb5cc_6311_05GGcq"
+declare -x LANG="en_US.UTF-8"
+declare -x LANGUAGE="en"
+declare -x LESS="-R"
+declare -x LIBVIRT_DEFAULT_URI="qemu:///system"
+declare -x LOGNAME="gboggion"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+declare -x MACADDRESS="38:f9:d3:91:9f:fd"
+declare -x MAIL="gboggion@student.hive.fi"
+declare -x OLDPWD="/home/gboggion"
+declare -x PAGER="less"
+declare -x PATH="/home/gboggion/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+declare -x PWD="/home/gboggion/Studies/Minishell/42_minishell/src/execution"
+declare -x QT_ACCESSIBILITY="1"
+declare -x QT_IM_MODULE="ibus"
+declare -x SESSION_MANAGER="local/c1r5p3.hive.fi:@/tmp/.ICE-unix/2015366,unix/c1r5p3.hive.fi:/tmp/.ICE-unix/2015366"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="1"
+declare -x SSH_AGENT_LAUNCHER="gnome-keyring"
+declare -x SSH_AUTH_SOCK="/run/user/6311/keyring/ssh"
+declare -x SYSTEMD_EXEC_PID="2015389"
+declare -x T2=""
+declare -x TERM="xterm-256color"
+declare -x USER="gboggion"
+declare -x VTE_VERSION="6800"
+declare -x XAUTHORITY="/home/gboggion/.Xauthority"
+declare -x XDG_CONFIG_DIRS="/etc/xdg/xdg-ubuntu:/etc/xdg"
+declare -x XDG_CURRENT_DESKTOP="ubuntu:GNOME"
+declare -x XDG_DATA_DIRS="/usr/share/ubuntu:/usr/share/gnome:/home/gboggion/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop"
+declare -x XDG_GREETER_DATA_DIR="/var/lib/lightdm-data/gboggion"
+declare -x XDG_MENU_PREFIX="gnome-"
+declare -x XDG_RUNTIME_DIR="/run/user/6311"
+declare -x XDG_SEAT_PATH="/org/freedesktop/DisplayManager/Seat0"
+declare -x XDG_SESSION_CLASS="user"
+declare -x XDG_SESSION_DESKTOP="ubuntu"
+declare -x XDG_SESSION_PATH="/org/freedesktop/DisplayManager/Session27"
+declare -x XDG_SESSION_TYPE="x11"
+declare -x XMODIFIERS="@im=ibus"
+declare -x Z1
+declare -x ZSH="/home/gboggion/.oh-my-zsh"
