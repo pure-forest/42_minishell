@@ -1,38 +1,79 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 19:42:46 by ydeng             #+#    #+#             */
-/*   Updated: 2025/03/22 20:42:29 by ydeng            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minishell.h"
 
-int	main(void)
+
+int	execute_builtin(t_struct_ptrs *data)
 {
-	char		*read_line;
-	t_token		*token;
-	t_cmd_table	*cmd_table;
+	char	*temp;
+
+	temp = data->input->cmd;
+	if (!temp)
+		return (FAIL);
+	if (!ft_strncmp("cd", temp, 2))
+		return (cd(data));
+	if (!ft_strncmp("echo", temp, 4))
+		return (echo(data));
+	if (!ft_strncmp("env", temp, 3))
+		return (env(data));
+	if (!ft_strncmp("export", temp, 6))
+		return (export(data));
+	if (!ft_strncmp("pwd", temp, 3))
+		return (pwd(data));
+	if (!ft_strncmp("unset", temp, 5))
+		return (unset(data));
+	else
+		return (FAIL);
+}
+
+int	start_tokenization(char *read_line, t_struct_ptrs data)
+{
+	t_token			*token;
+	int				ret_val = 0;
 
 	token = NULL;
-	cmd_table = NULL;
+	token = lexer(read_line);
+	free(read_line);
+	if (!token)
+		return (ERROR);
+	// print_token_list(token);
+	data.input = parser(token);
+	free_lexer(&token);
+	if (!data.input)
+		return (ERROR);
+	// print_input(data.input);
+	printf("\n---------start of program output-----------\n");
+	ret_val = execute_builtin(&data);
+	printf("---------end of program output-----------\n");
+	if (ret_val == FAIL)
+	{
+		printf("command not found\n");
+		return (ERROR);
+	}
+	free_cmd_table(&data.input);
+	return (SUCCESS);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char			*read_line;
+	t_struct_ptrs 	data;
+
+	(void)ac;
+	(void)av;
+
+	data = (t_struct_ptrs){0};
+	if (create_env(envp, &data))
+		return (FAIL);
+  	if (create_export(&data))
+		return (FAIL);
 	while (1)
 	{
 		read_line = readline(PROMPT);
 		if (read_line && *read_line)
 			add_history(read_line);
-		token = token_init(read_line);
-		free(read_line);
-		if (token)
-			print_token_list(token);
-		// cmd_table_init(read_line, &cmd_table);
-		// print_parser_list(cmd_table);
-		free_lexer(&token);
-		// free_cmd_table(&cmd_table);
+		if (start_tokenization(read_line, data) == ERROR)
+			ft_putstr_fd("Error\n", 2);
 	}
+	free_env_nodes(&data.env);
+	free_env_nodes(&data.export);
 	return (0);
 }

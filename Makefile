@@ -5,31 +5,27 @@ BINDIR=bin
 INCDIR=inc
 CC=cc
 FLAGS=-Wall -Wextra -Werror -g
+SANITIZER=-fsanitize=address -fno-omit-frame-pointer
 PINK = \033[38;5;218m
 END = \033[0m
 
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-PARSE_DIR=${SRCDIR}/parsing
-PARSE_INC=${INCDIR}/parsing.h
-PARSE_SRC=${addprefix ${PARSE_DIR}/, parser.c parser_utils.c}
-PARSE_OBJ=${PARSE_SRC:${PARSE_DIR}%.c=${OBJDIR}/parsing/%.o}
+LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c lexer_pipe_redir.c
+PARSER= parser.c parser_utils.c
+BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c
+EXECUTE= create_env.c create_export.c env_export_utils.c \
+		node_utils.c error_handling.c string_utils.c
+MINISHEL=main.c
 
-LEXER_DIR=${SRCDIR}/lexer
-LEXER_INC=${INCDIR}/parsing.h
-LEXER_SRC=${addprefix ${LEXER_DIR=}/, lexer.c lexer_pipe_redir.c \
-			lexer_text_quote.c clean_up_funcs.c check_token.c node_utils.c}
-LEXER_OBJ=${LEXER_SRC:${LEXER_DIR=}%.c=${OBJDIR}/lexer/%.o}
+SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
+	$(addprefix ${SRCDIR}/lexer/, $(LEXER)) \
+	$(addprefix $(SRCDIR)/parser/, $(PARSER)) \
+	$(addprefix $(SRCDIR)/execution/, $(EXECUTE)) \
+	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN))
 
-EXECUTE_DIR=${SRCDIR}/execution
-EXECUTE_INC=${INCDIR}/execution.h
-EXECUTE_SRC=${addprefix ${EXECUTE_DIR}/, }
-EXECUTE_OBJ=${EXECUTE_SRC:${EXECUTE_DIR}%.c=${OBJDIR}/execution/%.o}
-
-SRC=${addprefix ${SRCDIR}/, main.c}
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
-
 
 all:$(LIBFT_A) $(BINDIR)/${NAME}
 
@@ -47,21 +43,10 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-${OBJDIR}/parsing/%.o:${PARSE_DIR}/%.c ${PARSE_INC}
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -o $@ -c $<
-
-${OBJDIR}/lexer/%.o:${LEXER_DIR}/%.c ${LEXER_INC}
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -o $@ -c $<
-
-${OBJDIR}/execution/%.o:${EXECUTE_DIR}/%.c ${EXECUTE_INC}
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -o $@ -c $<
-
-$(BINDIR)/${NAME}:$(LIBFT_A) ${PARSE_OBJ} ${LEXER_OBJ} ${EXECUTE_OBJ} ${OBJ} | $(BINDIR)
-	@$(CC) ${LEXER_OBJ} $(PARSE_OBJ) ${EXECUTE_OBJ} $(OBJ) $(LIBFT_A) \
-	-lreadline -fsanitize=address -fno-omit-frame-pointer -o $(BINDIR)/$(NAME)
+$(BINDIR)/${NAME}:$(LIBFT_A) ${OBJ} | $(BINDIR)
+	@$(CC) $(OBJ) $(LIBFT_A) \
+	-lreadline \
+	-o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
 clean:
