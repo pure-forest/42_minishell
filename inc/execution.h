@@ -5,8 +5,14 @@
 # include "minishell.h"
 # include "structure.h"
 
+//**************		Execution
+void					execute(t_struct_ptrs *data);
 
-//**************		ENV & EXPORT -- +UTILS
+//**************		Execute Utils
+int						is_builtin(t_struct_ptrs *data);
+int						launch_builtiin(t_struct_ptrs *data);
+
+//**************		ENV & EXPORT -- PLUS UTILS
 int						create_env(char **envp, t_struct_ptrs *data);
 int						create_export(t_struct_ptrs *data);
 char					*get_var_value(t_env_nodes *list, char *var);
@@ -25,8 +31,12 @@ int						export(t_struct_ptrs *data);
 int						unset(t_struct_ptrs *data);
 int						cd(t_struct_ptrs *data);
 int						echo(t_struct_ptrs *data);
+int						is_equal_sign_present(char *arg);
+int						check_match(char *cmd_arg, char *var_name);
+int						remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
+void					does_var_exist(t_env_nodes **list, char *arg);
 
-//**************		NODE UTILS;
+//**************		NODE UTILS
 int						append_node(t_list_base **list_to_modify,
 							t_list_base *new_var);
 t_list_base				*find_last(t_list_base *root);
@@ -45,7 +55,8 @@ void					free_env_nodes(t_env_nodes **root);
 void					print_list(t_list_base *head,
 							void (*print_node)(void *));
 void					print_env_nodes(void *node);
-void					print_inp_nodes(void *node);
+// void					print_inp_nodes(void *node);
 void					print_cmd_arr(char **cmd_arr);
+int	print_export(t_struct_ptrs *data);
 
 #endif

@@ -2,15 +2,17 @@
 
 int		unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset);
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr);
+int		check_match(char *cmd_arg, char *var_name);
+int		remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
 
 int	unset(t_struct_ptrs *data)
 {
 	int			var_unset;
 
 	var_unset = 0;
-	if (data->env && !unset_vars(data, &data->env, 0))
+	if (data->env && unset_vars(data, &data->env, 0))
 		var_unset += 1;
-	if (data->export && !unset_vars(data, &data->export, 11))
+	if (data->export && unset_vars(data, &data->export, 11))
 		var_unset += 1;
 	if (var_unset != 0)
 		return (SUCCESS);
@@ -18,7 +20,7 @@ int	unset(t_struct_ptrs *data)
 		return (FAIL);
 }
 
-int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //static or not??
+int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset)	//static or not??
 {
 	t_env_nodes	*curr;
 	t_env_nodes	*next;
@@ -32,32 +34,26 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 	{
 		next = (t_env_nodes *)curr->base.next;
 		i = 0;
-		while (data->input->cmd_arr[++i])
+		while (data->input->cmd_arr[i])
 		{
-			int	cmp_len = ft_strlen(curr->var_name + offset) - 1;
-			printf("\n\nVar Name: %s\n", curr->var_name + offset);
-			printf ("Cmp_len = %d\n", cmp_len);
-			int cmp = ft_strncmp(data->input->cmd_arr[i], (curr->var_name + offset), cmp_len);
-			printf ("Cmp func ret = %d\n", cmp);
-			int	len_arr = ft_strlen(data->input->cmd_arr[i]);
-			int	len_var = ft_strlen(curr->var_name + offset) - 1;
-			printf ("Len_arr: %d		Len_var = %d", len_arr, len_var);
-			int	len_arr_2 = ft_strlen(data->input->cmd_arr[i]);
-			int	len_var_2 = ft_strlen(curr->var_name + offset);
-			printf ("\nLen_arr 2 : %d		Len_var 2 = %d", len_arr, len_var);
-			if (!cmp && (len_arr == len_var || len_arr_2 == len_var_2))
-			// if (!(ft_strncmp(data->input->cmd_arr[i], (curr->var_name + offset), (ft_strlen(curr->var_name + offset) - 1))) \
-			// && (ft_strlen(data->input->cmd_arr[i]) == (ft_strlen(curr->var_name + offset) - 1)))
+			if (is_equal_sign_present(data->input->cmd_arr[i]) && !check_match \
+				(data->input->cmd_arr[i], (curr->var_name + offset)))
 			{
-				reassign_node_pointers(lst_to_unset, curr);
-				free_one_env_node(curr);
-				removed = 1;
+				removed = remove_node(lst_to_unset, curr);
 				break ;
 			}
+			i++;
 		}
 		curr = next;
 	}
 	return (removed);
+}
+
+int	remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr)
+{
+	reassign_node_pointers(lst_to_unset, curr);
+	free_one_env_node(curr);
+	return (1);
 }
 
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static or not??
@@ -74,4 +70,22 @@ void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static
 	}
 	else if (curr->base.prev && !curr->base.next)
 		curr->base.prev->next = NULL;
+}
+
+int	check_match(char *cmd_arg, char *var_name)
+{
+	int	cmd_arg_len;
+	int	var_name_len_w_equal;
+	int	var_name_len_wo_equal;
+	int	res;
+
+	res = 0;
+	cmd_arg_len = ft_strlen(cmd_arg);
+	var_name_len_w_equal = ft_strlen(var_name);
+	var_name_len_wo_equal = ft_strlen(var_name) - 1;
+	if (!ft_strncmp(cmd_arg, (var_name), var_name_len_wo_equal) \
+		&& (cmd_arg_len == var_name_len_w_equal \
+		|| cmd_arg_len == var_name_len_wo_equal))
+		return (SUCCESS);
+	return (FAIL);
 }
