@@ -74,7 +74,10 @@ int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset) //st
 			int	len_arr = ft_strlen(data->input->cmd_arr[i]);
 			int	len_var = ft_strlen(curr->var_name + offset) - 1;
 			printf ("Len_arr: %d		Len_var = %d", len_arr, len_var);
-			if (!cmp && len_arr == len_var)
+			int	len_arr_2 = ft_strlen(data->input->cmd_arr[i]);
+			int	len_var_2 = ft_strlen(curr->var_name + offset);
+			printf ("\nLen_arr 2 : %d		Len_var 2 = %d", len_arr, len_var);
+			if (!cmp && (len_arr == len_var || len_arr_2 == len_var_2))
 			// if (!(ft_strncmp(data->input->cmd_arr[i], (curr->var_name + offset), (ft_strlen(curr->var_name + offset) - 1))) \
 			// && (ft_strlen(data->input->cmd_arr[i]) == (ft_strlen(curr->var_name + offset) - 1)))
 			{
