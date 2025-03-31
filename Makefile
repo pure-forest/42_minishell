@@ -33,6 +33,10 @@ ${LIBFT_A}:
 	@make -C ${LIBFT_DIR} > /dev/null
 	@echo "$(PINK)=== ✅Libft compile succeed.  $(END)\n"
 
+$(GNL):
+	@make -C $(GNL_DIR) > /dev/null
+	@echo "$(PINK)=== ✅Get next line comiple succeed $(END)\n"
+
 ${OBJDIR}:
 	@mkdir -p obj
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+         #
+#    By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 14:26:50 by gboggion          #+#    #+#              #
-#    Updated: 2024/11/15 14:30:26 by gboggion         ###   ########.fr        #
+#    Updated: 2025/03/31 15:24:03 by ydeng            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,9 @@ SRCS = 	ft_isalnum.c \
 		ft_strtrim.c \
 		ft_substr.c \
 		ft_split.c \
-		ft_striteri.c
+		ft_striteri.c \
+		get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -63,7 +65,7 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c -I ./libft $< -o $@
-	
+
 clean:
 	@rm -f $(OBJS)
 

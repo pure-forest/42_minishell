@@ -10,6 +10,7 @@
 # include <limits.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 
 # include "../libft/libft.h"
@@ -23,7 +24,6 @@
 # define PROMPT PINK "🐱 --Catshell > " END
 # define FAIL 1
 # define SUCCESS 0
-# define ERROR -1
 # define FT_SPACE " \t\n"
 # define FT_DELIMINATER "|;&()\"\'<>"
 

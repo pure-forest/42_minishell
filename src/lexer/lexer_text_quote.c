@@ -16,15 +16,15 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 	{
 		token_value = ft_substr(str, *i, length);
 		if (!token_value)
-			return (ERROR);
+			return (FAIL);
 		node = token_init(WORD, token_value);
 		if (!node)
-			return (ERROR);
+			return (FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,
-				(t_list_base *)node) == ERROR)
-			return (ERROR);
+				(t_list_base *)node) == FAIL)
+			return (FAIL);
 		*i += length;
 	}
 	return (0);
@@ -40,19 +40,19 @@ int	tokenize_quote(char *str, int *i, t_token **token_list)
 	token_value = NULL;
 	node = NULL;
 	length = calculate_quote_length(&str[*i]);
-	if (length == ERROR)
-		return (ERROR);
+	if (length == FAIL)
+		return (FAIL);
 	if (length > 0)
 	{
 		token_value = ft_substr(str, *i + 1, length - 2);
 		if (!token_value)
-			return (ERROR);
+			return (FAIL);
 		node = token_init(WORD, token_value);
 		if (!node)
-			return (ERROR);
+			return (FAIL);
 		if (append_node((t_list_base **)token_list,
-				(t_list_base *)node) == ERROR)
-			return (ERROR);
+				(t_list_base *)node) == FAIL)
+			return (FAIL);
 		*i += length;
 	}
 	return (0);
@@ -95,6 +95,6 @@ int	calculate_quote_length(char *str)
 		i++;
 	}
 	if (str[i] != quote_mark)
-		return (ERROR);
+		return (FAIL);
 	return (i + 1);
 }

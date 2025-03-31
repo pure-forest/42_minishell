@@ -23,6 +23,22 @@ void	free_cmd_table(t_input **head)
 	return ;
 }
 
+t_input	*cmd_table_init(char **cmd_arr)
+{
+	t_input	*temp;
+
+	if (!cmd_arr)
+		return (NULL);
+	temp = ft_calloc(1, sizeof(t_input));
+	if (!temp)
+		return (NULL);
+	temp->cmd_arr = cmd_arr;
+	temp->cmd = ft_strdup(cmd_arr[0]);
+	temp->base.next = NULL;
+	temp->base.prev = NULL;
+	return (temp);
+}
+
 void	print_input(t_input *head)
 {
 	int			fix_dis;

@@ -10,14 +10,16 @@ static t_token *create_token_list(char *str)
 	while (str && str[i])
 	{
 		// printf("str[%d] = %c\n", i, str[i]);
-		if (tokenize_pipe(str, &i, &token_list) == ERROR)
+		if (tokenize_pipe(str, &i, &token_list) == FAIL)
 			break ;
-		if (tokenize_redir(str, &i, &token_list) == ERROR)
+		if (tokenize_redir(str, &i, &token_list) == FAIL)
 		 	break;
-		if (tokenize_text(str, &i, &token_list) == ERROR)
+		if (tokenize_text(str, &i, &token_list) == FAIL)
 			break;
-		if (tokenize_quote(str, &i, &token_list) == ERROR)
+		if (tokenize_quote(str, &i, &token_list) == FAIL)
 			break;
+		// if (tokenize_heredoc(str, &i, &token_list) == FAIL)
+		// 	break;
 		while (str && str[i] && ft_strchr(FT_SPACE, str[i]))
 			i++;
 	}
@@ -35,9 +37,11 @@ t_token	*lexer(char *str)
 	token_list = create_token_list(str);
 	if (!token_list)
 		return (NULL);
-	if (check_pipe(token_list) == ERROR)
+	if (check_pipe(token_list) == FAIL)
 		return (free_lexer(&token_list), NULL);
-	if (check_redir_file(token_list) == ERROR)
+	if (check_redir_file(token_list) == FAIL)
+		return (free_lexer(&token_list), NULL);
+	if (check_heredoc(token_list) == FAIL)
 		return (free_lexer(&token_list), NULL);
 	return (token_list);
 }

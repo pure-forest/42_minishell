@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 16:51:40 by gboggion          #+#    #+#             */
-/*   Updated: 2024/11/17 12:45:22 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:13:43 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
+char	*get_next_line(int fd);
 
 #endif

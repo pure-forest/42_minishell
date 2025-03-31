@@ -33,13 +33,13 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 	token = lexer(read_line);
 	free(read_line);
 	if (!token)
-		return (ERROR);
+		return (FAIL);
 	print_token_list(token);
 	data.input = parser(token);
 	free_lexer(&token);
 	if (!data.input)
-		return (ERROR);
-	// print_input(data.input);
+		return (FAIL);
+	print_input(data.input);
 	// printf("\n---------start of program output-----------\n");
 	ret_val = execute_builtin(&data);
 	// printf("---------end of program output-----------\n");
@@ -47,7 +47,7 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 	// {
 	// 	printf("command not found\n");
 	// 	free_cmd_table(&data.input);
-	// 	return (ERROR);
+	// 	return (FAIL);
 	// }
 	free_cmd_table(&data.input);
 	return (SUCCESS);
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **envp)
 		if (read_line && *read_line)
 		{
 			add_history(read_line);
-			if (start_tokenization(read_line, data) == ERROR)
+			if (start_tokenization(read_line, data) == FAIL)
 				ft_putstr_fd("Error\n", 2);
 		}
 		else
