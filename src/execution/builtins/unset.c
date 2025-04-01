@@ -58,6 +58,8 @@ int	remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr)
 
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static or not??
 {
+	if (!curr->base.prev && !curr->base.next)
+		*list_root = NULL;
 	if (curr->base.prev && curr->base.next)
 	{
 		curr->base.prev->next = curr->base.next;
@@ -77,9 +79,9 @@ int	check_match(char *cmd_arg, char *var_name)
 	int	cmd_arg_len;
 	int	var_name_len_w_equal;
 	int	var_name_len_wo_equal;
-	int	res;
+	//int	res;
 
-	res = 0;
+	//res = 0;
 	cmd_arg_len = ft_strlen(cmd_arg);
 	var_name_len_w_equal = ft_strlen(var_name);
 	var_name_len_wo_equal = ft_strlen(var_name) - 1;

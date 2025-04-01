@@ -8,6 +8,7 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
+	//envp = NULL;
 	t_struct_ptrs	data;
 	//int	i = 0;
 	//int	ret_val;
@@ -18,8 +19,8 @@ int	main(int ac, char **av, char **envp)
 	if (create_export(&data))
 		return (FAIL);
 
-	// env(&data);
-	// printf("\n\nENV printed\n\n");
+	env(&data);
+	printf("\n\nENV printed\n\n");
 	export(&data);
 	printf("\n\nEXPORT printed\n\n");
 
@@ -31,15 +32,19 @@ int	main(int ac, char **av, char **envp)
 	execute(&data);
 	printf("\n\nExecute Exit Code: %d\n\n\n", data.exit_code);
 
-	// printf("\n\nPRINTING ENV AFTER SETTING:\n\n");
-	// env(&data);
 
-	// free(data.input->cmd_arr);
-	// free(data.input);
-	// data.input = NULL;
+	free(data.input->cmd_arr);
+	free(data.input);
+	data.input = NULL;
 
-	printf("\n\nPRINTING EXPORT AFTER SETTING:\n\n");
+	printf("\n\nPRINTING ENV AFTER SETTING:\n");
+	printf("-------------------------------------------------------------\n");
+	env(&data);
+	printf("-------------------------------------------------------------\n");
+	printf("\n\nPRINTING EXPORT AFTER SETTING:\n");
+	printf("------------------------------------------------------------\n");
 	export(&data);
+	printf("------------------------------------------------------------\n");
 
 	// init_cmd_arr_2(&data);
 	// printf("\n\nPrinting CMD_ARR_TWO\n\n");

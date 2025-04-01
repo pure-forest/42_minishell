@@ -54,9 +54,6 @@ int	update_export(t_struct_ptrs *data)
 	i = 0;
 	while (data->input->cmd_arr[++i])
 	{
-		// if (!does_var_exist(&data->export))
-		// 	continue ;
-		does_var_exist(&data->export, data->input->cmd_arr[i]);
 		equal_sign = ft_strchr(data->input->cmd_arr[i], '='); //qnd faccio x env posso mettere check se non c'e l'equal allora vai al prossimo arg
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
@@ -64,25 +61,10 @@ int	update_export(t_struct_ptrs *data)
 		*new_var = (t_env_nodes){0};
 		if (var_fill(data->input->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
+		does_var_exist(&data->export, new_var->var_name);
 		insert_node(&data->export, new_var);
 	}
 	return (SUCCESS);
-}
-
-void	does_var_exist(t_env_nodes **list, char *arg)
-{
-	t_env_nodes	*curr;
-
-	curr = *list;
-	while (curr)
-	{
-		if (!check_match(arg, curr->var_name))
-		{
-			remove_node(list, curr);
-			break ;
-		}
-		curr = (t_env_nodes *)curr->base.next;
-	}
 }
 
 int	var_fill(char *cmd_arr, char *equal_sign, t_env_nodes *new_var)
