@@ -16,8 +16,6 @@ static t_token *create_token_list(char *str)
 		 	break;
 		if (tokenize_text(str, &i, &token_list) == FAIL)
 			break;
-		if (tokenize_quote(str, &i, &token_list) == FAIL)
-			break;
 		// if (tokenize_heredoc(str, &i, &token_list) == FAIL)
 		// 	break;
 		while (str && str[i] && ft_strchr(FT_SPACE, str[i]))

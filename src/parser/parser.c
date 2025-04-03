@@ -1,17 +1,5 @@
 #include "../../inc/parsing.h"
 
-int	cmd_arr_num(t_token *token_list)
-{
-	int	num;
-
-	num = 0;
-	while (token_list && token_list->type == WORD)
-	{
-		num++;
-		token_list = (t_token *)(token_list->base.next);
-	}
-	return (num);
-}
 
 int	parse_cmd_args(t_token *token_list, t_input **input)
 {
@@ -41,55 +29,49 @@ int	parse_cmd_args(t_token *token_list, t_input **input)
 	return (SUCCESS);
 }
 
-void	here_doc_put_input(int	*pipe_fd, char *deliminator)
+char	*here_doc_put_input(char *deliminator)
 {
-	char *ret;
+	// char	*ret;
+	int		fd;
+	char	*temp;
 
-	close(pipe_fd[0]);
+	// ret = ft_calloc(1, sizeof(char));
+	fd = open("temp_file", O_RDWR | O_CREAT);
 	while (1)
 	{
-		ret = readline("> ");
-		if (ret && !ft_strncmp(ret, deliminator, ft_strlen(deliminator)))
+		write(1, "> ", 2);
+		temp = get_next_line(0);
+		if (!ft_strncmp(temp, deliminator, ft_strlen(deliminator)))
 		{
-			free(ret);
-			return ;
+			free(temp);
+			return (NULL);
 		}
 		else
 		{
-			ft_putstr_fd(ret, pipe_fd[1]);
-			free(ret);
+			write(fd, temp, ft_strlen(temp));
+			free(temp);
 		}
 	}
+	close(fd);
+	return (NULL);
 }
 
 int	parse_heredoc(t_token *token_list, t_input **input)
 {
 	t_input *node;
-	int		pipe_fd[2];
-	pid_t	pid;
+	char	*string;
 
 	(void)input;
 	node = NULL;
-	if (pipe(pipe_fd) == -1)
-		exit(0);
-	pid = fork();
-	printf("pid = %d\n", pid);
-	if (pid == -1)
-		exit(0);
-	if (!pid)
+	while (token_list)
 	{
-		while (token_list)
+		if (token_list->type == HEREDOC)
 		{
-			if (token_list->type == HEREDOC)
-				here_doc_put_input(pipe_fd, ((t_token *)(token_list->base.next))->value);
-			token_list = (t_token *)(token_list->base.next);
+			string = here_doc_put_input(((t_token *)(token_list
+			->base.next))->value);
+			printf("string = %s\n", string);
 		}
-	}
-	else
-	{
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], 0);
-		wait(NULL);
+		token_list = (t_token *)(token_list->base.next);
 	}
 	return (SUCCESS);
 }
@@ -103,6 +85,6 @@ t_input	*parser(t_token *token_list)
 		return (NULL);
 	if (parse_heredoc(token_list, &ret_input) == FAIL)
 		return (NULL);
-	if (parse_redirection(token_list, &ret_input) == FAIL)
+	// if (parse_redirection(token_list, &ret_input) == FAIL)
 	return (ret_input);
 }

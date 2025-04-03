@@ -13,6 +13,7 @@ int					tokenize_redir(char *str, int *i, t_token **token_list);
 int					check_redir_file(t_token *token_list);
 int					check_pipe(t_token *token_list);
 int					check_heredoc(t_token *token_list);
+int					remove_quotes(t_token *token_list, t_struct_ptrs *data);
 
 //helper functions
 void				free_lexer(t_token **head);

@@ -1,5 +1,18 @@
 #include "../../inc/parsing.h"
 
+int	cmd_arr_num(t_token *token_list)
+{
+	int	num;
+
+	num = 0;
+	while (token_list && token_list->type == WORD)
+	{
+		num++;
+		token_list = (t_token *)(token_list->base.next);
+	}
+	return (num);
+}
+
 void	free_cmd_table(t_input **head)
 {
 	t_input	*temp;
@@ -56,4 +69,22 @@ void	print_input(t_input *head)
 		i++;
 	}
 	printf("-----------end of cmd table--------\n");
+}
+
+char	*free_and_join(char *src, char *dest)
+{
+	char *temp;
+
+	temp = ft_strjoin(src, dest);
+	if (!temp)
+	{
+		if (src)
+			free(src);
+		src = NULL;
+		return (NULL);
+	}
+	if (dest)
+		free(dest);
+	dest = NULL;
+	return (temp);
 }

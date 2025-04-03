@@ -7,8 +7,9 @@
 
 t_input	*parser(t_token *token_list);
 t_input	*cmd_table_init(char **cmd_arr);
+int		cmd_arr_num(t_token *token_list);
 void	free_cmd_table(t_input **head);
 void	print_input(t_input *head);
-t_input	*get_input(t_input *cmd_table);
+char	*free_and_join(char *src, char *dest);
 
 #endif

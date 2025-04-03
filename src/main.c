@@ -31,10 +31,11 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 
 	token = NULL;
 	token = lexer(read_line);
+	print_token_list(token);
 	free(read_line);
 	if (!token)
 		return (FAIL);
-	print_token_list(token);
+	remove_quotes(token, &data);
 	data.input = parser(token);
 	free_lexer(&token);
 	if (!data.input)

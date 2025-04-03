@@ -12,18 +12,21 @@ END = \033[0m
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c lexer_pipe_redir.c
+LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c \
+	lexer_pipe_redir.c remove_quotes.c
 PARSER= parser.c parser_utils.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c
 EXECUTE= create_env.c create_export.c env_export_utils.c \
 		node_utils.c error_handling.c string_utils.c
+EXPANSION= expand_dollar_sign.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 	$(addprefix ${SRCDIR}/lexer/, $(LEXER)) \
 	$(addprefix $(SRCDIR)/parser/, $(PARSER)) \
 	$(addprefix $(SRCDIR)/execution/, $(EXECUTE)) \
-	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN))
+	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN)) \
+	$(addprefix $(SRCDIR)/expansion/, $(EXPANSION))
 
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
