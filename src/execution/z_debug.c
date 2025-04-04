@@ -40,14 +40,17 @@ void    print_env_nodes(void *node)
 		   (void *)env_node->base.next, (void *)env_node->base.prev);
 }
 
-//Call like this:
+// Call like this:
 //     print_list((t_list_base *)head, print_inp_node);
-// void    print_inp_nodes(void *node)
-// {
-// 	t_input   *inp_node;
+void    print_inp_nodes(void *node)
+{
+	t_input   *inp_node;
 
-// 	inp_node = (t_input *)node;
-// 	printf("Node at %p | Type: %d | Value: %s |  Next: %p | Prev: %p\n" ,
-// 			(void *)inp_node, inp_node->token_type, inp_node->token_value,
-// 			(void *)inp_node->base.next, (void *)inp_node->base.prev);
-// }
+	inp_node = (t_input *)node;
+	printf("Node at %p |  Next: %p | Prev: %p\n" ,
+			(void *)inp_node,
+			(void *)inp_node->base.next, (void *)inp_node->base.prev);
+	int i = -1;
+	while (inp_node->cmd_arr[++i])
+		printf("Index[%d]: '%s'\n", i, inp_node->cmd_arr[i]);
+}

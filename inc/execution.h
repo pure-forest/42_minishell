@@ -10,7 +10,9 @@ void					execute(t_struct_ptrs *data);
 
 //**************		Execute Utils
 int						is_builtin(t_struct_ptrs *data);
-int						launch_builtiin(t_struct_ptrs *data);
+int						launch_builtin(t_struct_ptrs *data);
+int						create_execute_env(t_struct_ptrs *data);
+int						get_err_code(int err);
 
 //**************		ENV & EXPORT -- PLUS UTILS
 int						create_env(char **envp, t_struct_ptrs *data);
@@ -50,12 +52,14 @@ char					*ft_strjoin_and_free(char const *s1, char const *s2);
 //**************		ERROR HANDLING
 void					error_handling(t_struct_ptrs *data);
 void					free_env_nodes(t_env_nodes **root);
+void					clean_up_arr(t_struct_ptrs *data);
+//void					clean_up_arr(char **env_arr);
 
 //*************			DEBUGGING __ DELETEEEEEEEE!!!!!!!!!!!!!!!!!
 void					print_list(t_list_base *head,
 							void (*print_node)(void *));
 void					print_env_nodes(void *node);
-// void					print_inp_nodes(void *node);
+void					print_inp_nodes(void *node);
 void					print_cmd_arr(char **cmd_arr);
 int	print_export(t_struct_ptrs *data);
 

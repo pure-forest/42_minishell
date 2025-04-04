@@ -55,6 +55,7 @@ typedef struct s_struct_ptrs
 	t_env_nodes			*export;
 	t_input				*input;
 	int					exit_code;
+	char				**exec_env;
 }						t_struct_ptrs;
 
 
