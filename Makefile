@@ -19,7 +19,7 @@ PARSER= parser.c parser_utils.c handle_heredoc.c heredoc_utils.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c
 EXECUTE= create_env.c create_export.c env_export_utils.c \
 		node_utils.c error_handling.c string_utils.c
-EXPANSION= expand_dollar_sign.c
+EXPANSION= expand_dollar_sign.c expand_word_token.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
