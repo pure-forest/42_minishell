@@ -1,8 +1,8 @@
 #include "../../inc/parsing.h"
 
 static char	*generate_heredoc_name(void);
-static char	*here_doc_put_input(char *deliminator);
-static int		replace_heredoc_node(t_token **node, char *file_name);
+static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator);
+static int	replace_heredoc_node(t_token **node, char *file_name);
 
 int	parse_heredoc(t_struct_ptrs *data)
 {
@@ -14,10 +14,10 @@ int	parse_heredoc(t_struct_ptrs *data)
 	{
 		if (token_list->type == HEREDOC)
 		{
-			heredoc_file = here_doc_put_input(((t_token *)(token_list->base.next))->value);
+			heredoc_file = here_doc_put_input(data,
+					((t_token *)(token_list->base.next))->value);
 			if (replace_heredoc_node(&token_list, heredoc_file) == FAIL)
 				return (FAIL);
-			printf("heredoc_file = %s\n", heredoc_file);
 		}
 		token_list = (t_token *)(token_list->base.next);
 	}
@@ -36,11 +36,10 @@ static char	*generate_heredoc_name(void)
 	file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
 	free(number_str);
 	index++;
-	// printf("file name = %s\n", file_name);
 	return (file_name);
 }
 
-static char	*here_doc_put_input(char *deliminator)
+static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
 {
 	int		fd;
 	char	*temp;
@@ -54,6 +53,8 @@ static char	*here_doc_put_input(char *deliminator)
 	{
 		write(1, "> ", 2);
 		temp = get_next_line(STDIN_FILENO);
+		if (check_for_expansion(data, &temp) == FAIL)
+			break ;
 		if (!ft_strncmp(temp, deliminator, ft_strlen(deliminator)))
 		{
 			free(temp);

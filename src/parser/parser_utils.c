@@ -71,20 +71,18 @@ void	print_input(t_input *head)
 	printf("-----------end of cmd table--------\n");
 }
 
-char	*free_and_join(char *src, char *dest)
+char	*free_and_join(char *s1, char *s2)
 {
 	char *temp;
 
-	temp = ft_strjoin(src, dest);
+	temp = ft_strjoin(s1, s2);
 	if (!temp)
-	{
-		if (src)
-			free(src);
-		src = NULL;
 		return (NULL);
-	}
-	if (dest)
-		free(dest);
-	dest = NULL;
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	s1 = NULL;
+	s2 = NULL;
 	return (temp);
 }
