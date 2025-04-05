@@ -34,7 +34,7 @@ t_input	*parser(t_struct_ptrs *data)
 
 	ret_input = NULL;
 	if (expand_word_token(data) == FAIL)
-		return (free_lexer(&data->token), NULL);
+		return (NULL);
 	if (parse_cmd_args(data->token, &ret_input) == FAIL)
 		return (NULL);
 	if (parse_heredoc(data) == FAIL)

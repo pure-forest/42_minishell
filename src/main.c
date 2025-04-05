@@ -31,12 +31,18 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 	data.token = lexer(read_line);
 	free(read_line);
 	if (!data.token)
+	{
+		printf("lexer failure\n");
 		return (FAIL);
+	}
 	remove_quotes(data.token);
 	data.input = parser(&data);
 	if (!data.input)
+	{
+		printf("parser failure\n");
 		return (FAIL);
-	print_token_list(data.token);
+	}
+	// print_token_list(data.token);
 	// print_input(data.input);
 	// printf("\n---------start of program output-----------\n");
 	ret_val = execute_builtin(&data);
@@ -76,8 +82,8 @@ int	main(int ac, char **av, char **envp)
 		}
 		else
 			free(read_line);
-		free_env_nodes(&data.env);
-		free_env_nodes(&data.export);
 	}
+	free_env_nodes(&data.env);
+	free_env_nodes(&data.export);
 	return (0);
 }
