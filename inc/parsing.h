@@ -5,11 +5,14 @@
 # include "minishell.h"
 # include "structure.h"
 
-t_input	*parser(t_token *token_list);
+# define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
+
+t_input	*parser(t_struct_ptrs *data);
 t_input	*cmd_table_init(char **cmd_arr);
 int		cmd_arr_num(t_token *token_list);
 void	free_cmd_table(t_input **head);
 void	print_input(t_input *head);
 char	*free_and_join(char *src, char *dest);
+int		parse_heredoc(t_struct_ptrs *data);
 
 #endif

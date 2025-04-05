@@ -43,13 +43,13 @@ int	handle_quote(char *str, int *i, int *in_quote)
 		return (*in_quote = 0, FAIL);
 	quote_mark = str[index];
 	index++;
-	while(str[index])
+	while (str[index])
 	{
 		if (str[index] == quote_mark)
 		{
 			(*i)++;
 			*in_quote = 0;
-			break;
+			break ;
 		}
 		(*i)++;
 		index++;
@@ -66,7 +66,7 @@ int	calculate_valid_word(char *str)
 
 	i = 0;
 	in_quote = 0;
-	while (str[i] && (!ft_strchr(FT_DELIMINATER, str[i]) || in_quote ))
+	while (str[i] && (!ft_strchr(FT_DELIMINATER, str[i]) || in_quote))
 	{
 		if (ft_strchr(FT_SPACE, str[i]) && in_quote == 0)
 			break ;

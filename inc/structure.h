@@ -21,8 +21,8 @@ typedef enum e_token_num
 {
 	WORD,
 	QUOTE,
-	INPUT, // >
-	OUTPUT, // <
+	INPUT, // <
+	OUTPUT, // >
 	HEREDOC, // <<
 	APPEND, // >>
 	REDIR, // everthing including ><>><<
@@ -37,6 +37,7 @@ typedef struct s_token
 	t_list_base		base;
 	t_token_type	type;
 	bool			removed_quote;
+	bool			should_expand;
 	char			*value;
 }					t_token;
 
@@ -57,7 +58,7 @@ typedef struct s_struct_ptrs
 {
 	t_env_nodes			*env;
 	t_env_nodes			*export;
-	bool				should_expand;
+	t_token				*token;
 	t_input				*input;
 }						t_struct_ptrs;
 

@@ -1,23 +1,18 @@
 #include "../../inc/lexer.h"
 
-char	*trim_single_quote(char  *old_value, int *index)
+static int trim_single_quote(t_token **node, char *old_value, int *index)
 {
-	int		chara_num;
-	int		i;
-	int		j;
-	char	*ret;
+	int chara_num;
+	int i;
+	int j;
+	char *ret;
 
-	chara_num = 0;
+	chara_num = get_character_number(old_value, '\'');
 	i = 0;
 	j = 0;
-	while (old_value[i])
-	{
-		if (old_value[i] != '\'')
-			chara_num++;
-		i++;
-	}
-	i = 0;
 	ret = ft_calloc(chara_num, sizeof(char));
+	if (!ret)
+		return (FAIL);
 	while (old_value[i])
 	{
 		if (old_value[i] != '\'')
@@ -27,40 +22,25 @@ char	*trim_single_quote(char  *old_value, int *index)
 	}
 	*index += j;
 	ret[j] = '\0';
-	return  (ret);
+	free((*node)->value);
+	(*node)->value = ret;
+	(*node)->removed_quote = YES;
+	return (SUCCESS);
 }
 
-t_token *get_quote_token(t_token *token_list)
+static int trim_double_quote(t_token **node, char *old_value, int *index)
 {
-	while (token_list)
-	{
-		if (token_list->removed_quote == NO && token_list->type == WORD
-			&& (ft_strchr(token_list->value, '\'')
-			|| ft_strchr(token_list->value, '\"')))
-			return (token_list);
-		token_list = ((t_token *)(token_list->base.next));
-	}
-	return (NULL);
-}
+	int chara_num;
+	int i;
+	int j;
+	char *ret;
 
-char	*trim_double_quote(char *old_value, int *index)
-{
-	int		chara_num;
-	int		i;
-	int		j;
-	char	*ret;
-
-	chara_num = 0;
+	chara_num = get_character_number(old_value, '\"');
 	i = 0;
 	j = 0;
-	while (old_value[i])
-	{
-		if (old_value[i] != '\"')
-			chara_num++;
-		i++;
-	}
-	i = 0;
 	ret = ft_calloc(chara_num, sizeof(char));
+	if (!ret)
+		return (FAIL);
 	while (old_value[i])
 	{
 		if (old_value[i] != '\"')
@@ -70,51 +50,52 @@ char	*trim_double_quote(char *old_value, int *index)
 	}
 	ret[j] = '\0';
 	*index += j;
-	return  (ret);
+	free((*node)->value);
+	(*node)->value = ret;
+	(*node)->removed_quote = YES;
+	return (SUCCESS);
 }
 
-int	remove_quotes(t_token *token_list, t_struct_ptrs *data)
+static int remove_quotes_nodes(t_token *node)
 {
-	char	*new_value;
-	bool	in_single_quotes;
-	bool	in_double_quotes;
-	t_token	*node;
-	int		i = 0;
+	bool in_single_quotes;
+	bool in_double_quotes;
+	int i = 0;
 
 	in_single_quotes = NO;
 	in_double_quotes = NO;
-	new_value = NULL;
+	while (node->value[i])
+	{
+		if (ft_strchr("\'", node->value[i]) && in_double_quotes == NO)
+		{
+			in_single_quotes = YES;
+			if (trim_single_quote(&node, node->value, &i) == FAIL)
+				return (FAIL);
+			in_single_quotes = NO;
+		}
+		if (ft_strchr("\"", node->value[i]) && in_single_quotes == NO)
+		{
+			in_double_quotes = YES;
+			if (trim_double_quote(&node, node->value, &i) == FAIL)
+				return (FAIL);
+			printf("after trim double quotes node->value = %s\n", node->value);
+			in_double_quotes = NO;
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
+int remove_quotes(t_token *token_list)
+{
+	t_token *node;
+
 	node = get_quote_token(token_list);
 	while (node)
 	{
-		while (node->value[i])
-		{
-			if (ft_strchr("\'", node->value[i]) && in_double_quotes == NO)
-			{
-				printf("are we here? trim single quote\n");
-				in_single_quotes = YES;
-				new_value = trim_single_quote(node->value, &i);
-				free(node->value);
-				node->value = NULL;
-				node->value = new_value;
-				node->removed_quote = YES;
-			}
-			else if (ft_strchr("\"", node->value[i]) && in_single_quotes == NO)
-			{
-				printf("trim double quote\n");
-				in_double_quotes = YES;
-				new_value = trim_double_quote(node->value, &i);
-				printf("new_value = %s\n", new_value);
-				data->should_expand = YES;
-				free(node->value);
-				node->value = new_value;
-				node->removed_quote = YES;
-			}
-			i++;
-			printf("node->value[%d] = %c\n", i, node->value[i]);
-		}
-		node = get_quote_token(token_list);
-		printf("node  = %s\n", node->value);
+		if (remove_quotes_nodes(node) == FAIL)
+			return (FAIL);
+		node = get_quote_token(node);
 	}
-	return (0);
+	return (SUCCESS);
 }

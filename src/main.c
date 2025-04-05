@@ -26,30 +26,27 @@ int	execute_builtin(t_struct_ptrs *data)
 
 int	start_tokenization(char *read_line, t_struct_ptrs data)
 {
-	t_token			*token;
 	int				ret_val = 0;
 
-	token = NULL;
-	token = lexer(read_line);
-	print_token_list(token);
+	data.token = lexer(read_line);
 	free(read_line);
-	if (!token)
+	if (!data.token)
 		return (FAIL);
-	remove_quotes(token, &data);
-	data.input = parser(token);
-	free_lexer(&token);
+	remove_quotes(data.token);
+	data.input = parser(&data);
 	if (!data.input)
 		return (FAIL);
-	print_input(data.input);
+	print_token_list(data.token);
+	// print_input(data.input);
 	// printf("\n---------start of program output-----------\n");
 	ret_val = execute_builtin(&data);
 	// printf("---------end of program output-----------\n");
-	// if (ret_val == FAIL)
-	// {
-	// 	printf("command not found\n");
-	// 	free_cmd_table(&data.input);
-	// 	return (FAIL);
-	// }
+	if (ret_val == FAIL)
+	{
+		printf("command not found\n");
+		free_cmd_table(&data.input);
+		return (FAIL);
+	}
 	free_cmd_table(&data.input);
 	return (SUCCESS);
 }
