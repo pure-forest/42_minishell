@@ -35,6 +35,8 @@ static char	*generate_heredoc_name(void)
 		return (NULL);
 	file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
 	free(number_str);
+	if (!file_name)
+		return (NULL);
 	index++;
 	return (file_name);
 }
@@ -51,8 +53,7 @@ static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
 		return (NULL);
 	while (1)
 	{
-		write(1, "> ", 2);
-		temp = get_next_line(STDIN_FILENO);
+		temp = readline("> ");
 		if (check_for_expansion(data, &temp) == FAIL)
 			break ;
 		if (!ft_strncmp(temp, deliminator, ft_strlen(deliminator)))
@@ -63,6 +64,7 @@ static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
 		}
 		write(fd, temp, ft_strlen(temp));
 		free(temp);
+		write(fd, "\n", 1);
 	}
 	close(fd);
 	return (NULL);
@@ -79,6 +81,7 @@ static int	replace_heredoc_node(t_token **node, char *file_name)
 	free(deliminator->value);
 	deliminator->type = INFILE;
 	((t_token *)(temp->base.next))->value = file_name;
+	free(temp->value);
 	new_value = ft_calloc(2, sizeof(char));
 	if (!new_value)
 		return (FAIL);

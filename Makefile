@@ -58,7 +58,7 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 
 $(BINDIR)/${NAME}:$(LIBFT_A) ${OBJ} | $(BINDIR) $(TMPDIR)
 	@$(CC) $(OBJ) $(LIBFT_A) \
-	-lreadline \
+	-lreadline  \
 	-o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 

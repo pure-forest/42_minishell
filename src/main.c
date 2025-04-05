@@ -48,6 +48,7 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 		return (FAIL);
 	}
 	free_cmd_table(&data.input);
+	free_lexer(&data.token);
 	return (SUCCESS);
 }
 
@@ -75,8 +76,8 @@ int	main(int ac, char **av, char **envp)
 		}
 		else
 			free(read_line);
+		free_env_nodes(&data.env);
+		free_env_nodes(&data.export);
 	}
-	free_env_nodes(&data.env);
-	free_env_nodes(&data.export);
 	return (0);
 }
