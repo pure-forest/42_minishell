@@ -78,7 +78,6 @@ static int remove_quotes_nodes(t_token *node)
 			in_double_quotes = YES;
 			if (trim_double_quote(&node, node->value, &i) == FAIL)
 				return (FAIL);
-			printf("after trim double quotes node->value = %s\n", node->value);
 			in_double_quotes = NO;
 		}
 		i++;
