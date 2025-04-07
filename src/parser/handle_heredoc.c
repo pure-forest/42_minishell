@@ -54,14 +54,14 @@ static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
 	while (1)
 	{
 		temp = readline("> ");
-		if (check_for_expansion(data, &temp) == FAIL)
-			break ;
 		if (!ft_strncmp(temp, deliminator, ft_strlen(deliminator)))
 		{
 			free(temp);
 			close(fd);
 			return (file_name);
 		}
+		if (check_for_expansion(data, &temp) == FAIL)
+			break ;
 		write(fd, temp, ft_strlen(temp));
 		free(temp);
 		write(fd, "\n", 1);

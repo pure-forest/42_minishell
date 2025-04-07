@@ -10,8 +10,8 @@ t_token	*token_init(t_token_type type, char *token_value)
 	if (!node)
 		return (NULL);
 	node->value = token_value;
-	node->removed_quote = NO;
-	node->should_expand = NO;
+	node->quote_count = 0;
+	node->should_expand = YES;
 	node->type = type;
 	node->base.next = NULL;
 	node->base.prev = NULL;

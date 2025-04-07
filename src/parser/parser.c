@@ -37,6 +37,7 @@ t_input	*parser(t_struct_ptrs *data)
 		return (NULL);
 	if (parse_cmd_args(data->token, &ret_input) == FAIL)
 		return (NULL);
+	print_token_list(data->token);
 	if (parse_heredoc(data) == FAIL)
 		return (NULL);
 	// if (parse_redirection(token_list, &ret_input) == FAIL)

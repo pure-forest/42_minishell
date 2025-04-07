@@ -36,7 +36,7 @@ typedef struct s_token
 {
 	t_list_base		base;
 	t_token_type	type;
-	bool			removed_quote;
+	int				quote_count;
 	bool			should_expand;
 	char			*value;
 }					t_token;
@@ -47,10 +47,9 @@ typedef struct s_input
 	t_list_base	base;
 	char		*cmd;
 	char		**cmd_arr;
-	t_token		*args;
 	int			index;
-	char		*heredoc_name;
-	t_token		*redirection;
+	t_token		*input;
+	t_token		*output;
 }				t_input;
 
 //main struct for everyting used in minshell

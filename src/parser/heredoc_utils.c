@@ -2,12 +2,20 @@
 
 char	*ft_rejoin_str(char **words);
 
+static	int	handle_not_valid_expansion(char **new_line)
+{
+	free(*new_line);
+	*new_line = ft_strdup("");
+	return (SUCCESS);
+}
+
 int	check_for_expansion(t_struct_ptrs *data, char **new_line)
 {
 	char	**words;
 	int		i;
 
-	if (!ft_strchr(*new_line, '$'))
+	if (!ft_strchr(*new_line, '$') || ft_strchr(*new_line, '\'') ||
+		ft_strchr(*new_line, '\"'))
 		return (SUCCESS);
 	words = ft_split(*new_line, ' ');
 	if (!words)
@@ -19,7 +27,7 @@ int	check_for_expansion(t_struct_ptrs *data, char **new_line)
 		{
 			words[i] = expand_variable(data, words[i]);
 			if (!words[i])
-				return (ft_free_double_ptr(words), FAIL);
+				return (handle_not_valid_expansion(new_line));
 		}
 		i++;
 	}

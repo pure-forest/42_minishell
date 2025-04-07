@@ -60,6 +60,7 @@ int	check_heredoc(t_token *token_list)
 			if (!ft_strncmp(token_list->value, "<<", 2))
 			{
 				token_list->type = HEREDOC;
+				((t_token *)(token_list->base.next))->should_expand = NO;
 				if ((t_token *)(token_list->base.next) == NULL)
 					return (FAIL);
 			}

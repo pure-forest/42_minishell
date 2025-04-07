@@ -15,5 +15,6 @@ void	print_input(t_input *head);
 char	*free_and_join(char *s1, char *s2);
 int		parse_heredoc(t_struct_ptrs *data);
 int		check_for_expansion(t_struct_ptrs *data, char **new_line);
+char	get_quote_mark(char *src);
 
 #endif

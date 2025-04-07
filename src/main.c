@@ -35,15 +35,17 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 		printf("lexer failure\n");
 		return (FAIL);
 	}
-	remove_quotes(data.token);
+	remove_quotes(data.token, &data);
+	// print_token_list(data.token);
 	data.input = parser(&data);
+	// print_input(data.input);
 	if (!data.input)
 	{
 		printf("parser failure\n");
 		return (FAIL);
 	}
-	// print_token_list(data.token);
 	// print_input(data.input);
+
 	// printf("\n---------start of program output-----------\n");
 	ret_val = execute_builtin(&data);
 	// printf("---------end of program output-----------\n");

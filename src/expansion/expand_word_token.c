@@ -7,12 +7,12 @@ int	expand_word_token(t_struct_ptrs *data)
 
 	node = data->token;
 	new_value = NULL;
-	// print_token_list(node);
 	while (node)
 	{
-		if (ft_strchr(node->value, '$'))
+		if (ft_strchr(node->value, '$') && node->should_expand == YES)
 		{
 			new_value = expand_variable(data, node->value);
+			printf("after expansion = %s\n", new_value);
 			if (!new_value)
 				return (FAIL);
 			node->value = new_value;
