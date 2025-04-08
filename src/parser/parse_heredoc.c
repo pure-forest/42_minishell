@@ -1,6 +1,5 @@
 #include "../../inc/parsing.h"
 
-static char	*generate_heredoc_name(void);
 static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator);
 static int	replace_heredoc_node(t_token **node, char *file_name);
 
@@ -22,23 +21,6 @@ int	parse_heredoc(t_struct_ptrs *data)
 		token_list = (t_token *)(token_list->base.next);
 	}
 	return (SUCCESS);
-}
-
-static char	*generate_heredoc_name(void)
-{
-	static int	index;
-	char		*number_str;
-	char		*file_name;
-
-	number_str = ft_itoa(index);
-	if (!number_str)
-		return (NULL);
-	file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
-	free(number_str);
-	if (!file_name)
-		return (NULL);
-	index++;
-	return (file_name);
 }
 
 static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)

@@ -53,10 +53,11 @@ void	launch_command_exec(t_struct_ptrs *data)
 				return ;
 			close_fd(&pipe_fd[0]);
 			close_fd(&pipe_fd[1]);
-			if (curr->base.next && !curr->base.prev)
-				run_cmd_in_child(data, curr, 1);
-			else
-				run_cmd_in_child(data, curr, 2);
+			// if (curr->base.next && !curr->base.prev)
+			if (run_cmd_in_child(data, curr, 1))
+					return ;
+			// else
+			// 	run_cmd_in_child(data, curr, 2);
 		}
 		else
 		{
@@ -79,7 +80,8 @@ int	run_cmd_in_child(t_struct_ptrs *data, t_input *input, int tmp)
 	(void)input;
 	(void)data;
 	if (tmp == 1)
-		execve("/usr/bin/cat", input->cmd_arr, data->exec_env);
+		if (execve("/usr/bin/cat", input->cmd_arr, data->exec_env) == -1)
+			return (FAIL);
 	if (tmp == 2)
 		execve("/usr/bin/grep", input->cmd_arr, data->exec_env);
 	return (SUCCESS);

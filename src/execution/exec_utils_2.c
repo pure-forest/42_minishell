@@ -45,6 +45,7 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *
 				close_fd(&input->output_fd);
 		}
 	}
+	input->output_fd = STDOUT_FILENO;
 	return (SUCCESS);
 }
 
@@ -60,7 +61,7 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read
 	if (input->base.prev)
 		dup2(prev_read_end, STDIN_FILENO);
 	if (!input->base.next)
-		if (input->output_fd)
+		if (input->output_fd && input->output_fd != STDOUT_FILENO)
 			dup2(input->output_fd, STDOUT_FILENO);
 	if (input->base.next)
 		dup2(pipe_fd[1], STDOUT_FILENO);

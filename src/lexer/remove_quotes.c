@@ -1,5 +1,29 @@
 #include "../../inc/lexer.h"
 
+static char	*trim_quotes_magic(t_token **node, char *new_str);
+static void	check_for_expand(char *new_str, t_token **node);
+static int	remove_quotes_nodes(t_token **node);
+
+int	remove_quotes(t_token *token_list, t_struct_ptrs *data)
+{
+	t_token	*node;
+
+	node = get_quote_token(token_list);
+	(void)data;
+	if (!node)
+		return (SUCCESS);
+	while (node)
+	{
+		if ((ft_strchr(node->value, '\'') || ft_strchr(node->value, '\"')))
+		{
+			remove_quotes_nodes(&node);
+			node = (t_token *)(node->base.next);
+		}
+		node = get_quote_token(node);
+	}
+	return (SUCCESS);
+}
+
 static char	*trim_quotes_magic(t_token **node, char *new_str)
 {
 	char	quote_mark;
@@ -31,7 +55,7 @@ static char	*trim_quotes_magic(t_token **node, char *new_str)
 static void	check_for_expand(char *new_str, t_token **node)
 {
 
-	if (ft_strchr(new_str, '\"'))
+	if (ft_strchr(new_str, '\''))
 		(*node)->should_expand = NO;
 }
 
@@ -48,25 +72,5 @@ static int	remove_quotes_nodes(t_token **node)
 		return (FAIL);
 	free((*node)->value);
 	(*node)->value = new_str;
-	return (SUCCESS);
-}
-
-int	remove_quotes(t_token *token_list, t_struct_ptrs *data)
-{
-	t_token	*node;
-
-	node = get_quote_token(token_list);
-	(void)data;
-	if (!node)
-		return (SUCCESS);
-	while (node)
-	{
-		if ((ft_strchr(node->value, '\'') || ft_strchr(node->value, '\"')))
-		{
-			remove_quotes_nodes(&node);
-			node = (t_token *)(node->base.next);
-		}
-		node = get_quote_token(node);
-	}
 	return (SUCCESS);
 }

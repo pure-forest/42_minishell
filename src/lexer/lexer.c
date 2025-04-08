@@ -1,5 +1,29 @@
 #include "../../inc/lexer.h"
 
+static t_token	*lexer(char *str, t_struct_ptrs *data);
+static t_token *create_token_list(char *str);
+
+int	start_tokenization(char *read_line, t_struct_ptrs *data)
+{
+
+	data->token = lexer(read_line, data);
+	free(read_line);
+	if (!data->token)
+	{
+		printf("lexer failure\n");
+		return (FAIL);
+	}
+	remove_quotes(data->token , data);
+	data->input = parser(data);
+	// print_input(data->input);
+	if (!data->input)
+	{
+		printf("parser failure\n");
+		return (FAIL);
+	}
+	return (SUCCESS);
+}
+
 static t_token *create_token_list(char *str)
 {
 	t_token *token_list;
@@ -23,7 +47,7 @@ static t_token *create_token_list(char *str)
 	return (token_list);
 }
 
-t_token	*lexer(char *str)
+static t_token	*lexer(char *str, t_struct_ptrs *data)
 {
 	t_token *token_list;
 
@@ -32,7 +56,7 @@ t_token	*lexer(char *str)
 	token_list = create_token_list(str);
 	if (!token_list)
 		return (NULL);
-	if (check_pipe(token_list) == FAIL)
+	if (check_pipe(token_list, data) == FAIL)
 		return (free_lexer(&token_list), NULL);
 	if (check_redir_file(token_list) == FAIL)
 		return (free_lexer(&token_list), NULL);
