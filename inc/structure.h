@@ -45,11 +45,13 @@ typedef struct s_token
 typedef struct s_input
 {
 	t_list_base	base;
-	char		*cmd;
+	// char		*cmd;
 	char		**cmd_arr;
-	int			index;
-	t_token		*input;
-	t_token		*output;
+	// int			index;
+	char		**redir_in;
+	char		**redir_out;
+	int			input_fd;
+	int			output_fd;
 }				t_input;
 
 //main struct for everyting used in minshell

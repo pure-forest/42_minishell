@@ -16,5 +16,7 @@ char	*free_and_join(char *s1, char *s2);
 int		parse_heredoc(t_struct_ptrs *data);
 int		check_for_expansion(t_struct_ptrs *data, char **new_line);
 char	get_quote_mark(char *src);
+int		parse_redirection(t_token **token, t_input **input);
+void	get_next_cmd_node(t_token **token_list);
 
 #endif

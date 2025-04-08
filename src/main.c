@@ -5,7 +5,7 @@ int	execute_builtin(t_struct_ptrs *data)
 {
 	char	*temp;
 
-	temp = data->input->cmd;
+	temp = data->input->cmd_arr[0];
 	if (!temp)
 		return (FAIL);
 	if (!ft_strncmp("cd", temp, 2))
@@ -26,9 +26,10 @@ int	execute_builtin(t_struct_ptrs *data)
 
 int	start_tokenization(char *read_line, t_struct_ptrs data)
 {
-	int				ret_val = 0;
+	// int				ret_val = 0;
 
 	data.token = lexer(read_line);
+	// print_token_list(data.token);
 	free(read_line);
 	if (!data.token)
 	{
@@ -36,9 +37,8 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 		return (FAIL);
 	}
 	remove_quotes(data.token, &data);
-	// print_token_list(data.token);
 	data.input = parser(&data);
-	// print_input(data.input);
+	print_input(data.input);
 	if (!data.input)
 	{
 		printf("parser failure\n");
@@ -47,14 +47,14 @@ int	start_tokenization(char *read_line, t_struct_ptrs data)
 	// print_input(data.input);
 
 	// printf("\n---------start of program output-----------\n");
-	ret_val = execute_builtin(&data);
+	// ret_val = execute_builtin(&data);
 	// printf("---------end of program output-----------\n");
-	if (ret_val == FAIL)
-	{
-		printf("command not found\n");
-		free_cmd_table(&data.input);
-		return (FAIL);
-	}
+	// if (ret_val == FAIL)
+	// {
+	// 	printf("command not found\n");
+	// 	free_cmd_table(&data.input);
+	// 	return (FAIL);
+	// }
 	free_cmd_table(&data.input);
 	free_lexer(&data.token);
 	return (SUCCESS);
