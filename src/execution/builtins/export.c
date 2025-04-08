@@ -61,6 +61,7 @@ int	update_export(t_struct_ptrs *data)
 		*new_var = (t_env_nodes){0};
 		if (var_fill(data->input->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
+		does_var_exist(&data->export, new_var->var_name);
 		insert_node(&data->export, new_var);
 	}
 	return (SUCCESS);

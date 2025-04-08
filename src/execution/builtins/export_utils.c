@@ -7,10 +7,10 @@ t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var)
 	t_env_nodes	*curr;
 	t_env_nodes	*smallest;
 
-	curr = root;
-	smallest = NULL;
 	if (!root)
 		return (NULL);
+	curr = root;
+	smallest = NULL;
 	while (curr)
 	{
 		if (ft_strcmp(curr->var_name, new_var->var_name) < 0)
@@ -40,6 +40,7 @@ int	update_env(t_struct_ptrs *data)
 		*new_var = (t_env_nodes){0};
 		if (var_fill_env(data->input->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
+		does_var_exist(&data->env, new_var->var_name);
 		append_node((t_list_base **)&data->env, (t_list_base *)new_var);
 	}
 	return (SUCCESS);
@@ -54,4 +55,22 @@ int	var_fill_env(char *cmd_arr, char *equal_sign, t_env_nodes *new_var)
 	if (!new_var->var_value)
 		return (free(new_var->var_name), FAIL);
 	return (SUCCESS);
+}
+
+void	does_var_exist(t_env_nodes **list, char *arg)
+{
+	t_env_nodes	*curr;
+	t_env_nodes	*next;
+
+	curr = *list;
+	while (curr)
+	{
+		next = (t_env_nodes *)curr->base.next;
+		if (!check_match(curr->var_name, arg))
+		{
+			remove_node(list, curr);
+			break ;
+		}
+		curr = next;
+	}
 }
