@@ -53,10 +53,10 @@ void	launch_command_exec(t_struct_ptrs *data)
 				return ;
 			close_fd(&pipe_fd[0]);
 			close_fd(&pipe_fd[1]);
-			if (curr->base.next && !curr->base.prev)
+			// if (curr->base.next && !curr->base.prev)
 				run_cmd_in_child(data, curr, 1);
-			else
-				run_cmd_in_child(data, curr, 2);
+		// 	else
+		// 		run_cmd_in_child(data, curr, 2);
 		}
 		else
 		{
