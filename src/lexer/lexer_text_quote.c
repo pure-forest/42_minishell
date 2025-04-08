@@ -1,6 +1,5 @@
 #include "../../inc/lexer.h"
 
-int	calculate_quote_length(char *str);
 int	calculate_valid_word(char *str);
 
 int	tokenize_text(char *str, int *i, t_token **token_list)
@@ -12,89 +11,72 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 	token_value = NULL;
 	node = NULL;
 	length = calculate_valid_word(&str[*i]);
+	if (length < 0)
+		return (FAIL);
 	if (length > 0)
 	{
 		token_value = ft_substr(str, *i, length);
 		if (!token_value)
-			return (ERROR);
+			return (FAIL);
 		node = token_init(WORD, token_value);
 		if (!node)
-			return (ERROR);
+			return (FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,
-				(t_list_base *)node) == ERROR)
-			return (ERROR);
+				(t_list_base *)node) == FAIL)
+			return (FAIL);
 		*i += length;
 	}
 	return (0);
 }
 
-int	tokenize_quote(char *str, int *i, t_token **token_list)
+int	handle_quote(char *str, int *i, int *in_quote)
 {
-	char	*token_value;
-	int		length;
-	t_token	*node;
+	int		index;
+	char	quote_mark;
 
-	length = 0;
-	token_value = NULL;
-	node = NULL;
-	length = calculate_quote_length(&str[*i]);
-	if (length == ERROR)
-		return (ERROR);
-	if (length > 0)
+	index = 0;
+	if (!str || !*str)
+		return (*in_quote = 0, FAIL);
+	if (!ft_strchr("\'\"", str[index]))
+		return (*in_quote = 0, FAIL);
+	quote_mark = str[index];
+	index++;
+	while (str[index])
 	{
-		token_value = ft_substr(str, *i + 1, length - 2);
-		if (!token_value)
-			return (ERROR);
-		node = token_init(WORD, token_value);
-		if (!node)
-			return (ERROR);
-		if (append_node((t_list_base **)token_list,
-				(t_list_base *)node) == ERROR)
-			return (ERROR);
-		*i += length;
+		if (str[index] == quote_mark)
+		{
+			(*i)++;
+			*in_quote = 0;
+			break ;
+		}
+		(*i)++;
+		index++;
 	}
-	return (0);
+	if (str[index] != quote_mark)
+		return (FAIL);
+	return (SUCCESS);
 }
 
 int	calculate_valid_word(char *str)
 {
 	int	i;
+	int	in_quote;
 
 	i = 0;
-	while (str[i])
+	in_quote = 0;
+	while (str[i] && (!ft_strchr(FT_DELIMINATER, str[i]) || in_quote))
 	{
-		if (ft_strchr(FT_SPACE, str[i]))
+		if (ft_strchr(FT_SPACE, str[i]) && in_quote == 0)
 			break ;
-		else if (ft_strchr(FT_DELIMINATER, str[i]))
-			break ;
-		else if (ft_strchr("\'\"", str[i]))
-			break ;
+		else if (ft_strchr("\"\'", str[i]))
+		{
+			in_quote = 1;
+			if (handle_quote(&str[i], &i, &in_quote) == FAIL)
+				return (-1);
+		}
 		i++;
 	}
 	return (i);
-}
-
-int	calculate_quote_length(char *str)
-{
-	int		i;
-	char	quote_mark;
-
-	// printf("str = %s\n", str);
-	if (!str || !*str)
-		return (0);
-	if (!ft_strchr("\'\"", str[0]))
-		return (0);
-	quote_mark = str[0];
-	i = 1;
-	while (str[i])
-	{
-		if (str[i] == quote_mark)
-			break;
-		i++;
-	}
-	if (str[i] != quote_mark)
-		return (ERROR);
-	return (i + 1);
 }

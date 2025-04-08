@@ -10,6 +10,8 @@ t_token	*token_init(t_token_type type, char *token_value)
 	if (!node)
 		return (NULL);
 	node->value = token_value;
+	node->quote_count = 0;
+	node->should_expand = YES;
 	node->type = type;
 	node->base.next = NULL;
 	node->base.prev = NULL;
@@ -20,16 +22,16 @@ void	print_token_list(t_token *lexer)
 {
 	int	fix_dis;
 
-	fix_dis = 12;
-	printf("\n-------------start of lexer----------\n");
+	fix_dis = 21;
+	printf("\n-----------------start of lexer------------------\n");
 	printf("| %-*s | %-*s |\n", fix_dis, "token value", fix_dis, "token type");
-	printf("-------------------------------\n");
+	printf("+-----------------------------------------------+\n");
 	while (lexer)
 	{
 		printf("| %-*s | %-*d |\n", fix_dis, lexer->value, fix_dis, lexer->type);
 		lexer = (t_token *)(lexer->base.next);
 	}
-	printf("-------------end of lexer-----------\n\n");
+	printf("-----------------end of lexer--------------------\n\n");
 }
 
 void	free_lexer(t_token **head)
