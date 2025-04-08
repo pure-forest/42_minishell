@@ -13,6 +13,17 @@ int						is_builtin(t_struct_ptrs *data);
 int						launch_builtin(t_struct_ptrs *data);
 int						create_execute_env(t_struct_ptrs *data);
 int						get_err_code(int err);
+int						check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd);
+int						check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *pipe_fd);
+int						set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
+
+//**************		EXEC ERROR HANDLING
+// void					print_err_exe(t_input *curr, int err);
+// void					print_err_exe(t_struct_ptrs *data, t_input *curr, int err);
+void					print_err_exe(t_struct_ptrs *data, char *cmd, int err);
+void					close_fd(int *fd);
+int						get_errno_codes(int err);
+void					set_exit_code(t_struct_ptrs *data, int err);
 
 //**************		ENV & EXPORT -- PLUS UTILS
 int						create_env(char **envp, t_struct_ptrs *data);

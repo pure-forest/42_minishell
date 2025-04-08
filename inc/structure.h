@@ -41,12 +41,15 @@ typedef struct s_token
 typedef struct s_input
 {
 	t_list_base	base;
-	char		*cmd;
+	//char		*cmd;
 	char		**cmd_arr;
-	t_token		*args;
-	int			index;
-	char		*heredoc_name;
-	t_token		*redirection;
+	//t_token		*args;
+	//int			index;
+	//char		*heredoc_name;
+	char		**redir_in;
+	char		**redir_out;
+	int			input_fd;
+	int			output_fd;
 }				t_input;
 
 typedef struct s_struct_ptrs

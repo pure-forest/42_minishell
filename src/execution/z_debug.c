@@ -53,4 +53,12 @@ void    print_inp_nodes(void *node)
 	int i = -1;
 	while (inp_node->cmd_arr[++i])
 		printf("Index[%d]: '%s'\n", i, inp_node->cmd_arr[i]);
+	char	**redir = inp_node->redir_in;
+	i = -1;
+	while (redir[++i])
+		printf("Redir_in[%d]:  Value: %s\n", i, redir[i]);
+	i = -1;
+	redir = inp_node->redir_out;
+	while (redir[++i])
+		printf("Redir_out[%d]:  Value: %s\n", i, redir[i]);
 }
