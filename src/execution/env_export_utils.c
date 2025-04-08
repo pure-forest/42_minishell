@@ -8,7 +8,7 @@ char	*get_var_value(t_env_nodes *list, char *var)
 	t_env_nodes	*curr;
 
 	curr = list;
-	if (curr)
+	if (curr) 
 	{
 		while (curr)
 		{

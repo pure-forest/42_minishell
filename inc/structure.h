@@ -45,9 +45,7 @@ typedef struct s_token
 typedef struct s_input
 {
 	t_list_base	base;
-	// char		*cmd;
 	char		**cmd_arr;
-	// int			index;
 	char		**redir_in;
 	char		**redir_out;
 	int			input_fd;
@@ -61,6 +59,8 @@ typedef struct s_struct_ptrs
 	t_env_nodes			*export;
 	t_token				*token;
 	t_input				*input;
+	int					exit_code;
+	char				**exec_env;
 }						t_struct_ptrs;
 
 #endif

@@ -24,7 +24,7 @@ int	execute_builtin(t_struct_ptrs *data)
 		return (FAIL);
 }
 
-int	start_tokenization(char *read_line, t_struct_ptrs data)
+int	start_tokenization(char *read_line, t_struct_ptrs *data)
 {
 	// int				ret_val = 0;
 
