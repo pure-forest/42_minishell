@@ -6,6 +6,10 @@ void		set_exit_code(t_struct_ptrs *data, int err);
 void		launch_command_exec(t_struct_ptrs *data);
 int			set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
 
+// for (int fd = 0; fd < 10; fd++)
+// if (fcntl(fd, F_GETFD) != -1)
+// 	printf("Run_cmd:	FD %d is open\n", fd);
+
 void	execute(t_struct_ptrs *data)
 {
 	if (!is_builtin(data)) // TODO --- this should be running in parent
@@ -51,12 +55,10 @@ void	launch_command_exec(t_struct_ptrs *data)
 		{
 			if (set_std_fds(data, curr, pipe_fd, prev_read_end))
 				return ;
-			close_fd(&pipe_fd[0]);
-			close_fd(&pipe_fd[1]);
-			// if (curr->base.next && !curr->base.prev)
+			if (!curr->base.prev)
 				run_cmd_in_child(data, curr, 1);
-		// 	else
-		// 		run_cmd_in_child(data, curr, 2);
+		 	else
+		 		run_cmd_in_child(data, curr, 2);
 		}
 		else
 		{
@@ -68,8 +70,6 @@ void	launch_command_exec(t_struct_ptrs *data)
 		}
 		curr = (t_input *)curr->base.next;
 	}
-	close_fd(&pipe_fd[0]);
-	close_fd(&pipe_fd[1]);
 	// wait_for_children(&data);
 	return ;
 }
@@ -78,6 +78,7 @@ int	run_cmd_in_child(t_struct_ptrs *data, t_input *input, int tmp)
 {
 	(void)input;
 	(void)data;
+
 	if (tmp == 1)
 		execve("/usr/bin/cat", input->cmd_arr, data->exec_env);
 	if (tmp == 2)

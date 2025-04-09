@@ -5,6 +5,7 @@ int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *p
 	int	i;
 
 	i = -1;
+	input->input_fd = -1;
 	if (redir_in)
 	{
 		while (redir_in[++i])
@@ -29,6 +30,7 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *
 	int	i;
 
 	i = -1;
+	input->output_fd = -1;
 	if (redir_out)
 	{
 		while (redir_out[++i])
@@ -45,7 +47,6 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *
 				close_fd(&input->output_fd);
 		}
 	}
-	input->output_fd = STDOUT_FILENO;
 	return (SUCCESS);
 }
 
@@ -55,17 +56,22 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read
 		return (FAIL);
 	if (check_out_files(data, input, input->redir_out, pipe_fd))
 		return (FAIL);
-	if (!input->base.prev)
-		if (input->input_fd)
-			dup2(input->input_fd, STDIN_FILENO);
-	if (input->base.prev)
+	if (input->input_fd != -1)
+		dup2(input->input_fd, STDIN_FILENO);
+	else if (input->base.prev)
+	{
 		dup2(prev_read_end, STDIN_FILENO);
+		close_fd(&pipe_fd[0]);
+	}
 	if (!input->base.next)
-		if (input->output_fd && input->output_fd != STDOUT_FILENO)
+	{
+		if (input->output_fd != -1 && input->output_fd != STDOUT_FILENO)
 			dup2(input->output_fd, STDOUT_FILENO);
-	if (input->base.next)
+	}
+	else
+	{
 		dup2(pipe_fd[1], STDOUT_FILENO);
-	// close_fd(&pipe_fd[0]);
-	// close_fd(&pipe_fd[1]);
+		close_fd(&pipe_fd[1]);
+	}
 	return (SUCCESS);
 }
