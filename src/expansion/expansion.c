@@ -3,6 +3,28 @@
 static char	*get_extra_before_dollar(char *src);
 static char	*process_expanded_var(char **src, char **needle, char *var_value);
 
+int	expand_word_token(t_struct_ptrs *data)
+{
+	t_token *node;
+	char	*new_value;
+
+	node = data->token;
+	new_value = NULL;
+	while (node)
+	{
+		if (ft_strchr(node->value, '$') && node->should_expand == YES)
+		{
+			new_value = expand_variable(data, node->value);
+			// printf("after expansion = %s\n", new_value);
+			if (!new_value)
+				return (FAIL);
+			node->value = new_value;
+		}
+		node = (t_token *)(node->base.next);
+	}
+	return (SUCCESS);
+}
+
 char	*expand_variable(t_struct_ptrs *data, char *src)
 {
 	char	*needle;
@@ -41,7 +63,7 @@ static char	*process_expanded_var(char **src, char **needle, char *var_value)
 	if (!extra)
 		return (new_value);
 	else
-		return (free_and_join(extra, new_value));
+		return (ft_strjoin_and_free(extra, new_value));
 }
 
 static char	*get_extra_before_dollar(char *src)

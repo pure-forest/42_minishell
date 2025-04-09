@@ -18,6 +18,7 @@
 # include "parsing.h"
 # include "execution.h"
 # include "expansion.h"
+# include "utils.h"
 
 # define PINK "\033[1;38;5;218m"
 # define BLUE "\033[1;34m"

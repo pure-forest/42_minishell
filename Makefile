@@ -13,16 +13,17 @@ END = \033[0m
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c \
-	lexer_pipe_redir.c remove_quotes.c remove_quotes_utils.c lexer_dev.c
+LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c \
+	remove_quotes.c remove_quotes_utils.c lexer_dev.c
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
 	parser_redirection.c parser_dev.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
 		unset_utils.c
-EXECUTE= create_env.c create_export.c env_export_utils.c \
-		node_utils.c error_handling.c string_utils.c exec_utils.c \
-		exec_utils_2.c execute_errors.c execute.c
-EXPANSION= expand_dollar_sign.c expand_word_token.c
+EXECUTE= create_env.c create_export.c env_export_utils.c error_handling.c \
+		 exec_utils.c exec_utils_2.c execute_errors.c execute.c
+EXPANSION= expansion.c
+UTILS=clean_up_utils.c error_handling.c init_utils.c node_utils.c \
+	string_utils.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
@@ -30,21 +31,16 @@ SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 	$(addprefix $(SRCDIR)/parser/, $(PARSER)) \
 	$(addprefix $(SRCDIR)/execution/, $(EXECUTE)) \
 	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN)) \
-	$(addprefix $(SRCDIR)/expansion/, $(EXPANSION))
+	$(addprefix $(SRCDIR)/expansion/, $(EXPANSION)) \
+	$(addprefix $(SRCDIR)/utils/, $(UTILS))
 
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
 all:$(LIBFT_A) $(BINDIR)/${NAME}
 
-
-
 ${LIBFT_A}:
 	@make -C ${LIBFT_DIR} > /dev/null
 	@echo "$(PINK)=== ✅Libft compile succeed.  $(END)\n"
-
-$(GNL):
-	@make -C $(GNL_DIR) > /dev/null
-	@echo "$(PINK)=== ✅Get next line comiple succeed $(END)\n"
 
 ${OBJDIR}:
 	@mkdir -p obj
@@ -60,8 +56,7 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 	@$(CC) $(FLAGS) -o $@ -c $<
 
 $(BINDIR)/${NAME}:$(LIBFT_A) ${OBJ} | $(BINDIR) $(TMPDIR)
-	@$(CC) $(OBJ) $(LIBFT_A) \
-	-lreadline  \
+	@$(CC) $(OBJ) $(LIBFT_A) -lreadline  \
 	-o $(BINDIR)/$(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 

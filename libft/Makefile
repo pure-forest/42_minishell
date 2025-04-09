@@ -6,7 +6,7 @@
 #    By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/15 14:26:50 by gboggion          #+#    #+#              #
-#    Updated: 2025/03/31 15:24:03 by ydeng            ###   ########.fr        #
+#    Updated: 2025/04/09 09:56:50 by ydeng            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ MAKEFLAGS += --no-print-directory
 NAME = libft.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
+OBJDIR=obj
 SRCS = 	ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \
@@ -55,11 +55,15 @@ SRCS = 	ft_isalnum.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+${OBJDIR}/%.o:%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) -o $@ -c $<
+
+$(NAME): $(OBJS) | $(OBJDIR)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "$(CYAN)Made libft archive$(RESET)"
 

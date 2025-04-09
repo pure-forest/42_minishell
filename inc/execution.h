@@ -48,16 +48,7 @@ int						check_match(char *cmd_arg, char *var_name);
 int						remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
 void					does_var_exist(t_env_nodes **list, char *arg);
 
-//**************		NODE UTILS
-int						append_node(t_list_base **list_to_modify,
-							t_list_base *new_var);
-t_list_base				*find_last(t_list_base *root);
 void					free_one_env_node(t_env_nodes *node_to_free);
-
-//**************		STRING UTILS
-int						ft_strcmp(char *s1, char *s2);
-char					*ft_strndup(const char *s, size_t len);
-char					*ft_strjoin_and_free(char const *s1, char const *s2);
 
 //**************		ERROR HANDLING
 void					error_handling(t_struct_ptrs *data);
