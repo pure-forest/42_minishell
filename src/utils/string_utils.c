@@ -38,7 +38,7 @@ char	*ft_strjoin_and_free(char const *s1, char const *s2)
 
 	if (s1 && s2)
 	{
-		s_new = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		s_new = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 		if (!s_new)
 			return (free((char *)s1), free((char *)s2), NULL);
 		i = 0;

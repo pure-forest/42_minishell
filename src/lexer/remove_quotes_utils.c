@@ -13,6 +13,24 @@ t_token	*get_quote_token(t_token *token_list)
 	return (NULL);
 }
 
+char *check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i, int *j)
+{
+	int	variable_length;
+	char	*ret;
+
+	variable_length = 0;
+	while ((*node)->value[*i] && !ft_strchr("\'\"", (*node)->value[*i]))
+	{
+		(*i)++;
+		variable_length++;
+	}
+	ret = ft_strndup(&((*node)->value)[*i - variable_length], variable_length);
+	ret = expand_variable(data, ret);
+	(*j) += ft_strlen(ret);
+	(*node)->should_expand = NO;
+	return (ret);
+}
+
 int	get_character_number(char *src, char not_to_count)
 {
 	int i;

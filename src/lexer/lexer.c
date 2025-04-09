@@ -13,7 +13,8 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		printf("lexer failure\n");
 		return (FAIL);
 	}
-	remove_quotes(data->token , data);
+	remove_quotes(data);
+	print_token_list(data->token);
 	data->input = parser(data);
 	// print_input(data->input);
 	if (!data->input)

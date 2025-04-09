@@ -28,14 +28,20 @@ int	expand_word_token(t_struct_ptrs *data)
 char	*expand_variable(t_struct_ptrs *data, char *src)
 {
 	char	*needle;
+	char	*pid;
 
 	if (!src || !*src)
 		return (NULL);
 	needle = ft_strjoin(ft_strchr(src, '$') + 1, "=");
+	pid = ft_itoa(getpid());
+	if (!pid)
+		return (free(needle), free(src), NULL);
 	if (!needle)
 		return (free(src), NULL);
 	while (data->env)
 	{
+		if (!ft_strcmp(needle, "$="))
+			return (process_expanded_var(&src, &needle, pid));
 		if (!ft_strncmp(needle, data->env->var_name, ft_strlen(needle)))
 			return (process_expanded_var(&src, &needle, data->env->var_value));
 		data->env = (t_env_nodes *)(data->env->base.next);
