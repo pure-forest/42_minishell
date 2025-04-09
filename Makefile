@@ -14,11 +14,14 @@ LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
 LEXER=lexer.c lexer_utils.c lexer_text_quote.c lexer_reprocess_token.c \
-	lexer_pipe_redir.c remove_quotes.c remove_quotes_utils.c
-PARSER= parser.c parser_utils.c handle_heredoc.c heredoc_utils.c
-BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c
+	lexer_pipe_redir.c remove_quotes.c remove_quotes_utils.c lexer_dev.c
+PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
+	parser_redirection.c parser_dev.c
+BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
+		unset_utils.c
 EXECUTE= create_env.c create_export.c env_export_utils.c \
-		node_utils.c error_handling.c string_utils.c
+		node_utils.c error_handling.c string_utils.c exec_utils.c \
+		exec_utils_2.c execute_errors.c execute.c
 EXPANSION= expand_dollar_sign.c expand_word_token.c
 MINISHEL=main.c
 

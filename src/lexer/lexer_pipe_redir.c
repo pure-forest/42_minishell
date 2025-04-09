@@ -16,7 +16,8 @@ int	tokenize_pipe(char *str, int *i, t_token **token_list)
 			return (FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
-		else if (append_node((t_list_base **)token_list, (t_list_base *)node) == FAIL)
+		else if (append_node((t_list_base **)token_list,
+			(t_list_base *)node) == FAIL)
 			return (FAIL);
 		(*i)++;
 	}
@@ -42,7 +43,7 @@ int	tokenize_redir(char *str, int *i, t_token **token_list)
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,
-		(t_list_base *)node) == FAIL)
+			(t_list_base *)node) == FAIL)
 			return (FAIL);
 		*i += length;
 	}
