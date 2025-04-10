@@ -1,10 +1,11 @@
 #include "../../inc/execution.h"
 
 // int		run_cmd_in_child(t_input *input, int prev_read_end);
-int			run_cmd_in_child(t_struct_ptrs *data, t_input *input, int tmp);
+int			run_cmd_in_child(t_struct_ptrs *data, t_input *input);
 void		set_exit_code(t_struct_ptrs *data, int err);
 void		launch_command_exec(t_struct_ptrs *data);
 int			set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
+void		check_if_cmd_is_path(t_input *curr);
 
 // for (int fd = 0; fd < 10; fd++)
 // if (fcntl(fd, F_GETFD) != -1)
@@ -24,8 +25,12 @@ void	execute(t_struct_ptrs *data)
 		// int i = -1;		//TO BE DELETED
 		// while (data->exec_env[++i])
 		// printf("%s\n", data->exec_env[i]);
+		if (split_env_path(data))
+			return ;
+		// int i = -1;
+		// while (data->split_path[++i])
+		// 	printf("[%d]: %s\n", i, data->split_path[i]);
 		launch_command_exec(data);
-		// data->exit_code = run_in_child(data);
 		return ;
 	}
 	// should this return above or maybe clean up and then return? cause we dont want it to be overwritting stuff?
@@ -55,10 +60,7 @@ void	launch_command_exec(t_struct_ptrs *data)
 		{
 			if (set_std_fds(data, curr, pipe_fd, prev_read_end))
 				return ;
-			if (!curr->base.prev)
-				run_cmd_in_child(data, curr, 1);
-		 	else
-		 		run_cmd_in_child(data, curr, 2);
+		 	run_cmd_in_child(data, curr);
 		}
 		else
 		{
@@ -74,14 +76,71 @@ void	launch_command_exec(t_struct_ptrs *data)
 	return ;
 }
 
-int	run_cmd_in_child(t_struct_ptrs *data, t_input *input, int tmp)
+int	run_cmd_in_child(t_struct_ptrs *data, t_input *curr)
 {
-	(void)input;
 	(void)data;
-
-	if (tmp == 1)
-		execve("/usr/bin/cat", input->cmd_arr, data->exec_env);
-	if (tmp == 2)
-		execve("/usr/bin/grep", input->cmd_arr, data->exec_env);
+	(void)input;
+	
+	check_if_cmd_is_path(curr);
+	if (!curr->cmd_path)
+	{
+		make_cmd_path(data, curr);
+		// if (!curr->cmd_path)
+			/// TO DO ERROR HANDLING
+	}
+	// if (curr->cmd_path)
+		// run_execve(data, curr);
 	return (SUCCESS);
+}
+
+void	check_if_cmd_is_path(t_input *curr)
+{
+	int	i;
+
+	i = -1;
+	if (curr->cmd_arr[0])
+	{
+		while(curr->cmd_arr[0][++i])
+		{
+			if (curr->cmd_arr[0][i] == '/')
+			{
+				curr->cmd_path = curr->cmd_arr[0];
+				return ;
+			}
+		}
+	}
+}
+
+//right now i have the path split, i have to check every path for the cmd 
+// and to do that the cmd has to be in directory format /usr/bin/cat
+char	*make_cmd_path(t_struct_ptrs *data, t_input *curr)
+{
+	int	i;
+
+	i = -1;
+	while (data->split_path[++i])
+	{
+		 = turn_cmd_into_directory(data, curr, i);
+		if (!curr->cmd_path)
+			return (NULL);
+		if (access(curr->cmd_path, F_OK | X_OK) == 0)
+		{
+
+		}
+	}
+}
+
+void	turn_cmd_into_directory(t_struct_ptrs *data, t_input *curr, int i)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(data->split_path[i], "/");
+	if (!tmp)
+	{
+		curr->cmd_path = NULL;
+		return ;
+	}
+	curr->cmd_path = ft_strjoin(tmp, curr->cmd_arr[0]);
+	free (tmp);
+	return ;
 }

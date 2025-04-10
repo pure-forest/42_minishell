@@ -15,6 +15,7 @@ int						get_err_code(int err);
 int						check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd);
 int						check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *pipe_fd);
 int						set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
+int						split_env_path(t_struct_ptrs *data);
 
 //**************		EXEC ERROR HANDLING
 // void					print_err_exe(t_input *curr, int err);

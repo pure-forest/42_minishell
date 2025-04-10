@@ -1,5 +1,14 @@
 #include "../../inc/execution.h"
 
+int	get_err_code(int err)
+{
+	if (err == EACCES)
+		return (126);
+	if (err == ENOENT)
+		return (127);
+	return (1);
+}
+
 int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd)
 {
 	int	i;

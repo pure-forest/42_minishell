@@ -81,11 +81,26 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	return (SUCCESS);
 }
 
-int	get_err_code(int err)
+int	split_env_path(t_struct_ptrs *data)
 {
-	if (err == EACCES)
-		return (126);
-	if (err == ENOENT)
-		return (127);
-	return (1);
+	char	*path_str;
+
+	if (!data->env)
+		return (FAIL);
+	path_str = get_var_value(data->env, "PATH=");
+	if (!path_str)
+		return (FAIL);
+	data->split_path = ft_split(path_str, ':'); //should i modify this to use calloc?
+	if (!data->split_path)
+		return (FAIL);
+	return (SUCCESS);
 }
+
+// int	get_err_code(int err)
+// {
+// 	if (err == EACCES)
+// 		return (126);
+// 	if (err == ENOENT)
+// 		return (127);
+// 	return (1);
+// }
