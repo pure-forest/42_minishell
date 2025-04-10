@@ -11,7 +11,9 @@ t_token	*token_init(t_token_type type, char *token_value)
 		return (NULL);
 	node->value = token_value;
 	node->quote_count = 0;
+	node->quote_mark = 0;
 	node->should_expand = YES;
+	node->expanded_value = NULL;
 	node->type = type;
 	node->base.next = NULL;
 	node->base.prev = NULL;

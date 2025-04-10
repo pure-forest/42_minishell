@@ -29,28 +29,26 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 {
 	char	*needle;
 	char	*pid;
+	t_env_nodes	*curr;
 
 	if (!src || !*src)
 		return (NULL);
+	curr = data->env;
 	needle = ft_strjoin(ft_strchr(src, '$') + 1, "=");
 	pid = ft_itoa(getpid());
 	if (!pid)
 		return (free(needle), free(src), NULL);
 	if (!needle)
 		return (free(src), NULL);
-	while (data->env)
+	while (curr)
 	{
-		if (!ft_strcmp(needle, "$="))
+		if (!ft_strncmp(needle, "$=", 2))
 			return (process_expanded_var(&src, &needle, pid));
-		if (!ft_strncmp(needle, data->env->var_name, ft_strlen(needle)))
-			return (process_expanded_var(&src, &needle, data->env->var_value));
-		data->env = (t_env_nodes *)(data->env->base.next);
+		else if (!ft_strncmp(needle, curr->var_name, ft_strlen(needle)))
+			return (free(pid), process_expanded_var(&src, &needle, curr->var_value));
+		curr = (t_env_nodes *)curr->base.next;
 	}
-	free(needle);
-	needle = NULL;
-	free(src);
-	src = NULL;
-	return (NULL);
+	return (free(pid), process_expanded_var(&src, &needle, ""));
 }
 
 static char	*process_expanded_var(char **src, char **needle, char *var_value)
@@ -64,8 +62,6 @@ static char	*process_expanded_var(char **src, char **needle, char *var_value)
 	*needle = NULL;
 	free(*src);
 	*src = NULL;
-	if (!new_value)
-		return (NULL);
 	if (!extra)
 		return (new_value);
 	else

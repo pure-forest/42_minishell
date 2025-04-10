@@ -4,8 +4,7 @@ t_token	*get_quote_token(t_token *token_list)
 {
 	while (token_list)
 	{
-		if (token_list->type == WORD
-			&& (ft_strchr(token_list->value, '\'')
+		if (token_list->type == WORD && (ft_strchr(token_list->value, '\'')
 					|| ft_strchr(token_list->value, '\"')))
 			return (token_list);
 		token_list = ((t_token *)(token_list->base.next));
@@ -13,13 +12,14 @@ t_token	*get_quote_token(t_token *token_list)
 	return (NULL);
 }
 
-char *check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i, int *j)
+char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
+		int *j)
 {
-	int	variable_length;
+	int		variable_length;
 	char	*ret;
 
 	variable_length = 0;
-	while ((*node)->value[*i] && !ft_strchr("\'\"", (*node)->value[*i]))
+	while ((!ft_strchr("\'\"", (*node)->value[*i])) && (*node)->value[*i])
 	{
 		(*i)++;
 		variable_length++;
@@ -33,8 +33,8 @@ char *check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i, int *j)
 
 int	get_character_number(char *src, char not_to_count)
 {
-	int i;
-	int char_num;
+	int	i;
+	int	char_num;
 
 	i = ft_strchr(src, not_to_count) - src + 1;
 	char_num = 0;
@@ -62,4 +62,14 @@ char	get_quote_mark(char *src)
 		i++;
 	}
 	return (0);
+}
+
+bool	should_expand(char c, char quote_mark)
+{
+	if (quote_mark == '\'')
+		return (NO);
+	else if (quote_mark == '\"' && c == '\'')
+		return (NO);
+	else
+		return (YES);
 }

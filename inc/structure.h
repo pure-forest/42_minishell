@@ -38,6 +38,8 @@ typedef struct s_token
 	t_token_type	type;
 	int				quote_count;
 	bool			should_expand;
+	char			quote_mark;
+	char			*expanded_value;
 	char			*value;
 }					t_token;
 

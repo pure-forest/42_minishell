@@ -1,9 +1,11 @@
 #include "../../inc/lexer.h"
 
-static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node, char *new_str);
+static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
+				char *new_str);
 static int	modify_quote_node(t_token **node, t_struct_ptrs *data);
-static bool	should_expand(char c, char quote_mark);
-static void	modify_quote_mark(int *i, t_token **node, char *quote_mark);
+static void	modify_quote_mark(int *i, t_token **node);
+static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
+				char **new_str, int *i, int *j);
 
 int	remove_quotes(t_struct_ptrs *data)
 {
@@ -16,7 +18,8 @@ int	remove_quotes(t_struct_ptrs *data)
 	{
 		if ((ft_strchr(node->value, '\'') || ft_strchr(node->value, '\"')))
 		{
-			modify_quote_node(&node, data);
+			if (modify_quote_node(&node, data) == FAIL)
+				return (FAIL);
 			node = (t_token *)(node->base.next);
 		}
 		node = get_quote_token(node);
@@ -39,57 +42,76 @@ static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 	return (SUCCESS);
 }
 
-static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node, char *new_str)
+static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
+		char *new_str)
 {
-	char	quote_mark;
-	char	*expand_value;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	quote_mark = get_quote_mark(&((*node)->value[i]));
 	while ((*node)->value[i])
 	{
-		expand_value = NULL;
-		if ((*node)->value[i] != quote_mark)
-		{
-			if (should_expand((*node)->value[i], quote_mark) == NO)
-				new_str[j++] = (*node)->value[i++];
-			else
-			{
-				new_str[j] = 0;
-				expand_value = check_quote_expansion(data, node, &i, &j);
-				new_str = ft_strjoin_and_free(new_str, expand_value);
-				if (!new_str)
-					return (NULL);
-			}
-		}
+		if (((*node)->quote_count == 0 && ((*node)->value[i] == '\''
+					|| (*node)->value[i] == '\"'))
+					|| (*node)->value[i] == (*node)->quote_mark)
+			modify_quote_mark(&i, node);
 		else
-			modify_quote_mark(&i, node, &quote_mark);
+		{
+			if (strcpy_or_expand(data, node, &new_str, &i, &j) == FAIL)
+				return (NULL);
+		}
 	}
 	new_str[j] = 0;
 	return (new_str);
 }
 
-static void	modify_quote_mark(int *i, t_token **node, char *quote_mark)
+static void	modify_quote_mark(int *i, t_token **node)
 {
-	(*i)++;
-	(*node)->quote_count++;
-	if ((*node)->quote_count == 2 && (*node)->value[*i])
+	if ((*node)->quote_mark == 0)
 	{
-		*quote_mark = get_quote_mark(&((*node)->value[*i]));
-		(*node)->quote_count = 0;
-	}
-	else if ((*node)->quote_count != 2)
+		(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
+		(*i)++;
+		(*node)->quote_count++;
 		return ;
-	return ;
+	}
+	else
+	{
+		if ((*node)->value[*i] == (*node)->quote_mark)
+		{
+			(*i)++;
+			(*node)->quote_count++;
+			if ((*node)->quote_count == 2 && (*node)->value[*i])
+			{
+				(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
+				(*node)->quote_count = 0;
+			}
+			else if ((*node)->quote_count == 1)
+				return ;
+		}
+		else
+			return ;
+	}
 }
 
-static bool	should_expand(char c, char quote_mark)
+static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
+		char **new_str, int *i, int *j)
 {
-	if (c != quote_mark && quote_mark == '\'')
-		return (NO);
+	if (should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
+	{
+		*new_str = append_character_in_string((*new_str), (*node)->value[*i]);
+		if (!(*new_str))
+			return (FAIL);
+		(*j)++;
+		(*i)++;
+	}
 	else
-		return (YES);
+	{
+		(*new_str)[*j] = 0;
+		(*node)->expanded_value = check_quote_expansion(data, node, i, j);
+		*new_str = ft_strjoin_and_free((*new_str), (*node)->expanded_value);
+		if (!(*new_str))
+			return (FAIL);
+	}
+	return (SUCCESS);
 }
