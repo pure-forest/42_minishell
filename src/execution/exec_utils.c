@@ -17,26 +17,42 @@ int	is_builtin(t_struct_ptrs *data)
 		return (FAIL);
 }
 
-int	launch_builtin(t_struct_ptrs *data)
+void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 {
 	char	*cmd;
+	int		res;
 
-	cmd = data->input->cmd_arr[0];
-	if (!ft_strcmp(cmd, "cd"))
-		return (cd(data));
-	if (!ft_strcmp(cmd, "echo"))
-		return (echo(data));
-	if (!ft_strcmp(cmd, "env"))
-		return (env(data));
-	if (!ft_strcmp(cmd, "export"))
-		return (export(data));
-	if (!ft_strcmp(cmd, "pwd"))
-		return (pwd(data));
-	if (!ft_strcmp(cmd, "unset"))
-		return (unset(data));
+	cmd = curr->cmd_arr[0];
+	// if (!ft_strcmp(cmd, "cd"))
+	// 	return (cd(data));
+	// if (!ft_strcmp(cmd, "echo"))
+	// 	return (echo(data));
+	// if (!ft_strcmp(cmd, "env"))
+	// 	return (env(data));
+	// if (!ft_strcmp(cmd, "export"))
+	// 	return (export(data));
+	// if (!ft_strcmp(cmd, "pwd"))
+	// 	return (pwd(data));
+	// if (!ft_strcmp(cmd, "unset"))
+	// 	return (unset(data));
 	/*if (ft_strcmp(cmd, "exit"))
 		return (exit(data));*/
-	return (FAIL);
+	// return (FAIL);
+	if (!ft_strcmp(cmd, "cd"))
+		res = cd(data);
+	if (!ft_strcmp(cmd, "echo"))
+		res = echo(data);
+	if (!ft_strcmp(cmd, "env"))
+		res = env(data);
+	if (!ft_strcmp(cmd, "export"))
+		res = export(data);
+	if (!ft_strcmp(cmd, "pwd"))
+		res = pwd(data);
+	if (!ft_strcmp(cmd, "unset"))
+		res = unset(data);
+	// if (ft_strcmp(cmd, "exit"))
+	// 	res = exit(data);
+	data->exit_code	= res;
 }
 
 int	create_execute_env(t_struct_ptrs *data)

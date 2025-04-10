@@ -7,12 +7,14 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 {
 	if (err == 1)
 		perror(PROMPT);
-	if (err == 2)
+	if (err == 2 || err == 3 || err == 4)
 	{
-		if (data->exit_code == 126)
+		if (data->exit_code == 126 && err != 4)
 			print_error(cmd, ": Permission denied");
-		else
+		if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4))
 			print_error(cmd, ": No such file or directory");
+		if (data->exit_code == 127 && err == 3)
+			print_error(cmd, ": Command not found");
 	}
 }
 

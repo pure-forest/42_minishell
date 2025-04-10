@@ -9,7 +9,8 @@ void					execute(t_struct_ptrs *data);
 
 //**************		Execute Utils
 int						is_builtin(t_struct_ptrs *data);
-int						launch_builtin(t_struct_ptrs *data);
+// void					launch_builtin(t_struct_ptrs *data);
+void					launch_builtin(t_struct_ptrs *data, t_input *curr);
 int						create_execute_env(t_struct_ptrs *data);
 int						get_err_code(int err);
 int						check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd);

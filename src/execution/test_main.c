@@ -99,9 +99,9 @@ void	init_input(t_struct_ptrs *data)
 	new_var->cmd_arr = malloc(sizeof(char *) * 3);
 	if (!new_var->cmd_arr)
 		return ;
-	new_var->cmd_arr[0] = "cat";
-	new_var->cmd_arr[1] = "inf";
-	new_var->cmd_arr[2] = NULL;
+	new_var->cmd_arr[0] = "pwd";
+	// new_var->cmd_arr[1] = "inf";
+	new_var->cmd_arr[1] = NULL;
 	new_var->redir_in = malloc(sizeof(char *) * 4);
 	if (!new_var->redir_in)
 		return ;
@@ -118,34 +118,34 @@ void	init_input(t_struct_ptrs *data)
 	new_var->base.next = NULL;
 	data->input = new_var;
 
-	// t_input *second;
-	// second = malloc(sizeof(t_input));
-	// if (!second)
-	// 	return ;
-	// *second = (t_input){0};
-	// second->cmd_arr = malloc(sizeof(char *) * 3);
-	// if (!second->cmd_arr)
-	// 	return ;
-	// second->cmd_arr[0] = "grep";
-	// second->cmd_arr[1] = "NAME";
-	// second->cmd_arr[2] = NULL;
-	// second->redir_in = malloc(sizeof(char *) * 4);
-	// if (!second->redir_in)
-	// 	return ;
-	// // second->redir_in[0] = "inf";
-	// // second->redir_in[1] = "inf1";
-	// // second->redir_in[0] = "Makefile";
-	// second->redir_in[0] = NULL;
-	// second->redir_out = malloc(sizeof(char *) * 3);
-	// if (!second->redir_out)
-	// 	return ;
-	// // second->redir_out[0] = "out";
-	// // second->redir_out[1] = "outf";
-	// second->redir_out[0] = NULL;
+	t_input *second;
+	second = malloc(sizeof(t_input));
+	if (!second)
+		return ;
+	*second = (t_input){0};
+	second->cmd_arr = malloc(sizeof(char *) * 3);
+	if (!second->cmd_arr)
+		return ;
+	second->cmd_arr[0] = "cat";
+	// second->cmd_arr[1] = "line";
+	second->cmd_arr[1] = NULL;
+	second->redir_in = malloc(sizeof(char *) * 4);
+	if (!second->redir_in)
+		return ;
+	// second->redir_in[0] = "inf";
+	// second->redir_in[1] = "inf1";
+	// second->redir_in[0] = "Makefile";
+	second->redir_in[0] = NULL;
+	second->redir_out = malloc(sizeof(char *) * 3);
+	if (!second->redir_out)
+		return ;
+	second->redir_out[0] = "out";
+	// second->redir_out[1] = "outf";
+	second->redir_out[1] = NULL;
 
-	// second->base.next = NULL;
-	// second->base.prev = (t_list_base *)new_var;
-	// new_var->base.next = (t_list_base *)second;
+	second->base.next = NULL;
+	second->base.prev = (t_list_base *)new_var;
+	new_var->base.next = (t_list_base *)second;
 
 	// t_input	*third;
 	// third = malloc(sizeof(t_input));
@@ -154,7 +154,7 @@ void	init_input(t_struct_ptrs *data)
 	// *third = (t_input){0};
 	// third->cmd_arr = malloc(sizeof(char *) * 3);
 	// third->cmd_arr[0] = "grep";
-	// third->cmd_arr[1] = "rm";
+	// third->cmd_arr[1] = "second";
 	// third->cmd_arr[2] = NULL;
 	// third->redir_in =  malloc(sizeof(char *) * 4);
 	// if (!third->redir_in)
