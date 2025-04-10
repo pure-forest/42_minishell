@@ -15,9 +15,14 @@ int	expand_word_token(t_struct_ptrs *data)
 		if (ft_strchr(node->value, '$') && node->should_expand == YES)
 		{
 			new_value = expand_variable(data, node->value);
-			// printf("after expansion = %s\n", new_value);
 			if (!new_value)
 				return (FAIL);
+			// if (!*new_value)
+			// {
+				// free(new_value);
+				// new_value = NULL;
+			// 	return (SUCCESS);
+			// }
 			node->value = new_value;
 		}
 		node = (t_token *)(node->base.next);

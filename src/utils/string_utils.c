@@ -67,7 +67,7 @@ char *append_character_in_string(char *s1, char c)
 			return (free((char *)s1), NULL);
 		i = 0;
 		j = 0;
-		while (s1 && s1[i])
+		while (s1 && s1[j])
 			s_new[i++] = s1[j++];
 		s_new[i++] = c;
 		s_new[i] = 0;

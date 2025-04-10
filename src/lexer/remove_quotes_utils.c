@@ -26,7 +26,10 @@ char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 	}
 	ret = ft_strndup(&((*node)->value)[*i - variable_length], variable_length);
 	ret = expand_variable(data, ret);
-	(*j) += ft_strlen(ret);
+	if (!ret || !*ret)
+		(*j)++;
+	else
+		(*j) += ft_strlen(ret);
 	(*node)->should_expand = NO;
 	return (ret);
 }
@@ -69,6 +72,8 @@ bool	should_expand(char c, char quote_mark)
 	if (quote_mark == '\'')
 		return (NO);
 	else if (quote_mark == '\"' && c == '\'')
+		return (NO);
+	else if (c != '$')
 		return (NO);
 	else
 		return (YES);

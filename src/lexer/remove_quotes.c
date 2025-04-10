@@ -39,6 +39,7 @@ static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 		return (FAIL);
 	free((*node)->value);
 	(*node)->value = new_str;
+	(*node)->should_expand = NO;
 	return (SUCCESS);
 }
 
@@ -62,35 +63,32 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
 				return (NULL);
 		}
 	}
-	new_str[j] = 0;
 	return (new_str);
 }
 
 static void	modify_quote_mark(int *i, t_token **node)
 {
+	(*node)->quote_count++;
 	if ((*node)->quote_mark == 0)
 	{
 		(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
 		(*i)++;
-		(*node)->quote_count++;
 		return ;
 	}
-	else
+	if ((*node)->value[*i] == (*node)->quote_mark)
 	{
-		if ((*node)->value[*i] == (*node)->quote_mark)
+		if ((*node)->quote_count == 2 && (*node)->value[*i])
 		{
 			(*i)++;
-			(*node)->quote_count++;
-			if ((*node)->quote_count == 2 && (*node)->value[*i])
-			{
-				(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
-				(*node)->quote_count = 0;
-			}
-			else if ((*node)->quote_count == 1)
-				return ;
-		}
-		else
+			(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
+			(*node)->quote_count = 0;
 			return ;
+		}
+		else if ((*node)->quote_count == 1)
+		{
+			(*i)++;
+			return ;
+		}
 	}
 }
 
