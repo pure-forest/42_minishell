@@ -1,21 +1,19 @@
 #include "../../inc/expansion.h"
 
-static char	*get_extra_before_dollar(char *src);
-static char	*process_expanded_var(char **src, char **needle, char *var_value);
+static char	*chop_valid_variable(char *src, int *i, t_struct_ptrs *data);
+static bool is_valid_expandable(char c);
 
 int	expand_word_token(t_struct_ptrs *data)
 {
 	t_token *node;
-	char	*new_value;
 
 	node = data->token;
-	new_value = NULL;
 	while (node)
 	{
-		if (ft_strchr(node->value, '$') && node->should_expand == YES)
+		if (node->should_expand == YES && ft_strchr(node->value, '$'))
 		{
-			new_value = expand_variable(data, node->value);
-			if (!new_value)
+			(node)->expanded_value = expand_variable(data, node->value);
+			if (!(node)->expanded_value)
 				return (FAIL);
 			// if (!*new_value)
 			// {
@@ -23,7 +21,7 @@ int	expand_word_token(t_struct_ptrs *data)
 				// new_value = NULL;
 			// 	return (SUCCESS);
 			// }
-			node->value = new_value;
+			node->value = (node)->expanded_value;
 		}
 		node = (t_token *)(node->base.next);
 	}
@@ -32,67 +30,68 @@ int	expand_word_token(t_struct_ptrs *data)
 
 char	*expand_variable(t_struct_ptrs *data, char *src)
 {
-	char	*needle;
-	char	*pid;
-	t_env_nodes	*curr;
+	char	*new_str;
+	char	*expanded_value;
+	int		i;
 
 	if (!src || !*src)
 		return (NULL);
-	curr = data->env;
-	needle = ft_strjoin(ft_strchr(src, '$') + 1, "=");
-	pid = ft_itoa(getpid());
-	if (!pid)
-		return (free(needle), free(src), NULL);
-	if (!needle)
-		return (free(src), NULL);
-	while (curr)
-	{
-		if (!ft_strncmp(needle, "$=", 2))
-			return (process_expanded_var(&src, &needle, pid));
-		else if (!ft_strncmp(needle, curr->var_name, ft_strlen(needle)))
-			return (free(pid), process_expanded_var(&src, &needle, curr->var_value));
-		curr = (t_env_nodes *)curr->base.next;
-	}
-	return (free(pid), process_expanded_var(&src, &needle, ""));
-}
-
-static char	*process_expanded_var(char **src, char **needle, char *var_value)
-{
-	char	*new_value;
-	char	*extra;
-
-	extra = get_extra_before_dollar(*src);
-	new_value = ft_strdup(var_value);
-	free(*needle);
-	*needle = NULL;
-	free(*src);
-	*src = NULL;
-	if (!extra)
-		return (new_value);
-	else
-		return (ft_strjoin_and_free(extra, new_value));
-}
-
-static char	*get_extra_before_dollar(char *src)
-{
-	int		length;
-	int		i;
-	char	*extra;
-
 	i = 0;
-	length = 0;
-	while (src[length] != '$')
-		length++;
-	if (length == 0)
-		return (NULL);
-	extra = ft_calloc(length + 1, sizeof(char));
-	if (!extra)
-		return (NULL);
-	while (src[i] != '$')
+	new_str = ft_strdup("");
+	expanded_value = NULL;
+	while (src[i])
 	{
-		extra[i] = src[i];
-		i++;
+		if (expanded_value == NULL)
+		{
+			if (src[i] != '$')
+				new_str = append_character_in_string(new_str, src[i++]);
+			else
+				expanded_value = chop_valid_variable(&src[i], &i, data);
+		}
+		else
+		{
+			new_str = ft_strjoin_and_free(new_str, expanded_value);
+			expanded_value = NULL;
+		}
 	}
-	extra[i] = '\0';
-	return (extra);
+	return (new_str);
 }
+
+static char	*chop_valid_variable(char *src, int *i, t_struct_ptrs *data)
+{
+	char	*valid_variable;
+	char	*ret;
+	int	j;
+
+	j = 0;
+	valid_variable = ft_calloc(ft_strlen(src), sizeof(char));
+	(*i)++;
+	while (is_valid_expandable(src[*i]) == YES)
+	{
+		valid_variable[j] = src[(*i)];
+		j++;
+		(*i)++;
+	}
+	valid_variable[j] = 0;
+	valid_variable = append_character_in_string(valid_variable, '=');
+	if (!ft_strncmp(valid_variable, "$=", 2))
+		return (free(valid_variable), ft_itoa(getpid()));
+	else
+		ret = get_var_value(data->env, valid_variable);
+	free(valid_variable);
+	if (!ret)
+		return (ft_strdup(""));
+	else
+		return (ret);
+}
+
+static bool is_valid_expandable(char c)
+{
+	if (c == 0)
+		return (NO);
+	if (ft_isalnum(c) || ft_isalpha(c) || c == '_')
+		return (YES);
+	else
+		return (NO);
+}
+

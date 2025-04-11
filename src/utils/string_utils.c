@@ -49,7 +49,11 @@ char	*ft_strjoin_and_free(char const *s1, char const *s2)
 		while (s2 && s2[j])
 			s_new[i++] = s2[j++];
 		s_new[i] = 0;
-		return (free((char *)s1), free((char *)s2), s_new);
+		free((char *)s1);
+		s1 = NULL;
+		free((char *)s2);
+		s2 = NULL;
+		return (s_new);
 	}
 	return (0);
 }
