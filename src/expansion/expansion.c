@@ -17,7 +17,6 @@ int	expand_word_token(t_struct_ptrs *data)
 			(node)->expanded_value = expand_variable(data, node->value);
 			if (!(node)->expanded_value)
 				return (FAIL);
-			free(node->value);
 			node->value = (node)->expanded_value;
 		}
 		node = (t_token *)(node->base.next);
@@ -33,6 +32,8 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 
 	if (!src || !*src)
 		return (NULL);
+	if (is_special_expansion_case(src) == YES)
+		return (handle_special_expansion(data, src));
 	i = 0;
 	new_str = ft_strdup("");
 	expanded_value = NULL;
@@ -41,7 +42,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 		if (expanded_value == NULL)
 		{
 			expanded_value = append_or_expand(src, &i, &new_str, data);
-			if (src[i] == 0)
+			if (src[i] == 0 && expanded_value)
 				return (free(src), ft_strjoin_and_free(new_str, expanded_value));
 		}
 		else
@@ -61,7 +62,7 @@ static char	*append_or_expand(char *src, int *i, char **new_str,
 
 	expand_value = NULL;
 	valid_variable = NULL;
-	if (should_just_append(src[*i], &src[*i]) == YES)
+	if (src[*i] && should_just_append(src[*i], &src[*i]) == YES)
 	{
 		*new_str = append_character_in_string(*new_str, src[(*i)++]);
 		return (NULL);
@@ -70,8 +71,8 @@ static char	*append_or_expand(char *src, int *i, char **new_str,
 	{
 		valid_variable = chop_valid_variable(src, i);
 		expand_value = expand_valid_variable(valid_variable, data);
+		return (expand_value);
 	}
-	return (expand_value);
 }
 
 static char	*chop_valid_variable(char *src, int *i)

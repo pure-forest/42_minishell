@@ -18,6 +18,7 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		printf("remove quotes failed\n");
 		return (FAIL);
 	}
+	// print_token_list(data->token);
 	data->input = parser(data);
 	if (!data->input)
 	{
