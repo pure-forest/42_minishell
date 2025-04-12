@@ -4,8 +4,6 @@
 # include "minishell.h"
 # include "structure.h"
 
-# define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
-
 t_input	*parser(t_struct_ptrs *data);
 int		parse_heredoc(t_struct_ptrs *data);
 int		parse_redirection(t_token **token, t_input **input);

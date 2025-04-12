@@ -2,12 +2,15 @@
 
 t_token	*get_quote_token(t_token *token_list)
 {
-	while (token_list)
+	t_token *temp;
+
+	temp = token_list;
+	while (temp)
 	{
-		if (token_list->type == WORD && (ft_strchr(token_list->value, '\'')
-					|| ft_strchr(token_list->value, '\"')))
-			return (token_list);
-		token_list = ((t_token *)(token_list->base.next));
+		if ((ft_strchr(temp->value, '\'')
+		|| ft_strchr(temp->value, '\"')) && temp->type == WORD)
+			return (temp);
+		temp = ((t_token *)(temp->base.next));
 	}
 	return (NULL);
 }
@@ -25,6 +28,8 @@ char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 		variable_length++;
 	}
 	ret = ft_strndup(&((*node)->value)[*i - variable_length], variable_length);
+	if (!ret)
+		return (NULL);
 	ret = expand_variable(data, ret);
 	if (!ret || !*ret)
 		(*j)++;

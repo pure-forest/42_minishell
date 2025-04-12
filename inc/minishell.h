@@ -19,6 +19,7 @@
 # include "execution.h"
 # include "expansion.h"
 # include "utils.h"
+# include "env.h"
 
 # define PINK "\033[1;38;5;218m"
 # define BLUE "\033[1;34m"
@@ -30,7 +31,7 @@
 # define NO 0
 # define FT_SPACE " \t\n"
 # define FT_DELIMINATER "|;&()<>"
-
+# define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
 
 
 #endif

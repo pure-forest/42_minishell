@@ -1,4 +1,4 @@
-#include "../../inc/execution.h"
+#include "../../inc/env.h"
 
 int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value, \
 	int offset);
@@ -8,11 +8,11 @@ char	*get_var_value(t_env_nodes *list, char *var)
 	t_env_nodes	*curr;
 
 	curr = list;
-	if (curr) 
+	if (curr)
 	{
 		while (curr)
 		{
-			if (!ft_strcmp(var, curr->var_name))
+			if (!ft_strncmp(var, curr->var_name, ft_strlen(var)))
 				return (curr->var_value);
 			curr = (t_env_nodes *)curr->base.next;
 		}

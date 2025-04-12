@@ -1,4 +1,4 @@
-#include "../../inc/execution.h"
+#include "../../inc/env.h"
 
 int			set_var(t_env_nodes *new_var, t_env_nodes *env);
 static int	is_export_sorted(t_env_nodes *env);

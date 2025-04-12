@@ -1,11 +1,13 @@
 #include "../../inc/expansion.h"
 
-static char	*chop_valid_variable(char *src, int *i, t_struct_ptrs *data);
-static bool is_valid_expandable(char c);
+static char	*chop_valid_variable(char *src, int *i);
+static char	*append_or_expand(char *src, int *i, char **new_str,
+				t_struct_ptrs *data);
+static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data);
 
 int	expand_word_token(t_struct_ptrs *data)
 {
-	t_token *node;
+	t_token	*node;
 
 	node = data->token;
 	while (node)
@@ -15,12 +17,7 @@ int	expand_word_token(t_struct_ptrs *data)
 			(node)->expanded_value = expand_variable(data, node->value);
 			if (!(node)->expanded_value)
 				return (FAIL);
-			// if (!*new_value)
-			// {
-				// free(new_value);
-				// new_value = NULL;
-			// 	return (SUCCESS);
-			// }
+			free(node->value);
 			node->value = (node)->expanded_value;
 		}
 		node = (t_token *)(node->base.next);
@@ -43,10 +40,9 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 	{
 		if (expanded_value == NULL)
 		{
-			if (src[i] != '$')
-				new_str = append_character_in_string(new_str, src[i++]);
-			else
-				expanded_value = chop_valid_variable(&src[i], &i, data);
+			expanded_value = append_or_expand(src, &i, &new_str, data);
+			if (src[i] == 0)
+				return (ft_strjoin_and_free(new_str, expanded_value));
 		}
 		else
 		{
@@ -57,11 +53,31 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 	return (new_str);
 }
 
-static char	*chop_valid_variable(char *src, int *i, t_struct_ptrs *data)
+static char	*append_or_expand(char *src, int *i, char **new_str,
+		t_struct_ptrs *data)
+{
+	char	*expand_value;
+	char	*valid_variable;
+
+	expand_value = NULL;
+	valid_variable = NULL;
+	if (should_just_append(src[*i], &src[*i]) == YES)
+	{
+		*new_str = append_character_in_string(*new_str, src[(*i)++]);
+		return (NULL);
+	}
+	else
+	{
+		valid_variable = chop_valid_variable(src, i);
+		expand_value = expand_valid_variable(valid_variable, data);
+	}
+	return (expand_value);
+}
+
+static char	*chop_valid_variable(char *src, int *i)
 {
 	char	*valid_variable;
-	char	*ret;
-	int	j;
+	int		j;
 
 	j = 0;
 	valid_variable = ft_calloc(ft_strlen(src), sizeof(char));
@@ -74,24 +90,25 @@ static char	*chop_valid_variable(char *src, int *i, t_struct_ptrs *data)
 	}
 	valid_variable[j] = 0;
 	valid_variable = append_character_in_string(valid_variable, '=');
+	return (valid_variable);
+}
+
+static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
+{
+	t_env_nodes	*temp;
+	char		*ret;
+
+	temp = data->env;
+	ret = NULL;
 	if (!ft_strncmp(valid_variable, "$=", 2))
 		return (free(valid_variable), ft_itoa(getpid()));
+	else if (!get_var_value(temp, valid_variable))
+		ret = NULL;
 	else
-		ret = get_var_value(data->env, valid_variable);
+		ret = ft_strdup(get_var_value(temp, valid_variable));
 	free(valid_variable);
 	if (!ret)
 		return (ft_strdup(""));
 	else
 		return (ret);
 }
-
-static bool is_valid_expandable(char c)
-{
-	if (c == 0)
-		return (NO);
-	if (ft_isalnum(c) || ft_isalpha(c) || c == '_')
-		return (YES);
-	else
-		return (NO);
-}
-

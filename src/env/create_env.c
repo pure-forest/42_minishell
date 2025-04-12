@@ -1,4 +1,4 @@
-#include "../../inc/execution.h"
+#include "../../inc/env.h"
 
 int		create_var(char *envp, t_env_nodes *new_var);
 
@@ -41,3 +41,5 @@ int	create_var(char *envp, t_env_nodes *new_var) //static or not??
 		return (free (new_var->var_name), FAIL);
 	return (SUCCESS);
 }
+
+
