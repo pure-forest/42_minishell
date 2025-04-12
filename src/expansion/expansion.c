@@ -42,7 +42,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 		{
 			expanded_value = append_or_expand(src, &i, &new_str, data);
 			if (src[i] == 0)
-				return (ft_strjoin_and_free(new_str, expanded_value));
+				return (free(src), ft_strjoin_and_free(new_str, expanded_value));
 		}
 		else
 		{
@@ -50,7 +50,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 			expanded_value = NULL;
 		}
 	}
-	return (new_str);
+	return (free(src), new_str);
 }
 
 static char	*append_or_expand(char *src, int *i, char **new_str,

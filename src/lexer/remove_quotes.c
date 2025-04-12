@@ -95,6 +95,9 @@ static void	modify_quote_mark(int *i, t_token **node)
 static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
 		char **new_str, int *i, int *j)
 {
+	char	*temp;
+
+	temp = (*node)->expanded_value;
 	if (should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
 	{
 		*new_str = append_character_in_string((*new_str), (*node)->value[*i]);
@@ -106,8 +109,8 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
 	else
 	{
 		(*new_str)[*j] = 0;
-		(*node)->expanded_value = check_quote_expansion(data, node, i, j);
-		*new_str = ft_strjoin_and_free((*new_str), (*node)->expanded_value);
+		temp = check_quote_expansion(data, node, i, j);
+		*new_str = ft_strjoin_and_free((*new_str), temp);
 		if (!(*new_str))
 			return (FAIL);
 	}
