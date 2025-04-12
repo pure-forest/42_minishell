@@ -12,6 +12,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <sys/types.h>
 
 # include "../libft/libft.h"
 # include "lexer.h"
@@ -20,6 +22,7 @@
 # include "expansion.h"
 # include "utils.h"
 # include "env.h"
+# include "signal.h"
 
 # define PINK "\033[1;38;5;218m"
 # define BLUE "\033[1;34m"

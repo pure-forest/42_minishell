@@ -12,18 +12,24 @@ int	main(int argc, char **av, char **envp)
 		return (FAIL);
   	if (create_export(data))
 		return (FAIL);
+	signal_init();
 	while (1)
 	{
 		read_line = readline(PROMPT);
 		add_history(read_line);
-		if (!ft_strncmp(read_line, "exit", 4))
-			exit(0);
+		if (!ft_strncmp(read_line, "exit", ft_strlen(read_line)))
+			break;
 		if (start_tokenization(read_line, data) == FAIL)
 			continue;
 		launch_builtin(data);
 		free_lexer(&data->token);
 		free_cmd_table(&data->input);
 	}
+	rl_clear_history();
+	free_lexer(&data->token);
+	free_cmd_table(&data->input);
+	free_env_nodes(&data->env);
+	free_env_nodes(&data->export);
 	clean_up_arr(data);
 	return (0);
 }

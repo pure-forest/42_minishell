@@ -24,6 +24,7 @@ ENV=create_env.c create_export.c env_export_utils.c
 EXPANSION= expansion.c expansion_utils.c
 UTILS=clean_up_utils.c error_handling.c init_utils.c node_utils.c \
 		string_utils.c
+SIGNAL=signal_init.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
@@ -33,7 +34,8 @@ SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN)) \
 	$(addprefix $(SRCDIR)/expansion/, $(EXPANSION)) \
 	$(addprefix $(SRCDIR)/utils/, $(UTILS)) \
-	$(addprefix $(SRCDIR)/env/, $(ENV))
+	$(addprefix $(SRCDIR)/env/, $(ENV)) \
+	$(addprefix $(SRCDIR)/signal/, $(SIGNAL))
 
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
