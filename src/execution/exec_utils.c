@@ -3,14 +3,14 @@
 
 int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
 
-int	is_builtin(t_struct_ptrs *data)
+int	is_builtin(t_input *curr)
 {
-	if(!ft_strcmp(data->input->cmd_arr[0], "cd") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "echo") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "env") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "export") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "pwd") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "unset"))
+	if(!ft_strcmp(curr->cmd_arr[0], "cd") \
+		|| !ft_strcmp(curr->cmd_arr[0], "echo") \
+		|| !ft_strcmp(curr->cmd_arr[0], "env") \
+		|| !ft_strcmp(curr->cmd_arr[0], "export") \
+		|| !ft_strcmp(curr->cmd_arr[0], "pwd") \
+		|| !ft_strcmp(curr->cmd_arr[0], "unset"))
 		//|| ft_strcmp(data->input->cmd_arr[0], "exit")
 		return (SUCCESS);
 	else
@@ -23,21 +23,6 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 	int		res;
 
 	cmd = curr->cmd_arr[0];
-	// if (!ft_strcmp(cmd, "cd"))
-	// 	return (cd(data));
-	// if (!ft_strcmp(cmd, "echo"))
-	// 	return (echo(data));
-	// if (!ft_strcmp(cmd, "env"))
-	// 	return (env(data));
-	// if (!ft_strcmp(cmd, "export"))
-	// 	return (export(data));
-	// if (!ft_strcmp(cmd, "pwd"))
-	// 	return (pwd(data));
-	// if (!ft_strcmp(cmd, "unset"))
-	// 	return (unset(data));
-	/*if (ft_strcmp(cmd, "exit"))
-		return (exit(data));*/
-	// return (FAIL);
 	if (!ft_strcmp(cmd, "cd"))
 		res = cd(data);
 	if (!ft_strcmp(cmd, "echo"))
@@ -61,7 +46,7 @@ int	create_execute_env(t_struct_ptrs *data)
 	int			amount;
 
 	if (!data->env)
-		return (FAIL);
+		return (SUCCESS);
 	curr = data->env;
 	amount = 0;
 	while (curr)

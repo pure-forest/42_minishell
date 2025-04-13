@@ -8,15 +8,17 @@
 void					execute(t_struct_ptrs *data);
 
 //**************		Execute Utils
-int						is_builtin(t_struct_ptrs *data);
+int						is_builtin(t_input *curr);
 // void					launch_builtin(t_struct_ptrs *data);
 void					launch_builtin(t_struct_ptrs *data, t_input *curr);
 int						create_execute_env(t_struct_ptrs *data);
 int						get_err_code(int err);
 int						check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd);
 int						check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *pipe_fd);
-int						set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
+// int						set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end);
+int						set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data);
 int						split_env_path(t_struct_ptrs *data);
+void					handle_standard_fds(t_exec_data *exec_data, int reset);
 
 //**************		EXEC ERROR HANDLING
 // void					print_err_exe(t_input *curr, int err);

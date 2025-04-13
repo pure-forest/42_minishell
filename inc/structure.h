@@ -17,6 +17,15 @@ typedef struct s_env_nodes
 	int					copied;
 }						t_env_nodes;
 
+typedef struct s_exec_data
+{
+	int	pipe_fd[2];
+	int	prev_read_end;
+	int	pid;
+	int	orig_stdin;
+	int	orig_stdout;
+} t_exec_data;
+
 typedef enum e_token_num
 {
 	WORD,

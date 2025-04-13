@@ -9,7 +9,7 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
-	//envp = NULL;
+	envp = NULL;
 	t_struct_ptrs	data;
 
 	data = (t_struct_ptrs){0};
@@ -18,28 +18,13 @@ int	main(int ac, char **av, char **envp)
 	if (create_export(&data))
 		return (FAIL);
 
-	// env(&data);
-	// printf("\n\nENV printed\n\n");
-	// // export(&data);
-	// // printf("\n\nEXPORT printed\n\n");
-
 	init_input(&data);
 	printf("\n\nPrinting INPUT\n\n");
 	print_list((t_list_base *)data.input, print_inp_nodes);
-	// print_cmd_arr(data.input->cmd_arr);
 
-	printf("\n\nProcessing Execute\n");
+	printf("\n\nProcessing Execute\n\n");
 	execute(&data);
-	printf("\n\nExecute Exit Code: %d\n\n\n", data.exit_code);
-
-	// printf("\n\nPRINTING ENV AFTER SETTING:\n");
-	// printf("-------------------------------------------------------------\n");
-	// env(&data);
-	// printf("-------------------------------------------------------------\n");
-	// printf("\n\nPRINTING EXPORT AFTER SETTING:\n");
-	// printf("------------------------------------------------------------\n");
-	// export(&data);
-	// printf("------------------------------------------------------------\n");
+	printf("\n\n\nFinished execution\nExecute Exit Code is: %d\n\n", data.exit_code);
 
 	error_handling(&data);
 	if (data.input)
@@ -118,34 +103,34 @@ void	init_input(t_struct_ptrs *data)
 	new_var->base.next = NULL;
 	data->input = new_var;
 
-	t_input *second;
-	second = malloc(sizeof(t_input));
-	if (!second)
-		return ;
-	*second = (t_input){0};
-	second->cmd_arr = malloc(sizeof(char *) * 3);
-	if (!second->cmd_arr)
-		return ;
-	second->cmd_arr[0] = "cat";
-	// second->cmd_arr[1] = "line";
-	second->cmd_arr[1] = NULL;
-	second->redir_in = malloc(sizeof(char *) * 4);
-	if (!second->redir_in)
-		return ;
-	// second->redir_in[0] = "inf";
-	// second->redir_in[1] = "inf1";
-	// second->redir_in[0] = "Makefile";
-	second->redir_in[0] = NULL;
-	second->redir_out = malloc(sizeof(char *) * 3);
-	if (!second->redir_out)
-		return ;
-	second->redir_out[0] = "out";
-	// second->redir_out[1] = "outf";
-	second->redir_out[1] = NULL;
+	// t_input *second;
+	// second = malloc(sizeof(t_input));
+	// if (!second)
+	// 	return ;
+	// *second = (t_input){0};
+	// second->cmd_arr = malloc(sizeof(char *) * 3);
+	// if (!second->cmd_arr)
+	// 	return ;
+	// second->cmd_arr[0] = "cat";
+	// // second->cmd_arr[1] = "line";
+	// second->cmd_arr[1] = NULL;
+	// second->redir_in = malloc(sizeof(char *) * 4);
+	// if (!second->redir_in)
+	// 	return ;
+	// // second->redir_in[0] = "inf";
+	// // second->redir_in[1] = "inf1";
+	// // second->redir_in[0] = "Makefile";
+	// second->redir_in[0] = NULL;
+	// second->redir_out = malloc(sizeof(char *) * 3);
+	// if (!second->redir_out)
+	// 	return ;
+	// second->redir_out[0] = "out";
+	// // second->redir_out[1] = "outf";
+	// second->redir_out[1] = NULL;
 
-	second->base.next = NULL;
-	second->base.prev = (t_list_base *)new_var;
-	new_var->base.next = (t_list_base *)second;
+	// second->base.next = NULL;
+	// second->base.prev = (t_list_base *)new_var;
+	// new_var->base.next = (t_list_base *)second;
 
 	// t_input	*third;
 	// third = malloc(sizeof(t_input));
