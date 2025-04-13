@@ -24,7 +24,7 @@ ENV=create_env.c create_export.c env_export_utils.c
 EXPANSION= expansion.c expansion_utils.c
 UTILS=clean_up_utils.c error_handling.c init_utils.c node_utils.c \
 		string_utils.c free_functions.c
-SIGNAL=signal_init.c
+SIGNAL=signal_init.c signal_utils.c
 MINISHEL=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
