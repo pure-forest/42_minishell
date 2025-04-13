@@ -9,7 +9,8 @@ int	get_err_code(int err)
 	return (1);
 }
 
-int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *pipe_fd)
+int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in,
+		int *pipe_fd)
 {
 	int	i;
 
@@ -34,7 +35,8 @@ int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in, int *p
 	return (SUCCESS);
 }
 
-int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *pipe_fd)
+int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
+		int *pipe_fd)
 {
 	int	i;
 
@@ -44,7 +46,8 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *
 	{
 		while (redir_out[++i])
 		{
-			input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_TRUNC,
+					0777);
 			if (input->output_fd == -1)
 			{
 				set_exit_code(data, errno);
@@ -59,7 +62,6 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out, int *
 	return (SUCCESS);
 }
 
-// int	set_std_fds(t_struct_ptrs *data, t_input *input, int *pipe_fd, int prev_read_end)
 int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 {
 	if (check_inp_files(data, input, input->redir_in, exec_data->pipe_fd))
@@ -90,13 +92,11 @@ void	handle_standard_fds(t_exec_data *exec_data, int reset)
 {
 	if (reset == NO)
 	{
-		printf("Copying the originals...\n");
 		exec_data->orig_stdin = dup(STDIN_FILENO);
 		exec_data->orig_stdout = dup(STDOUT_FILENO);
 	}
 	if (reset == YES)
 	{
-		printf("Resetting...\n");
 		dup2(exec_data->orig_stdin, STDIN_FILENO);
 		dup2(exec_data->orig_stdout, STDOUT_FILENO);
 		close_fd(&exec_data->orig_stdin);

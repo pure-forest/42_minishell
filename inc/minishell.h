@@ -28,6 +28,8 @@
 # define SUCCESS 0
 # define YES 1
 # define NO 0
+# define NOT_FOUND 2
+# define EMPTY 3
 # define FT_SPACE " \t\n"
 # define FT_DELIMINATER "|;&()<>"
 

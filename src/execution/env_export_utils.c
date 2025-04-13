@@ -8,7 +8,7 @@ char	*get_var_value(t_env_nodes *list, char *var)
 	t_env_nodes	*curr;
 
 	curr = list;
-	if (curr) 
+	if (curr)
 	{
 		while (curr)
 		{
@@ -50,6 +50,8 @@ int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value, \
 					curr->var_value = ft_strdup(new_value);
 					if (!curr->var_value)
 						return (FAIL);
+					else
+						return (SUCCESS);
 				}
 				else
 					return (FAIL);

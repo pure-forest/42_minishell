@@ -11,7 +11,7 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 	{
 		if (data->exit_code == 126 && err != 4)
 			print_error(cmd, ": Permission denied");
-		if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4))
+		if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4) || (data->exit_code == -1))
 			print_error(cmd, ": No such file or directory");
 		if (data->exit_code == 127 && err == 3)
 			print_error(cmd, ": Command not found");
@@ -41,6 +41,8 @@ int	get_errno_codes(int err)
 		return (127);
 	if (err == EACCES) // Permission denied
 		return (126);
+	if (err == 3)
+		return (-1);
 	return (1);
 }
 

@@ -7,7 +7,16 @@ void	error_handling(t_struct_ptrs *data)
 	if (data->export)
 		free_env_nodes(&data->export);
 	if (data->exec_env)
-		clean_up_arr(data);
+	{
+		clean_up_arr(data->exec_env);
+		data->exec_env = NULL;
+	}
+	if (data->split_path)
+	{
+		clean_up_arr(data->split_path);
+		data->split_path = NULL;
+	}
+
 }
 
 void	free_env_nodes(t_env_nodes **root)
@@ -36,17 +45,30 @@ void	free_one_env_node(t_env_nodes *node_to_free)
 	free(node_to_free);
 }
 
-void	clean_up_arr(t_struct_ptrs *data)
+void	clean_up_arr(char **arr_ptr)
 {
 	int	i;
 
 	i = 0;
-	if (data->exec_env)
+	if (arr_ptr)
 	{
-		while(data->exec_env[i])
-			free (data->exec_env[i++]);
-		free(data->exec_env);
-		data->exec_env = NULL;
+		while(arr_ptr[i])
+			free (arr_ptr[i++]);
+		free(arr_ptr);
 	}
 	return ;
+}
+
+void	clean_up_exec_creations(t_struct_ptrs *data)
+{
+	if (data->exec_env)
+	{
+		clean_up_arr(data->exec_env);
+		data->exec_env = NULL;
+	}
+	if (data->split_path)
+	{
+		clean_up_arr(data->split_path);
+		data->split_path = NULL;
+	}
 }

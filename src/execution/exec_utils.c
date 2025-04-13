@@ -46,7 +46,7 @@ int	create_execute_env(t_struct_ptrs *data)
 	int			amount;
 
 	if (!data->env)
-		return (SUCCESS);
+		return (EMPTY);
 	curr = data->env;
 	amount = 0;
 	while (curr)
@@ -70,11 +70,11 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	{
 		tmp = ft_strdup(env->var_name);
 		if (!tmp)
-			return (clean_up_arr(data), FAIL);
+			return (clean_up_arr(data->exec_env), FAIL);
 		data->exec_env[i] = ft_strjoin(tmp, env->var_value);
 		free (tmp);
 		if (!data->exec_env[i])
-			return (clean_up_arr(data), FAIL);
+			return (clean_up_arr(data->exec_env), FAIL);
 		env = (t_env_nodes *)env->base.next;
 		i++;
 	}
@@ -87,21 +87,12 @@ int	split_env_path(t_struct_ptrs *data)
 	char	*path_str;
 
 	if (!data->env)
-		return (FAIL);
+		return (EMPTY);
 	path_str = get_var_value(data->env, "PATH=");
 	if (!path_str)
-		return (FAIL);
+		return (NOT_FOUND);
 	data->split_path = ft_split(path_str, ':'); //should i modify this to use calloc?
 	if (!data->split_path)
 		return (FAIL);
 	return (SUCCESS);
 }
-
-// int	get_err_code(int err)
-// {
-// 	if (err == EACCES)
-// 		return (126);
-// 	if (err == ENOENT)
-// 		return (127);
-// 	return (1);
-// }

@@ -2,6 +2,7 @@
 
 void	init_cmd_arr(t_struct_ptrs *data);
 void	init_input(t_struct_ptrs *data);
+void	init_input_2(t_struct_ptrs *data);
 void	set_redirection(char *input, char *output, t_input *node);
 
 //////////////	DEBUGGING THINGS - DELETE
@@ -9,7 +10,7 @@ int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	(void)av;
-	envp = NULL;
+	// envp = NULL;
 	t_struct_ptrs	data;
 
 	data = (t_struct_ptrs){0};
@@ -23,6 +24,32 @@ int	main(int ac, char **av, char **envp)
 	print_list((t_list_base *)data.input, print_inp_nodes);
 
 	printf("\n\nProcessing Execute\n\n");
+	execute(&data);
+	printf("\n\n\nFinished execution\nExecute Exit Code is: %d\n\n", data.exit_code);
+
+if (data.input)
+	{
+		t_input *curr = data.input;
+		t_input	*next;
+		while (curr)
+		{
+			next = (t_input *)curr->base.next;
+			if (curr->cmd_arr)
+				free(curr->cmd_arr);
+			if (curr->redir_in)
+				free(curr->redir_in);
+			if (curr->redir_out)
+				free(curr->redir_out);
+			free(curr);
+			curr = next;
+		}
+	}
+
+	init_input_2(&data);
+	printf("\n\nPrinting INPUT TWO\n\n");
+	print_list((t_list_base *)data.input, print_inp_nodes);
+
+	printf("\n\nProcessing Execute TWO\n\n");
 	execute(&data);
 	printf("\n\n\nFinished execution\nExecute Exit Code is: %d\n\n", data.exit_code);
 
@@ -84,9 +111,9 @@ void	init_input(t_struct_ptrs *data)
 	new_var->cmd_arr = malloc(sizeof(char *) * 3);
 	if (!new_var->cmd_arr)
 		return ;
-	new_var->cmd_arr[0] = "pwd";
-	// new_var->cmd_arr[1] = "inf";
-	new_var->cmd_arr[1] = NULL;
+	new_var->cmd_arr[0] = "cat";
+	new_var->cmd_arr[1] = "inf";
+	new_var->cmd_arr[2] = NULL;
 	new_var->redir_in = malloc(sizeof(char *) * 4);
 	if (!new_var->redir_in)
 		return ;
@@ -176,3 +203,41 @@ void	init_input(t_struct_ptrs *data)
 // 	redir_out->base.prev = (t_list_base *)redir_in;
 // 	redir_in->base.next = (t_list_base *)redir_out;
 // }
+
+
+void	init_input_2(t_struct_ptrs *data)
+{
+	// if (!data->input)
+	// {
+	// 	data->input = malloc(sizeof(t_input));
+	// 	if (!data->input)
+	// 		return (printf("Failure with cmd_arr malloc"), (void)0);
+	// }
+
+	t_input	*new_var;
+	new_var = malloc(sizeof(t_input));
+	if (!new_var)
+		return ;
+	*new_var = (t_input){0};
+	new_var->cmd_arr = malloc(sizeof(char *) * 3);
+	if (!new_var->cmd_arr)
+		return ;
+	new_var->cmd_arr[0] = "cat";
+	new_var->cmd_arr[1] = "inf";
+	new_var->cmd_arr[2] = NULL;
+	new_var->redir_in = malloc(sizeof(char *) * 4);
+	if (!new_var->redir_in)
+		return ;
+	// new_var->redir_in[0] = "infile";
+	// new_var->redir_in[1] = "inf1";
+	// new_var->redir_in[0] = "inf";
+	new_var->redir_in[0] = NULL;
+	new_var->redir_out = malloc(sizeof(char *) * 3);
+	if (!new_var->redir_out)
+		return ;
+	// new_var->redir_out[0] = "out";
+	// new_var->redir_out[0] = "outf";
+	new_var->redir_out[0] = NULL;
+	new_var->base.next = NULL;
+	data->input = new_var;
+}
