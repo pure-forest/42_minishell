@@ -17,6 +17,15 @@ typedef struct s_env_nodes
 	int					copied;
 }						t_env_nodes;
 
+typedef struct s_exec_data
+{
+	int	pipe_fd[2];
+	int	prev_read_end;
+	int	pid;
+	int	orig_stdin;
+	int	orig_stdout;
+} t_exec_data;
+
 typedef enum e_token_num
 {
 	WORD,
@@ -52,6 +61,8 @@ typedef struct s_input
 	char		**redir_out;
 	int			input_fd;
 	int			output_fd;
+	char		*cmd_path;
+
 }				t_input;
 
 //main struct for everyting used in minshell
@@ -63,6 +74,7 @@ typedef struct s_struct_ptrs
 	t_input				*input;
 	int					exit_code;
 	char				**exec_env;
+	char				**split_path;
 }						t_struct_ptrs;
 
 #endif
