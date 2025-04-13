@@ -3,40 +3,41 @@
 
 int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
 
-int	is_builtin(t_struct_ptrs *data)
+int	is_builtin(t_input *curr)
 {
-	if(!ft_strcmp(data->input->cmd_arr[0], "cd") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "echo") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "env") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "export") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "pwd") \
-		|| !ft_strcmp(data->input->cmd_arr[0], "unset"))
+	if(!ft_strcmp(curr->cmd_arr[0], "cd") \
+		|| !ft_strcmp(curr->cmd_arr[0], "echo") \
+		|| !ft_strcmp(curr->cmd_arr[0], "env") \
+		|| !ft_strcmp(curr->cmd_arr[0], "export") \
+		|| !ft_strcmp(curr->cmd_arr[0], "pwd") \
+		|| !ft_strcmp(curr->cmd_arr[0], "unset"))
 		//|| ft_strcmp(data->input->cmd_arr[0], "exit")
 		return (SUCCESS);
 	else
 		return (FAIL);
 }
 
-int	launch_builtin(t_struct_ptrs *data)
+void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 {
 	char	*cmd;
+	int		res;
 
-	cmd = data->input->cmd_arr[0];
+	cmd = curr->cmd_arr[0];
 	if (!ft_strcmp(cmd, "cd"))
-		return (cd(data));
+		res = cd(data);
 	if (!ft_strcmp(cmd, "echo"))
-		return (echo(data));
+		res = echo(data);
 	if (!ft_strcmp(cmd, "env"))
-		return (env(data));
+		res = env(data);
 	if (!ft_strcmp(cmd, "export"))
-		return (export(data));
+		res = export(data);
 	if (!ft_strcmp(cmd, "pwd"))
-		return (pwd(data));
+		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
-		return (unset(data));
-	/*if (ft_strcmp(cmd, "exit"))
-		return (exit(data));*/
-	return (FAIL);
+		res = unset(data);
+	// if (ft_strcmp(cmd, "exit"))
+	// 	res = exit(data);
+	data->exit_code	= res;
 }
 
 int	create_execute_env(t_struct_ptrs *data)
@@ -45,7 +46,7 @@ int	create_execute_env(t_struct_ptrs *data)
 	int			amount;
 
 	if (!data->env)
-		return (FAIL);
+		return (EMPTY);
 	curr = data->env;
 	amount = 0;
 	while (curr)
@@ -69,11 +70,11 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	{
 		tmp = ft_strdup(env->var_name);
 		if (!tmp)
-			return (clean_up_arr(data), FAIL);
+			return (clean_up_arr(data->exec_env), FAIL);
 		data->exec_env[i] = ft_strjoin(tmp, env->var_value);
 		free (tmp);
 		if (!data->exec_env[i])
-			return (clean_up_arr(data), FAIL);
+			return (clean_up_arr(data->exec_env), FAIL);
 		env = (t_env_nodes *)env->base.next;
 		i++;
 	}
@@ -81,11 +82,17 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	return (SUCCESS);
 }
 
-int	get_err_code(int err)
+int	split_env_path(t_struct_ptrs *data)
 {
-	if (err == EACCES)
-		return (126);
-	if (err == ENOENT)
-		return (127);
-	return (1);
+	char	*path_str;
+
+	if (!data->env)
+		return (EMPTY);
+	path_str = get_var_value(data->env, "PATH=");
+	if (!path_str)
+		return (NOT_FOUND);
+	data->split_path = ft_split(path_str, ':'); //should i modify this to use calloc?
+	if (!data->split_path)
+		return (FAIL);
+	return (SUCCESS);
 }

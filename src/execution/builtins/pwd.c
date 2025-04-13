@@ -11,10 +11,10 @@ int	pwd(t_struct_ptrs *data)
 		while (curr)
 		{
 			if (!(ft_strncmp(curr->var_name, "PWD=", 4)))
-				return (printf("%s\n", curr->var_value), 0);
+				return (printf("%s\n", curr->var_value), SUCCESS);
 			curr = (t_env_nodes *)curr->base.next;
 		}
-		return (1);
+		return (FAIL);
 	}
-	return (1);
+	return (FAIL);
 }
