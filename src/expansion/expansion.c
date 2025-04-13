@@ -32,8 +32,6 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 
 	if (!src || !*src)
 		return (NULL);
-	if (is_special_expansion_case(src) == YES)
-		return (handle_special_expansion(data, src));
 	i = 0;
 	new_str = ft_strdup("");
 	expanded_value = NULL;
@@ -43,7 +41,8 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 		{
 			expanded_value = append_or_expand(src, &i, &new_str, data);
 			if (src[i] == 0 && expanded_value)
-				return (free(src), ft_strjoin_and_free(new_str, expanded_value));
+				return (free(src), ft_strjoin_and_free(new_str,
+						expanded_value));
 		}
 		else
 		{
@@ -83,11 +82,20 @@ static char	*chop_valid_variable(char *src, int *i)
 	j = 0;
 	valid_variable = ft_calloc(ft_strlen(src), sizeof(char));
 	(*i)++;
-	while (is_valid_expandable(src[*i]) == YES)
+	if (src[*i] == '?' || src[*i] == '$')
 	{
 		valid_variable[j] = src[(*i)];
-		j++;
 		(*i)++;
+		j++;
+	}
+	else
+	{
+		while (is_valid_expandable(src[*i]) == YES)
+		{
+			valid_variable[j] = src[(*i)];
+			j++;
+			(*i)++;
+		}
 	}
 	valid_variable[j] = 0;
 	valid_variable = append_character_in_string(valid_variable, '=');
@@ -103,6 +111,8 @@ static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 	ret = NULL;
 	if (!ft_strncmp(valid_variable, "$=", 2))
 		return (free(valid_variable), ft_itoa(getpid()));
+	if (!ft_strncmp(valid_variable, "?=", 2))
+		return (free(valid_variable), handle_exit_code(data));
 	else if (!get_var_value(temp, valid_variable))
 		ret = NULL;
 	else

@@ -37,14 +37,26 @@ char	*generate_heredoc_name(void)
 	static int	index;
 	char		*number_str;
 	char		*file_name;
+	int			result;
 
 	number_str = ft_itoa(index);
 	if (!number_str)
 		return (NULL);
 	file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
+	while (access(file_name, F_OK) == 0)
+	{
+		free(number_str);
+		free(file_name);
+		index++;
+		number_str = ft_itoa(index);
+		if (!number_str)
+			return (NULL);
+		file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
+		if (!file_name)
+			return (NULL);
+		result = access(file_name, F_OK);
+	}
 	free(number_str);
-	if (!file_name)
-		return (NULL);
 	index++;
 	return (file_name);
 }

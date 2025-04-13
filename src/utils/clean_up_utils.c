@@ -1,41 +1,5 @@
 #include "../../inc/utils.h"
 
-void	free_lexer(t_token **head)
-{
-	t_token	*temp;
-
-	if (!(*head))
-		return ;
-	while ((*head))
-	{
-		temp = (*head);
-		(*head) = (t_token *)(*head)->base.next;
-		free(temp->value);
-		temp->value = NULL;
-		free(temp);
-		temp = NULL;
-	}
-	return ;
-}
-
-void	ft_free_double_ptr(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i])
-		{
-			free(str[i]);
-			str[i] = NULL;
-		}
-		i++;
-	}
-	free(str);
-	str = NULL;
-}
-
 void	free_env_nodes(t_env_nodes **root)
 {
 	t_env_nodes	*tmp;
@@ -77,24 +41,42 @@ void	clean_up_arr(t_struct_ptrs *data)
 	return ;
 }
 
-void	free_cmd_table(t_input **head)
+void	clean_up_temp_files(void)
 {
-	t_input	*temp;
+	int		index;
+	char	*index_str;
+	char	*file_name;
 
-	if (!(*head))
+	index = 0;
+	index_str = ft_itoa(index);
+	if (!index_str)
 		return ;
-	while ((*head))
+	file_name = ft_strjoin(HEREDOC_TEMP_NAME, index_str);
+	while (access(file_name, F_OK) == 0)
 	{
-		temp = (*head);
-		*head = (t_input *)((*head)->base.next);
-		if (temp->cmd_arr)
-			ft_free_double_ptr(temp->cmd_arr);
-		if (temp->redir_in)
-			ft_free_double_ptr(temp->redir_in);
-		if (temp->redir_out)
-			ft_free_double_ptr(temp->redir_out);
-		free(temp);
-		temp = NULL;
+		unlink(file_name);
+		free(index_str);
+		free(file_name);
+		index++;
+		index_str = ft_itoa(index);
+		if (!index_str)
+			return ;
+		file_name = ft_strjoin(HEREDOC_TEMP_NAME, index_str);
 	}
+	free(file_name);
+	free(index_str);
+	file_name = NULL;
+	return ;
+}
+
+void	mega_clean(t_struct_ptrs *data)
+{
+	rl_clear_history();
+	free_lexer(&data->token);
+	free_cmd_table(&data->input);
+	free_env_nodes(&data->env);
+	free_env_nodes(&data->export);
+	clean_up_arr(data);
+	clean_up_temp_files();
 	return ;
 }

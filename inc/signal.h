@@ -5,5 +5,6 @@
 #include "structure.h"
 
 int	signal_init(void);
+int	signal_init_heredoc(void);
 
 #endif

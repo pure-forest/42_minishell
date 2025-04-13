@@ -25,11 +25,6 @@ int	main(int argc, char **av, char **envp)
 		free_lexer(&data->token);
 		free_cmd_table(&data->input);
 	}
-	rl_clear_history();
-	free_lexer(&data->token);
-	free_cmd_table(&data->input);
-	free_env_nodes(&data->env);
-	free_env_nodes(&data->export);
-	clean_up_arr(data);
+	mega_clean(data);
 	return (0);
 }

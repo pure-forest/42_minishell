@@ -20,7 +20,8 @@ void		free_one_env_node(t_env_nodes *node_to_free);
 void		free_env_nodes(t_env_nodes **root);
 void		clean_up_arr(t_struct_ptrs *data);
 void		free_cmd_table(t_input **head);
-
+void		clean_up_temp_files(void);
+void		mega_clean(t_struct_ptrs *data);
 // init functions
 t_input		*cmd_table_init(char **cmd_arr);
 t_token		*token_init(t_token_type type, char *token_value);

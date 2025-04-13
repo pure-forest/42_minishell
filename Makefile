@@ -23,7 +23,7 @@ EXECUTE= error_handling.c exec_utils.c exec_utils_2.c execute_errors.c execute.c
 ENV=create_env.c create_export.c env_export_utils.c
 EXPANSION= expansion.c expansion_utils.c
 UTILS=clean_up_utils.c error_handling.c init_utils.c node_utils.c \
-		string_utils.c
+		string_utils.c free_functions.c
 SIGNAL=signal_init.c
 MINISHEL=main.c
 

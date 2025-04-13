@@ -1,6 +1,8 @@
 #include "../../inc/signal.h"
 
 static void	signal_handler(int signum, siginfo_t *info, void *context);
+static void	signal_handler_heredoc(int signum, siginfo_t *info, void *context);
+static void handle_sigquit(void);
 
 int	signal_init(void)
 {
@@ -8,10 +10,23 @@ int	signal_init(void)
 
 	if (sigemptyset(&sa.sa_mask) == -1)
 		return (FAIL);
-	 sa.sa_sigaction = signal_handler;
-	 sa.sa_flags = SA_SIGINFO;
-	 sigaction(SIGINT, &sa, NULL);
-	 sigaction(SIGQUIT, &sa, NULL);
+	handle_sigquit();
+	sa.sa_sigaction = signal_handler;
+	sa.sa_flags = SA_SIGINFO;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (FAIL);
+	return (SUCCESS);
+}
+
+int	signal_init_heredoc(void)
+{
+	struct sigaction	sa;
+
+	if (sigemptyset(&sa.sa_mask) == -1)
+		return (FAIL);
+	sa.sa_sigaction = signal_handler_heredoc;
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sa, NULL);
 	return (SUCCESS);
 }
 
@@ -19,14 +34,32 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
-
-	if (signum == SIGINT || signum == SIGQUIT)
+	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	else
-		printf("catch signal failed\n");
+}
+
+static void handle_sigquit(void)
+{
+	struct sigaction	sa;
+
+	if (sigemptyset(&sa.sa_mask) == -1)
+		return ;
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+static void	signal_handler_heredoc(int signum, siginfo_t *info, void *context)
+{
+	(void)context;
+	(void)info;
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		exit(130);
+	}
 }

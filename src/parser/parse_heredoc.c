@@ -13,6 +13,7 @@ int	parse_heredoc(t_struct_ptrs *data)
 	{
 		if (token_list->type == HEREDOC)
 		{
+			signal_init_heredoc();
 			heredoc_file = here_doc_put_input(data,
 					((t_token *)(token_list->base.next))->value);
 			if (replace_heredoc_node(&token_list, heredoc_file) == FAIL)
