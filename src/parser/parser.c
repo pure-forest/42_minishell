@@ -13,11 +13,11 @@ t_input	*parser(t_struct_ptrs *data)
 		return (NULL);
 	if (expand_word_token(data) == FAIL)
 		return (NULL);
-	// print_token_list(data->token);
 	if (parse_cmd_args(&data->token, &ret_input) == FAIL)
 		return (NULL);
 	if (parse_redirection(&data->token, &ret_input) == FAIL)
 		return (NULL);
+	print_input(ret_input);
 	return (ret_input);
 }
 

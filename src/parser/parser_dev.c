@@ -37,6 +37,7 @@ void	print_input(t_input *head)
 			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->redir_out)[i]);
 			i++;
 		}
+		printf("append = %d\n", head->append);
 		head = (t_input *)(head->base.next);
 		node++;
 	}

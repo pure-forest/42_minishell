@@ -1,9 +1,9 @@
 #include "../../inc/parsing.h"
 
-static int	get_redir_num(t_token *token, t_token_type redir);
 static char	**parse_files(t_token *token, t_token_type type);
 static int	parse_outfile(t_token *temp, t_input **input);
 static int	parse_infile(t_token *temp, t_input **input);
+static char	**parse_files_output_append(t_token *token);
 
 int	parse_redirection(t_token **token, t_input **input)
 {
@@ -18,20 +18,45 @@ int	parse_redirection(t_token **token, t_input **input)
 	return (SUCCESS);
 }
 
-static int	get_redir_num(t_token *token, t_token_type redir)
+static int	parse_outfile(t_token *temp, t_input **input)
 {
-	int	num;
+	char	**redir_files;
+	t_input	*head;
 
-	num = 0;
-	while (token)
+	redir_files = NULL;
+	head = *input;
+	while (head)
 	{
-		if (token->type == redir)
-			num++;
-		if (token->type == PIPE)
-			break;
-		token = (t_token *)(token->base.next);
+		redir_files = parse_files_output_append(temp);
+		if (!redir_files)
+			return (FAIL);
+		head->redir_out = redir_files;
+		if (is_last_file_append(temp) == YES)
+			head->append = YES;
+		head = (t_input *)(head->base.next);
+		get_next_cmd_node(&temp);
 	}
-	return (num);
+	return (SUCCESS);
+}
+
+static int	parse_infile(t_token *temp, t_input **input)
+{
+	char	**redir_files;
+	t_input	*head;
+
+	redir_files = NULL;
+	head = *input;
+	while (head)
+	{
+		redir_files = parse_files(temp, INPUT);
+		if (redir_files)
+			head->redir_in = redir_files;
+		else
+			return (FAIL);
+		head = (t_input *)(head->base.next);
+		get_next_cmd_node(&temp);
+	}
+	return (SUCCESS);
 }
 
 static char	**parse_files(t_token *token, t_token_type type)
@@ -58,42 +83,28 @@ static char	**parse_files(t_token *token, t_token_type type)
 	return (redir_files);
 }
 
-static int	parse_infile(t_token *temp, t_input **input)
+static char	**parse_files_output_append(t_token *token)
 {
 	char	**redir_files;
-	t_input	*head;
+	int		redir_num;
+	int		i;
 
-	redir_files = NULL;
-	head = *input;
-	while (head)
+	redir_num = get_redir_num(token, OUTPUT);
+	redir_num += get_redir_num(token, APPEND);
+	printf("redir_num = %d\n", redir_num);
+	redir_files = ft_calloc(redir_num + 1, sizeof(char *));
+	i = 0;
+	while (token && i < redir_num)
 	{
-		redir_files = parse_files(temp, INPUT);
-		if (redir_files)
-			head->redir_in = redir_files;
-		else
-			return (FAIL);
-		head = (t_input *)(head->base.next);
-		get_next_cmd_node(&temp);
+		if (token->type == OUTPUT || token->type == APPEND)
+		{
+			redir_files[i] = ft_strdup(((t_token *)(token->base.next))->value);
+			if (!redir_files[i])
+				return (NULL);
+			i++;
+		}
+		token = (t_token *)(token->base.next);
 	}
-	return (SUCCESS);
-}
-
-static int	parse_outfile(t_token *temp, t_input **input)
-{
-	char	**redir_files;
-	t_input	*head;
-
-	redir_files = NULL;
-	head = *input;
-	while (head)
-	{
-		redir_files = parse_files(temp, OUTPUT);
-		if (redir_files)
-			head->redir_out = redir_files;
-		else
-			return (FAIL);
-		head = (t_input *)(head->base.next);
-		get_next_cmd_node(&temp);
-	}
-	return (SUCCESS);
+	redir_files[i] = NULL;
+	return (redir_files);
 }
