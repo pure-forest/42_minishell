@@ -19,11 +19,12 @@ PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
 		parser_redirection.c parser_dev.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
 		unset_utils.c
-EXECUTE= error_handling.c exec_utils.c exec_utils_2.c execute_errors.c execute.c
+EXECUTE= error_handling.c exec_utils.c exec_utils_2.c exec_utils_3.c \
+	execute_errors.c execute.c  node_utils.c string_utils.c
 ENV=create_env.c create_export.c env_export_utils.c
 EXPANSION= expansion.c expansion_utils.c
-UTILS=clean_up_utils.c error_handling.c init_utils.c node_utils.c \
-		string_utils.c free_functions.c
+UTILS=clean_up_utils.c init_utils.c string_utils_yutong.c \
+		free_functions.c
 SIGNAL=signal_init.c signal_utils.c
 MINISHEL=main.c
 
@@ -34,7 +35,7 @@ SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 	$(addprefix $(SRCDIR)/execution/builtins/, $(BUILTIN)) \
 	$(addprefix $(SRCDIR)/expansion/, $(EXPANSION)) \
 	$(addprefix $(SRCDIR)/utils/, $(UTILS)) \
-	$(addprefix $(SRCDIR)/env/, $(ENV)) \
+	$(addprefix $(SRCDIR)/execution/, $(ENV)) \
 	$(addprefix $(SRCDIR)/signal/, $(SIGNAL))
 
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}

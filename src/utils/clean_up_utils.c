@@ -35,7 +35,6 @@ void	mega_clean(t_struct_ptrs *data)
 	free_cmd_table(&data->input);
 	free_env_nodes(&data->env);
 	free_env_nodes(&data->export);
-	clean_up_arr(data);
 	clean_up_temp_files();
 	return ;
 }

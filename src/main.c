@@ -21,7 +21,7 @@ int	main(int argc, char **av, char **envp)
 			break;
 		if (start_tokenization(read_line, data) == FAIL)
 			continue;
-		launch_builtin(data);
+		execute(data);
 		free_lexer(&data->token);
 		free_cmd_table(&data->input);
 	}
