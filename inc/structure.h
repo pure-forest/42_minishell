@@ -59,7 +59,7 @@ typedef struct s_input
 	char		**cmd_arr;
 	char		**redir_in;
 	char		**redir_out;
-	int			append;
+	bool		append;
 	int			input_fd;
 	int			output_fd;
 	char		*cmd_path;

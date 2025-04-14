@@ -30,6 +30,7 @@ t_input	*cmd_table_init(char **cmd_arr)
 	if (!temp)
 		return (NULL);
 	temp->cmd_arr = cmd_arr;
+	temp->append = NO;
 	temp->redir_in = NULL;
 	temp->redir_out = NULL;
 	temp->base.next = NULL;
