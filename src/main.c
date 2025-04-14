@@ -12,15 +12,16 @@ int	main(int argc, char **av, char **envp)
 		return (FAIL);
   	if (create_export(data))
 		return (FAIL);
-	signal_init();
 	while (1)
 	{
+		signal_init();
 		read_line = readline(PROMPT);
-		add_history(read_line);
-		if (!ft_strncmp(read_line, "exit", ft_strlen(read_line)))
-			break;
-		if (start_tokenization(read_line, data) == FAIL)
-			continue;
+		// if (readline && *readline)
+		// {
+			add_history(read_line);
+			if (start_tokenization(read_line, data) == FAIL)
+				continue;
+		// }
 		execute(data);
 		free_lexer(&data->token);
 		free_cmd_table(&data->input);

@@ -9,21 +9,16 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 	data->token = lexer(read_line, data);
 	free(read_line);
 	if (!data->token)
-	{
-		printf("lexer failure\n");
 		return (FAIL);
-	}
 	if (remove_quotes(data) == FAIL)
 	{
 		free(data->token);
-		printf("remove quotes failed\n");
 		return (FAIL);
 	}
 	// print_token_list(data->token);
 	data->input = parser(data);
 	if (!data->input)
 	{
-		printf("parser failure\n");
 		return (FAIL);
 	}
 	return (SUCCESS);

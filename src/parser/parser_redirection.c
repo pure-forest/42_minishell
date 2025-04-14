@@ -104,7 +104,6 @@ static char	**parse_files_output_append(t_token *token)
 		}
 		token = (t_token *)(token->base.next);
 	}
-	printf("i = %d\n", i);
 	redir_files[i] = NULL;
 	return (redir_files);
 }
