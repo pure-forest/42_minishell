@@ -51,7 +51,7 @@ int	create_execute_env(t_struct_ptrs *data)
 	amount = 0;
 	while (curr)
 	{
-		amount += 1; //expected 22
+		amount += 1;
 		curr = (t_env_nodes *)curr->base.next;
 	}
 	return (allocate_env_arr(data, data->env, amount));

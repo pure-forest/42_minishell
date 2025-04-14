@@ -46,7 +46,10 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
 	{
 		while (redir_out[++i])
 		{
-			input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_TRUNC,
+			if (input->append == YES && !redir_out[i + 1])
+				input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT, 0777);
+			else
+				input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_TRUNC,
 					0777);
 			if (input->output_fd == -1)
 			{
@@ -59,7 +62,6 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
 				close_fd(&input->output_fd);
 		}
 	}
-	input->output_fd = STDOUT_FILENO;
 	return (SUCCESS);
 }
 
