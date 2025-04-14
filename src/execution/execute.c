@@ -42,8 +42,7 @@ int	launch_cmd_exec(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 
 	if (curr->base.next)
 		if (pipe(exec_data->pipe_fd) == -1)
-			return (set_exit_code(data, -1), FAIL);
-	// does this exit the whole mini or just this prompt?
+			return (set_exit_code(data, -1), FAIL);	// does this exit the whole mini or just this prompt?
 	in_pipeline = curr->base.prev || curr->base.next;
 	if (!is_builtin(curr) && !in_pipeline)
 	{

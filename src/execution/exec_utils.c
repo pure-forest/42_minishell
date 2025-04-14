@@ -10,8 +10,8 @@ int	is_builtin(t_input *curr)
 		|| !ft_strcmp(curr->cmd_arr[0], "env") \
 		|| !ft_strcmp(curr->cmd_arr[0], "export") \
 		|| !ft_strcmp(curr->cmd_arr[0], "pwd") \
-		|| !ft_strcmp(curr->cmd_arr[0], "unset"))
-		//|| ft_strcmp(data->input->cmd_arr[0], "exit")
+		|| !ft_strcmp(curr->cmd_arr[0], "unset") \
+		|| !ft_strcmp(curr->cmd_arr[0], "exit"))
 		return (SUCCESS);
 	else
 		return (FAIL);
@@ -35,8 +35,8 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
 		res = unset(data);
-	// if (ft_strcmp(cmd, "exit"))
-	// 	res = exit(data);
+	if (!ft_strcmp(cmd, "exit"))	//Should I check for SHELL LEVEL
+	 	res = ft_exit(data);
 	data->exit_code	= res;
 }
 

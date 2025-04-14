@@ -43,6 +43,8 @@ int	get_errno_codes(int err)
 		return (126);
 	if (err == 3)
 		return (-1);
+	if (err == 255)
+		return (255);
 	return (1);
 }
 

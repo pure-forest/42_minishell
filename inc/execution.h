@@ -50,6 +50,7 @@ int			export(t_struct_ptrs *data);
 int			unset(t_struct_ptrs *data);
 int			cd(t_struct_ptrs *data);
 int			echo(t_struct_ptrs *data);
+int			ft_exit(t_struct_ptrs *data);
 int			is_equal_sign_present(char *arg);
 int			check_match(char *cmd_arg, char *var_name);
 int			remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
@@ -71,6 +72,7 @@ void		free_env_nodes(t_env_nodes **root);
 void		clean_up_arr(char **arr);
 // void					clean_up_arr(char **env_arr);
 void		clean_up_exec_creations(t_struct_ptrs *data);
+void		print_error(char *var, char *str);
 
 //*************			DEBUGGING __ DELETEEEEEEEE!!!!!!!!!!!!!!!!!
 void		print_list(t_list_base *head, void (*print_node)(void *));
