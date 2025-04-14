@@ -1,7 +1,8 @@
 #include "../../inc/parsing.h"
 
-static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator);
+static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token);
 static int	replace_heredoc_node(t_token **node, char *file_name);
+static void	write_into_temp_file(int fd, char **str);
 
 int	parse_heredoc(t_struct_ptrs *data)
 {
@@ -15,7 +16,7 @@ int	parse_heredoc(t_struct_ptrs *data)
 		{
 			signal_init_heredoc();
 			heredoc_file = here_doc_put_input(data,
-					((t_token *)(token_list->base.next))->value);
+				(t_token *)(token_list->base.next));
 			if (replace_heredoc_node(&token_list, heredoc_file) == FAIL)
 				return (FAIL);
 		}
@@ -24,7 +25,7 @@ int	parse_heredoc(t_struct_ptrs *data)
 	return (SUCCESS);
 }
 
-static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
+static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token)
 {
 	int		fd;
 	char	*temp;
@@ -37,17 +38,14 @@ static char	*here_doc_put_input(t_struct_ptrs *data, char *deliminator)
 	while (1)
 	{
 		temp = readline("> ");
-		if (!ft_strncmp(temp, deliminator, ft_strlen(deliminator)))
+		if (!ft_strncmp(temp, token->value, ft_strlen(token->value)))
+			return (free(temp), close(fd), file_name);
+		if (token->expand_heredoc == YES)
 		{
-			free(temp);
-			close(fd);
-			return (file_name);
+			if (check_for_expansion(data, &temp) == FAIL)
+				break ;
 		}
-		if (check_for_expansion(data, &temp) == FAIL)
-			break ;
-		write(fd, temp, ft_strlen(temp));
-		free(temp);
-		write(fd, "\n", 1);
+		write_into_temp_file(fd, &temp);
 	}
 	close(fd);
 	return (NULL);
@@ -72,4 +70,12 @@ static int	replace_heredoc_node(t_token **node, char *file_name)
 	temp->value = new_value;
 	temp->type = INPUT;
 	return (SUCCESS);
+}
+
+static void	write_into_temp_file(int fd, char **str)
+{
+	write(fd, *str, ft_strlen(*str));
+	free(*str);
+	*str = NULL;
+	write(fd, "\n", 1);
 }

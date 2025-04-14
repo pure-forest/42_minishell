@@ -39,6 +39,7 @@ static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 		return (FAIL);
 	free((*node)->value);
 	(*node)->value = new_str;
+	(*node)->expand_heredoc = NO;
 	(*node)->should_expand = NO;
 	return (SUCCESS);
 }
@@ -98,7 +99,8 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
 	char	*temp;
 
 	temp = (*node)->expanded_value;
-	if (should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
+	if (((t_token *)((*node)->base.prev))->type == HEREDOC
+		|| should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
 	{
 		*new_str = append_character_in_string((*new_str), (*node)->value[*i]);
 		if (!(*new_str))
