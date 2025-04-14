@@ -22,7 +22,6 @@
 # include "execution.h"
 # include "expansion.h"
 # include "utils.h"
-# include "env.h"
 # include "signal.h"
 
 # define PINK "\033[1;38;5;218m"

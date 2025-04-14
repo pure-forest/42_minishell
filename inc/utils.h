@@ -3,15 +3,8 @@
 
 # include "minishell.h"
 
-//**************		STRING UTILS
-int			ft_strcmp(char *s1, char *s2);
-char		*ft_strndup(const char *s, size_t len);
-char		*ft_strjoin_and_free(char const *s1, char const *s2);
 char		*append_character_in_string(char *s1, char c);
 
-//**************		NODE UTILS
-int			append_node(t_list_base **list_to_modify, t_list_base *new_var);
-t_list_base	*find_last(t_list_base *root);
 
 // clean up funtions
 void		free_lexer(t_token **head);
