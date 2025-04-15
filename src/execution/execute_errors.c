@@ -1,8 +1,5 @@
 #include "../../inc/execution.h"
 
-void	print_error(char *var, char *str);
-
-// void	print_err_exe(t_input *curr, t_exec_mem *mem, int err)
 void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 {
 	if (err == 1)
@@ -10,18 +7,19 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 	if (err == 2 || err == 3 || err == 4)
 	{
 		if (data->exit_code == 126 && err != 4)
-			print_error(cmd, ": Permission denied");
+			print_error(cmd, NULL, ": Permission denied");
 		if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4) || (data->exit_code == -1))
-			print_error(cmd, ": No such file or directory");
+			print_error(cmd, NULL, ": No such file or directory");
 		if (data->exit_code == 127 && err == 3)
-			print_error(cmd, ": Command not found");
+			print_error(cmd, NULL, ": Command not found");
 	}
 }
 
-void	print_error(char *var, char *str)
+void	print_error(char *var, char *var_2, char *str)
 {
 	ft_putstr_fd(PROMPT, 2);
 	ft_putstr_fd(var, 2);
+	ft_putstr_fd(var_2, 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\n", 2);
 }
@@ -37,12 +35,16 @@ void	close_fd(int *fd)
 
 int	get_errno_codes(int err)
 {
+	if (err == SUCCESS)
+		return (0);
 	if (err == ENOENT) // No such file or directory
 		return (127);
 	if (err == EACCES) // Permission denied
 		return (126);
 	if (err == 3)
 		return (-1);
+	if (err == 255)
+		return (255);
 	return (1);
 }
 
