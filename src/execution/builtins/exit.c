@@ -1,8 +1,9 @@
 #include "../../../inc/execution.h"
 
-int		is_all_numeric(char *arg);
+int		is_valid_numeric_input(char *arg);
 long	ft_atol(const char *s);
 int		count_args(char **arr);
+void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code);
 
 int	ft_exit(t_struct_ptrs *data)
 {
@@ -12,21 +13,18 @@ int	ft_exit(t_struct_ptrs *data)
 	arg_count = count_args(data->input->cmd_arr);
 	if (arg_count == 1)
 		exit (data->exit_code);
-	if (is_all_numeric(data->input->cmd_arr[1]) == NO)
-	{
-		set_exit_code(data, 255);
-		ft_putstr_fd("exit\nexit", 2);
-		print_error(data->input->cmd_arr[1], ": numeric argument required");
-		exit(data->exit_code);
-	}
+	if (is_valid_numeric_input(data->input->cmd_arr[1]) == NO)
+		print_numeric_error(data, data->input->cmd_arr[1], 255);
 	if (arg_count > 2)
 	{
 		set_exit_code(data, 4);
 		ft_putstr_fd("exit\n", 2);
-		print_error("exit: too many arguments", NULL);
+		print_error("exit: too many arguments",NULL, NULL);
 		return (FAIL);
 	}
 	code = ft_atol(data->input->cmd_arr[1]);
+	if (code == FAIL)
+		print_numeric_error(data, data->input->cmd_arr[1], 2);
 	exit(code % 256);
 }
 
@@ -45,7 +43,7 @@ int	count_args(char **arr)
 	return (count);
 }
 
-int	is_all_numeric(char *arg)
+int	is_valid_numeric_input(char *arg)
 {
 	int	i;
 
@@ -54,12 +52,22 @@ int	is_all_numeric(char *arg)
 	{
 		while (arg[++i])
 		{
+			if (arg[i] == '+' || arg[i] == '-')
+				continue ;
 			if (!ft_isdigit(arg[i]))
 				return (NO);
 		}
 		return (YES);
 	}
 	return (NO);
+}
+
+void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code)
+{
+	set_exit_code(data, code);
+	ft_putstr_fd("exit\n", 2);
+	print_error("exit: ", str_input, ": numeric argument required");
+	exit(data->exit_code);
 }
 
 long	ft_atol(const char *s)
@@ -81,5 +89,7 @@ long	ft_atol(const char *s)
 	}
 	while (s[i] && s[i] >= '0' && s[i] <= '9')
 		res = (res * 10) + (s[i++] - '0');
+	if (res < 0 && sign == 1)
+		return (FAIL);
 	return (res * sign);
 }

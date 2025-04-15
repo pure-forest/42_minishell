@@ -6,16 +6,16 @@ void	error_handling(t_struct_ptrs *data)
 		free_env_nodes(&data->env);
 	if (data->export)
 		free_env_nodes(&data->export);
-	if (data->exec_env)
-	{
-		clean_up_arr(data->exec_env);
-		data->exec_env = NULL;
-	}
-	if (data->split_path)
-	{
-		clean_up_arr(data->split_path);
-		data->split_path = NULL;
-	}
+	// if (data->exec_env)
+	// {
+	// 	clean_up_arr(data->exec_env);
+	// 	data->exec_env = NULL;
+	// }
+	// if (data->split_path)
+	// {
+	// 	clean_up_arr(data->split_path);
+	// 	data->split_path = NULL;
+	// }
 
 }
 

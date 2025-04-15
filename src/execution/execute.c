@@ -12,13 +12,17 @@ void	execute(t_struct_ptrs *data)
 {
 	t_exec_data	exec_data;
 	t_input		*curr;
+	int			split_res;
+	int			create_env_res;
 
 	exec_data = (t_exec_data){0};
 	exec_data.prev_read_end = -1;
 	curr = data->input;
-	if (!create_execute_env(data) || create_execute_env(data) == EMPTY)
+	create_env_res = create_execute_env(data);
+	if (!create_env_res || create_env_res == EMPTY)
 	{
-		if (split_env_path(data) == EMPTY || split_env_path(data) == NOT_FOUND)
+		split_res = split_env_path(data);
+		if (split_res == EMPTY || split_res == NOT_FOUND)
 		{
 			set_exit_code(data, 3);
 			print_err_exe(data, curr->cmd_arr[0], 2);
@@ -82,9 +86,18 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 {
 	if (set_std_fds(data, curr, exec_data))
 		return ;
+	if (!curr->cmd_arr[0])
+	{
+		set_exit_code(data, SUCCESS);
+		clean_up_exec_creations(data);
+		mega_clean(data);
+		exit (data->exit_code);
+	}
 	if (!is_builtin(curr))
 	{
 		launch_builtin(data, curr);
+		clean_up_exec_creations(data);
+		mega_clean(data);
 		exit(data->exit_code);
 	}
 	else
@@ -97,6 +110,8 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 			{
 				set_exit_code(data, ENOENT);
 				print_err_exe(data, curr->cmd_arr[0], 3);
+				clean_up_exec_creations(data);
+				mega_clean(data);
 				exit(data->exit_code);
 			}
 		}
@@ -129,5 +144,7 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 		set_exit_code(data, ENOENT);
 		print_err_exe(data, curr->cmd_arr[0], 2);
 	}
+	clean_up_exec_creations(data);
+	mega_clean(data);
 	return (FAIL);
 }

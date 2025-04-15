@@ -5,6 +5,8 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
 
 int	is_builtin(t_input *curr)
 {
+	if (curr->cmd_arr && curr->cmd_arr[0])
+	{
 	if(!ft_strcmp(curr->cmd_arr[0], "cd") \
 		|| !ft_strcmp(curr->cmd_arr[0], "echo") \
 		|| !ft_strcmp(curr->cmd_arr[0], "env") \
@@ -13,8 +15,8 @@ int	is_builtin(t_input *curr)
 		|| !ft_strcmp(curr->cmd_arr[0], "unset") \
 		|| !ft_strcmp(curr->cmd_arr[0], "exit"))
 		return (SUCCESS);
-	else
-		return (FAIL);
+	}
+	return (FAIL);
 }
 
 void	launch_builtin(t_struct_ptrs *data, t_input *curr)

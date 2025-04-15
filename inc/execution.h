@@ -65,6 +65,8 @@ void	free_one_env_node(t_env_nodes *node_to_free);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strndup(const char *s, size_t len);
 char		*ft_strjoin_and_free(char const *s1, char const *s2);
+long		ft_atol(const char *s);
+int			is_valid_numeric_input(char *arg);
 
 //**************		ERROR HANDLING
 void		error_handling(t_struct_ptrs *data);
@@ -72,7 +74,8 @@ void		free_env_nodes(t_env_nodes **root);
 void		clean_up_arr(char **arr);
 // void					clean_up_arr(char **env_arr);
 void		clean_up_exec_creations(t_struct_ptrs *data);
-void		print_error(char *var, char *str);
+// void		print_error(char *var, char *str);
+void		print_error(char *var, char *var_2, char *str);
 
 //*************			DEBUGGING __ DELETEEEEEEEE!!!!!!!!!!!!!!!!!
 void		print_list(t_list_base *head, void (*print_node)(void *));
