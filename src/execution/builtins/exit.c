@@ -14,7 +14,7 @@ int	ft_exit(t_struct_ptrs *data)
 	if (arg_count == 1)
 		exit (data->exit_code);
 	if (is_valid_numeric_input(data->input->cmd_arr[1]) == NO)
-		print_numeric_error(data, data->input->cmd_arr[1], 255);
+		print_numeric_error(data, data->input->cmd_arr[1], 2);
 	if (arg_count > 2)
 	{
 		set_exit_code(data, 4);

@@ -40,7 +40,7 @@ SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
 
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
-all:$(LIBFT_A) $(BINDIR)/${NAME}
+all:$(LIBFT_A) ${NAME}
 
 ${LIBFT_A}:
 	@make -C ${LIBFT_DIR} > /dev/null
@@ -59,9 +59,9 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-$(BINDIR)/${NAME}:$(LIBFT_A) ${OBJ} | $(BINDIR) $(TMPDIR)
+${NAME}:$(LIBFT_A) ${OBJ} | $(TMPDIR)
 	@$(CC) $(OBJ) $(LIBFT_A) -lreadline  \
-	-o $(BINDIR)/$(NAME)
+	-o $(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
 clean:

@@ -17,7 +17,7 @@ int	unset(t_struct_ptrs *data)
 	if (var_unset != 0)
 		return (SUCCESS);
 	else
-		return (FAIL);
+		return (0);
 }
 
 int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset)	//static or not??
