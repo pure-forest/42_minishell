@@ -27,6 +27,5 @@ bool	should_just_append(char c, char *src)
 
 char	*handle_exit_code(t_struct_ptrs *data)
 {
-	printf("handle_exit_code blah\n");
 	return (ft_itoa(data->exit_code));
 }

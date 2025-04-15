@@ -18,7 +18,7 @@ LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c \
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
 		parser_redirection.c parser_dev.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
-		unset_utils.c
+		unset_utils.c exit.c
 EXECUTE= error_handling.c exec_utils.c exec_utils_2.c exec_utils_3.c \
 	execute_errors.c execute.c  node_utils.c string_utils.c
 ENV=create_env.c create_export.c env_export_utils.c
