@@ -1,6 +1,7 @@
 #include "../../inc/signal.h"
 
 static void	signal_handler_heredoc(int signum, siginfo_t *info, void *context);
+sig_atomic_t signal_numb;
 
 int	signal_init_heredoc(void)
 {
@@ -20,7 +21,8 @@ static void	signal_handler_heredoc(int signum, siginfo_t *info, void *context)
 	(void)info;
 	if (signum == SIGINT)
 	{
+		signal_numb = 2;
+		close(STDIN_FILENO);
 		write(1, "\n", 1);
-		exit(130);
 	}
 }

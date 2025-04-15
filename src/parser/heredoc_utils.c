@@ -1,15 +1,15 @@
 #include "../../inc/parsing.h"
 
 static char	*ft_rejoin_str(char **words);
-static	int	handle_not_valid_expansion(char **new_line);
+static int	handle_not_valid_expansion(char **new_line);
 
 int	check_for_expansion(t_struct_ptrs *data, char **new_line)
 {
 	char	**words;
 	int		i;
 
-	if (!ft_strchr(*new_line, '$') || ft_strchr(*new_line, '\'') ||
-		ft_strchr(*new_line, '\"'))
+	if (!ft_strchr(*new_line, '$') || ft_strchr(*new_line, '\'')
+		|| ft_strchr(*new_line, '\"'))
 		return (SUCCESS);
 	words = ft_split(*new_line, ' ');
 	if (!words)
@@ -83,9 +83,17 @@ static char	*ft_rejoin_str(char **words)
 	return (str);
 }
 
-static	int	handle_not_valid_expansion(char **new_line)
+static int	handle_not_valid_expansion(char **new_line)
 {
 	free(*new_line);
 	*new_line = ft_strdup("");
 	return (SUCCESS);
+}
+
+void	write_into_temp_file(int fd, char **str)
+{
+	write(fd, *str, ft_strlen(*str));
+	free(*str);
+	*str = NULL;
+	write(fd, "\n", 1);
 }

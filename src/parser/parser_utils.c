@@ -8,7 +8,7 @@ int	cmd_arr_num(t_token *token_list)
 	while (token_list)
 	{
 		if (token_list->type == PIPE)
-			break;
+			break ;
 		if (token_list->type == WORD)
 			num++;
 		token_list = (t_token *)(token_list->base.next);
@@ -44,7 +44,7 @@ int	get_redir_num(t_token *token, t_token_type redir)
 		if (token->type == redir)
 			num++;
 		if (token->type == PIPE)
-			break;
+			break ;
 		token = (t_token *)(token->base.next);
 	}
 	return (num);
@@ -52,8 +52,8 @@ int	get_redir_num(t_token *token, t_token_type redir)
 
 int	is_last_file_append(t_token *token)
 {
-	int		redir_num;
-	int		i;
+	int	redir_num;
+	int	i;
 
 	redir_num = get_redir_num(token, OUTPUT);
 	redir_num += get_redir_num(token, APPEND);
@@ -64,8 +64,8 @@ int	is_last_file_append(t_token *token)
 			i++;
 		token = (t_token *)(token->base.next);
 	}
-	if ((t_token *)(token->base.prev) &&
-		((t_token *)(token->base.prev))->type == APPEND)
+	if ((t_token *)(token->base.prev)
+		&& ((t_token *)(token->base.prev))->type == APPEND)
 		return (YES);
 	else
 		return (NO);

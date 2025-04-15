@@ -1,6 +1,6 @@
 #include "../../inc/utils.h"
 
-char *append_character_in_string(char *s1, char c)
+char	*append_character_in_string(char *s1, char c)
 {
 	char	*s_new;
 	int		i;

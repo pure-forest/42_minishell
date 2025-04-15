@@ -9,7 +9,6 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <errno.h>
-
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
@@ -38,5 +37,6 @@
 # define FT_DELIMINATER "|;&()<>"
 # define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
 
+extern sig_atomic_t signal_numb;
 
 #endif

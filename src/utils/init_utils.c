@@ -13,6 +13,7 @@ t_token	*token_init(t_token_type type, char *token_value)
 	node->quote_count = 0;
 	node->quote_mark = 0;
 	node->should_expand = YES;
+	node->expand_heredoc = YES;
 	node->expanded_value = NULL;
 	node->type = type;
 	node->base.next = NULL;

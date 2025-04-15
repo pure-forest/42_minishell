@@ -91,7 +91,6 @@ static char	**parse_files_output_append(t_token *token)
 
 	redir_num = get_redir_num(token, OUTPUT);
 	redir_num += get_redir_num(token, APPEND);
-	printf("redir_num = %d\n", redir_num);
 	redir_files = ft_calloc(redir_num + 1, sizeof(char *));
 	i = 0;
 	while (token && i < redir_num)

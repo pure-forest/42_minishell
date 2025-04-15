@@ -15,15 +15,15 @@ int	main(int argc, char **av, char **envp)
 	signal_init();
 	while (1)
 	{
+		signal_numb = 0;
 		read_line = readline(PROMPT);
-		add_history(read_line);
-		if (!ft_strncmp(read_line, "exit", ft_strlen(read_line)))
+		if (!read_line)
 			break;
+		add_history(read_line);
 		if (start_tokenization(read_line, data) == FAIL)
 			continue;
 		execute(data);
-		free_lexer(&data->token);
-		free_cmd_table(&data->input);
+		mini_clean(data);
 	}
 	mega_clean(data);
 	return (0);
