@@ -86,6 +86,8 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 	if (!is_builtin(curr))
 	{
 		launch_builtin(data, curr);
+		clean_up_exec_creations(data);
+		mini_clean(data);
 		exit(data->exit_code);
 	}
 	else
@@ -98,6 +100,8 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 			{
 				set_exit_code(data, ENOENT);
 				print_err_exe(data, curr->cmd_arr[0], 3);
+				clean_up_exec_creations(data);
+				mini_clean(data);
 				exit(data->exit_code);
 			}
 		}
@@ -130,5 +134,7 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 		set_exit_code(data, ENOENT);
 		print_err_exe(data, curr->cmd_arr[0], 2);
 	}
+	clean_up_exec_creations(data);
+	mini_clean(data);
 	return (FAIL);
 }

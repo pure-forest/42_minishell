@@ -39,3 +39,10 @@ void	mega_clean(t_struct_ptrs *data)
 	clean_up_temp_files();
 	return ;
 }
+
+void	mini_clean(t_struct_ptrs *data)
+{
+	free_lexer(&data->token);
+	free_cmd_table(&data->input);
+	return ;
+}

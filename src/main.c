@@ -12,19 +12,18 @@ int	main(int argc, char **av, char **envp)
 		return (FAIL);
   	if (create_export(data))
 		return (FAIL);
+	signal_init();
 	while (1)
 	{
-		signal_init();
+		signal_numb = 0;
 		read_line = readline(PROMPT);
-		// if (readline && *readline)
-		// {
-			add_history(read_line);
-			if (start_tokenization(read_line, data) == FAIL)
-				continue;
-		// }
+		if (!read_line)
+			break;
+		add_history(read_line);
+		if (start_tokenization(read_line, data) == FAIL)
+			continue;
 		execute(data);
-		free_lexer(&data->token);
-		free_cmd_table(&data->input);
+		mini_clean(data);
 	}
 	mega_clean(data);
 	return (0);

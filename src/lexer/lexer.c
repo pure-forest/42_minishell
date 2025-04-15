@@ -5,7 +5,6 @@ static t_token	*create_token_list(char *str);
 
 int	start_tokenization(char *read_line, t_struct_ptrs *data)
 {
-	signal_init();
 	data->token = lexer(read_line, data);
 	free(read_line);
 	if (!data->token)
@@ -15,12 +14,9 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		free(data->token);
 		return (FAIL);
 	}
-	// print_token_list(data->token);
 	data->input = parser(data);
 	if (!data->input)
-	{
 		return (FAIL);
-	}
 	return (SUCCESS);
 }
 

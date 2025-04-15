@@ -12,6 +12,7 @@ void		ft_free_double_ptr(char **str);
 void		free_cmd_table(t_input **head);
 void		clean_up_temp_files(void);
 void		mega_clean(t_struct_ptrs *data);
+void		mini_clean(t_struct_ptrs *data);
 
 // init functions
 t_input		*cmd_table_init(char **cmd_arr);

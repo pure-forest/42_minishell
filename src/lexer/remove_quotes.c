@@ -1,11 +1,10 @@
 #include "../../inc/lexer.h"
 
-static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
-				char *new_str);
+static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node);
 static int	modify_quote_node(t_token **node, t_struct_ptrs *data);
 static void	modify_quote_mark(int *i, t_token **node);
 static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
-				char **new_str, int *i, int *j);
+				int *i, int *j);
 
 int	remove_quotes(t_struct_ptrs *data)
 {
@@ -29,23 +28,21 @@ int	remove_quotes(t_struct_ptrs *data)
 
 static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 {
-	char	*new_str;
-
-	new_str = ft_calloc(ft_strlen((*node)->value), sizeof(char));
-	if (!new_str)
+	(*node)->expanded_value = ft_calloc(ft_strlen((*node)->value),
+			sizeof(char));
+	if (!(*node)->expanded_value)
 		return (FAIL);
-	new_str = trim_quotes_and_expand(data, node, new_str);
-	if (!new_str)
+	(*node)->expanded_value = trim_quotes_and_expand(data, node);
+	if (!(*node)->expanded_value)
 		return (FAIL);
 	free((*node)->value);
-	(*node)->value = new_str;
+	(*node)->value = (*node)->expanded_value;
 	(*node)->expand_heredoc = NO;
 	(*node)->should_expand = NO;
 	return (SUCCESS);
 }
 
-static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
-		char *new_str)
+static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node)
 {
 	int	i;
 	int	j;
@@ -56,15 +53,15 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node,
 	{
 		if (((*node)->quote_count == 0 && ((*node)->value[i] == '\''
 					|| (*node)->value[i] == '\"'))
-					|| (*node)->value[i] == (*node)->quote_mark)
+			|| (*node)->value[i] == (*node)->quote_mark)
 			modify_quote_mark(&i, node);
 		else
 		{
-			if (strcpy_or_expand(data, node, &new_str, &i, &j) == FAIL)
+			if (strcpy_or_expand(data, node, &i, &j) == FAIL)
 				return (NULL);
 		}
 	}
-	return (new_str);
+	return ((*node)->expanded_value);
 }
 
 static void	modify_quote_mark(int *i, t_token **node)
@@ -93,27 +90,30 @@ static void	modify_quote_mark(int *i, t_token **node)
 	}
 }
 
-static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node,
-		char **new_str, int *i, int *j)
+static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
+		int *j)
 {
 	char	*temp;
 
-	temp = (*node)->expanded_value;
+	temp = NULL;
 	if (((t_token *)((*node)->base.prev))->type == HEREDOC
 		|| should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
 	{
-		*new_str = append_character_in_string((*new_str), (*node)->value[*i]);
-		if (!(*new_str))
+		(*node)->expanded_value
+			= append_character_in_string(((*node)->expanded_value),
+				(*node)->value[*i]);
+		if (!((*node)->expanded_value))
 			return (FAIL);
 		(*j)++;
 		(*i)++;
 	}
 	else
 	{
-		(*new_str)[*j] = 0;
+		((*node)->expanded_value)[*j] = 0;
 		temp = check_quote_expansion(data, node, i, j);
-		*new_str = ft_strjoin_and_free((*new_str), temp);
-		if (!(*new_str))
+		(*node)->expanded_value = ft_strjoin_and_free(((*node)->expanded_value),
+				temp);
+		if (!((*node)->expanded_value))
 			return (FAIL);
 	}
 	return (SUCCESS);

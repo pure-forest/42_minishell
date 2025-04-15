@@ -1,14 +1,15 @@
 #include "../../inc/signal.h"
 
 static void	signal_handler(int signum, siginfo_t *info, void *context);
-static void handle_sigquit(void);
+static void	handle_sigquit(void);
+
 
 int	signal_init(void)
 {
 	struct sigaction	sa;
 
 	handle_sigquit();
-	// supress_text();
+	ft_memset(&sa, 0, sizeof(struct sigaction));
 	if (sigemptyset(&sa.sa_mask) == -1)
 		return (FAIL);
 	sa.sa_sigaction = signal_handler;
@@ -31,14 +32,13 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 	}
 }
 
-static void handle_sigquit(void)
+static void	handle_sigquit(void)
 {
 	struct sigaction	sa;
 
+	ft_memset(&sa, 0, sizeof(struct sigaction));
 	if (sigemptyset(&sa.sa_mask) == -1)
 		return ;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }
-
-
