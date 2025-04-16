@@ -16,5 +16,5 @@ int	pwd(t_struct_ptrs *data)
 		}
 		return (FAIL);
 	}
-	return (FAIL);
+	return (EMPTY);
 }

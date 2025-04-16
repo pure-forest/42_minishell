@@ -11,7 +11,7 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 		if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4) || (data->exit_code == -1))
 			print_error(cmd, NULL, ": No such file or directory");
 		if (data->exit_code == 127 && err == 3)
-			print_error(cmd, NULL, ": Command not found");
+			print_error(cmd, NULL, ": command not found");
 	}
 }
 
@@ -43,8 +43,10 @@ int	get_errno_codes(int err)
 		return (126);
 	if (err == 3)
 		return (-1);
-	if (err == 255)
-		return (255);
+	if (err == 4)
+		return (2);
+	// if (err == 255)	//DELETE?????
+	// 	return (255);
 	return (1);
 }
 

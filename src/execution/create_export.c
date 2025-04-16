@@ -7,8 +7,8 @@ int	create_export(t_struct_ptrs *data)
 {
 	t_env_nodes	*new_var;
 
-	if (!(data))
-		return (FAIL);
+	if (!(data) || !data->env)
+		return (EMPTY);
 	while (is_export_sorted(data->env))
 	{
 		new_var = malloc(sizeof(t_env_nodes));

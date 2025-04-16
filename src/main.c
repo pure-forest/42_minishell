@@ -5,13 +5,14 @@ int	main(int argc, char **av, char **envp)
 	char			*read_line;
 	t_struct_ptrs 	*data;
 
-	if (!argc || !av || !*envp)
+	if (!argc || !av)
 		return (FAIL);
 	data = &((t_struct_ptrs ){0});
-	if (create_env(envp, data))
+	if (!IS_OK_TO_RUN(create_env(envp, data)))
 		return (FAIL);
-  	if (create_export(data))
+  	if (!IS_OK_TO_RUN(create_export(data)))
 		return (FAIL);
+	set_shell_level(data);
 	signal_init();
 	while (1)
 	{
