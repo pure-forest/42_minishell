@@ -3,15 +3,15 @@
 int		cd_to_home(t_struct_ptrs *data);
 void	cd_error_print(char *path, int err);
 
-int	cd(t_struct_ptrs *data)
+int	cd(t_struct_ptrs *data, t_input *curr)
 {
 	char	buff[PATH_MAX];
 
-	if (!data->input->cmd_arr[1])
+	if (!curr->cmd_arr[1])
 		return (cd_to_home(data));
-	else if (data->input->cmd_arr[1] && !data->input->cmd_arr[2])
+	else if (curr->cmd_arr[1] && !curr->cmd_arr[2])
 	{
-		if (chdir(data->input->cmd_arr[1]) == 0)
+		if (chdir(curr->cmd_arr[1]) == 0)
 		{
 			if (!getcwd(buff, PATH_MAX))
 				return (FAIL);
@@ -21,10 +21,10 @@ int	cd(t_struct_ptrs *data)
 			return (SUCCESS);
 		}
 		else
-			return (cd_error_print(data->input->cmd_arr[1], 1), FAIL);
+			return (cd_error_print(curr->cmd_arr[1], 1), FAIL);
 	}
 	else
-		return (cd_error_print(data->input->cmd_arr[1], 2), FAIL);
+		return (cd_error_print(curr->cmd_arr[1], 2), FAIL);
 }
 
 int	cd_to_home(t_struct_ptrs *data)

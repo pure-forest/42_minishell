@@ -62,22 +62,24 @@ int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value, \
 	return (FAIL);
 }
 
-// void	set_shell_level(t_struct_ptrs *data)
-// {
-// 	char	*shlvl_var_value;
-// 	long	shlvl;
-// 	char	*tmp
+void	set_shell_level(t_struct_ptrs *data)
+{
+	char	*shlvl_var_value;
+	long	shlvl;
 
-// 	shlvl_var_value = get_var_value(data->env, "SHLVL=");
-// 	if (!shlvl_var_value)
-// 		return ;
-// 	if (is_valid_numeric_input(shlvl_var_value) == NO)
-// 		return ;
-// 	shlvl = ft_atol(shlvl_var_value);
-// 	if (shlvl >= 999)
-// 		print_error("warning: shell level (", shlvl_var_value, ") too high, resetting to 1");
-// 	else
-// 		shlvl++;
-// 	update_var_in_both(data->env, data->export, "SHLVL=", ft_itoa(shlvl));
-// 	return ;
-// }
+	shlvl_var_value = get_var_value(data->env, "SHLVL=");
+	if (!shlvl_var_value)
+		return ;
+	if (is_valid_numeric_input(shlvl_var_value) == NO)
+		return ;
+	shlvl = ft_atol(shlvl_var_value);
+	if (shlvl >= 999)
+	{
+		print_error("warning: shell level (", shlvl_var_value, ") too high, resetting to 1");
+		shlvl = 1;
+	}
+	else
+		shlvl++;
+	update_var_in_both(data->env, data->export, "SHLVL=", ft_itoa(shlvl));
+	return ;
+}

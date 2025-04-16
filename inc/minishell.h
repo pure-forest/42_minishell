@@ -33,6 +33,7 @@
 # define NO 0
 # define NOT_FOUND 2
 # define EMPTY 3
+# define IS_OK_TO_RUN(x) ((x) == SUCCESS || (x) == EMPTY)
 # define FT_SPACE " \t\n"
 # define FT_DELIMINATER "|;&()<>"
 # define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"

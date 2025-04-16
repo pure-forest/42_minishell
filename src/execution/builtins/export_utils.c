@@ -22,23 +22,25 @@ t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var)
 	return (smallest);
 }
 
-int	update_env(t_struct_ptrs *data)
+int	update_env(t_struct_ptrs *data, t_input *curr)
 {
 	t_env_nodes	*new_var;
 	char		*equal_sign;
 	int			i;
 
 	i = 0;
-	while (data->input->cmd_arr[++i])
+	while (curr->cmd_arr[++i])
 	{
-		equal_sign = ft_strchr(data->input->cmd_arr[i], '=');
+		if (check_export_syntax(curr->cmd_arr[i]))
+			continue ;
+		equal_sign = ft_strchr(curr->cmd_arr[i], '=');
 		if (!equal_sign)
 			continue ;
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
 			return (FAIL);
 		*new_var = (t_env_nodes){0};
-		if (var_fill_env(data->input->cmd_arr[i], equal_sign, new_var))
+		if (var_fill_env(curr->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
 		does_var_exist(&data->env, new_var->var_name);
 		append_node((t_list_base **)&data->env, (t_list_base *)new_var);
@@ -73,4 +75,28 @@ void	does_var_exist(t_env_nodes **list, char *arg)
 		}
 		curr = next;
 	}
+}
+
+int	check_export_syntax(char *arg)
+{
+	int	i;
+	int	j;
+
+	if (!arg || !arg[0])
+		return (EMPTY);
+	i = 0;
+	while (arg[i] && arg[i] != '=')
+		i++;
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (FAIL);
+	if (arg[0] == '_' && !arg[1])
+		return (FAIL);
+	j = 1;
+	while (j < i)
+	{
+		if (!ft_isalnum(arg[j]) && arg[j] != '_')
+			return (FAIL);
+		j++;
+	}
+	return (SUCCESS);
 }

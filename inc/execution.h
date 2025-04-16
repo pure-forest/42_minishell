@@ -41,16 +41,18 @@ int			change_var_value(t_env_nodes *list, char *var_to_change,
 void		update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 				char *var_to_change, char *new_value);
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
-int			update_env(t_struct_ptrs *data);
+int			update_env(t_struct_ptrs *data, t_input *curr);
+int			check_export_syntax(char *arg);
+void		set_shell_level(t_struct_ptrs *data);
 
 //**************		BUILTINS
 int			env(t_struct_ptrs *data);
 int			pwd(t_struct_ptrs *data);
-int			export(t_struct_ptrs *data);
-int			unset(t_struct_ptrs *data);
-int			cd(t_struct_ptrs *data);
-int			echo(t_struct_ptrs *data);
-int			ft_exit(t_struct_ptrs *data);
+int			export(t_struct_ptrs *data, t_input *curr);
+int			unset(t_struct_ptrs *data, t_input *curr);
+int			cd(t_struct_ptrs *data, t_input *curr);
+int			echo(t_input *curr);
+int			ft_exit(t_struct_ptrs *data, t_input *curr);
 int			is_equal_sign_present(char *arg);
 int			check_match(char *cmd_arg, char *var_name);
 int			remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);

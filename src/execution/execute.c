@@ -8,12 +8,12 @@ int		run_execve(t_struct_ptrs *data, t_input *curr);
 int		process_pipeline(t_struct_ptrs *data, t_input *curr,
 			t_exec_data *exec_data);
 
-void	execute(t_struct_ptrs *data)
+void execute(t_struct_ptrs *data)
 {
-	t_exec_data	exec_data;
-	t_input		*curr;
-	int			split_res;
-	int			create_env_res;
+	t_exec_data exec_data;
+	t_input *curr;
+	int split_res;
+	int create_env_res;
 
 	exec_data = (t_exec_data){0};
 	exec_data.prev_read_end = -1;
@@ -22,22 +22,23 @@ void	execute(t_struct_ptrs *data)
 	if (!create_env_res || create_env_res == EMPTY)
 	{
 		split_res = split_env_path(data);
-		if (split_res == EMPTY || split_res == NOT_FOUND)
-		{
-			set_exit_code(data, 3);
-			print_err_exe(data, curr->cmd_arr[0], 2);
-			return ;
-		}
 		while (curr)
 		{
+			if ((split_res == EMPTY || split_res == NOT_FOUND) && is_builtin(curr) == NO)
+			{
+				set_exit_code(data, 3);
+				print_err_exe(data, curr->cmd_arr[0], 2);
+				curr = (t_input *)curr->base.next;
+				continue;
+			}
 			if (launch_cmd_exec(data, curr, &exec_data))
-				break ;	// how should this exit??
+				break;
 			curr = (t_input *)curr->base.next;
 		}
 		wait_for_children(data);
 	}
 	clean_up_exec_creations(data);
-	return ;
+	return;
 }
 
 int	launch_cmd_exec(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
@@ -48,7 +49,7 @@ int	launch_cmd_exec(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 		if (pipe(exec_data->pipe_fd) == -1)
 			return (set_exit_code(data, -1), FAIL);	// does this exit the whole mini or just this prompt?
 	in_pipeline = curr->base.prev || curr->base.next;
-	if (!is_builtin(curr) && !in_pipeline)
+	if (is_builtin(curr) && !in_pipeline)
 	{
 		handle_standard_fds(exec_data, NO);
 		if (set_std_fds(data, curr, exec_data))
@@ -93,7 +94,7 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 		mega_clean(data);
 		exit (data->exit_code);
 	}
-	if (!is_builtin(curr))
+	if (is_builtin(curr))
 	{
 		launch_builtin(data, curr);
 		clean_up_exec_creations(data);
@@ -127,7 +128,7 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 	{
 		if (access(curr->cmd_path, X_OK) == 0)
 		{
-			if (execve(curr->cmd_path, curr->cmd_arr, data->split_path) == -1)
+			if (execve(curr->cmd_path, curr->cmd_arr, data->exec_env) == -1)
 			{
 				set_exit_code(data, errno);
 				print_err_exe(data, curr->cmd_arr[0], 2);

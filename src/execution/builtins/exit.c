@@ -5,16 +5,16 @@ long	ft_atol(const char *s);
 int		count_args(char **arr);
 void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code);
 
-int	ft_exit(t_struct_ptrs *data)
+int	ft_exit(t_struct_ptrs *data, t_input *curr)
 {
 	long	code;
 	int		arg_count;
 
-	arg_count = count_args(data->input->cmd_arr);
+	arg_count = count_args(curr->cmd_arr);
 	if (arg_count == 1)
 		exit (data->exit_code);
-	if (is_valid_numeric_input(data->input->cmd_arr[1]) == NO)
-		print_numeric_error(data, data->input->cmd_arr[1], 255);
+	if (is_valid_numeric_input(curr->cmd_arr[1]) == NO)
+		print_numeric_error(data, curr->cmd_arr[1], 4);
 	if (arg_count > 2)
 	{
 		set_exit_code(data, 4);
@@ -22,9 +22,9 @@ int	ft_exit(t_struct_ptrs *data)
 		print_error("exit: too many arguments",NULL, NULL);
 		return (FAIL);
 	}
-	code = ft_atol(data->input->cmd_arr[1]);
+	code = ft_atol(curr->cmd_arr[1]);
 	if (code == FAIL)
-		print_numeric_error(data, data->input->cmd_arr[1], 2);
+		print_numeric_error(data, curr->cmd_arr[1], 4);
 	exit(code % 256);
 }
 
