@@ -8,7 +8,8 @@ t_token	*get_quote_token(t_token *token_list)
 	while (temp)
 	{
 		if ((ft_strchr(temp->value, '\'') || ft_strchr(temp->value, '\"'))
-			&& temp->type == WORD)
+			&& (temp->type == WORD || temp->type == INFILE
+			|| temp->type == OUTFILE))
 			return (temp);
 		temp = ((t_token *)(temp->base.next));
 	}
