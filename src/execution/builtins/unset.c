@@ -20,7 +20,7 @@ int	unset(t_struct_ptrs *data, t_input *curr)
 	if (RET_UNSET_0(env_unset) || RET_UNSET_0(export_unset))
 		return (SUCCESS);
 	else
-		return (FAIL);
+		return (0);
 }
 
 int	unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset)	//static or not??

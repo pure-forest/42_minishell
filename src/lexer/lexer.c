@@ -15,6 +15,7 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		return (FAIL);
 	}
 	data->input = parser(data);
+	// print_input(data->input);
 	if (!data->input)
 		return (FAIL);
 	return (SUCCESS);

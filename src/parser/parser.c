@@ -3,7 +3,7 @@
 static int	get_node_num(t_token *token_list);
 static int	assign_value_cmd_arrs(t_input **input, t_token **token_list);
 static int	parse_cmd_args(t_token **token_list, t_input **input);
-static void	cmd_arr_str_process(t_token **token_list, char ***cmd_arr);
+static char	**cmd_arr_str_process(t_token **token_list);
 
 t_input	*parser(t_struct_ptrs *data)
 {
@@ -16,6 +16,7 @@ t_input	*parser(t_struct_ptrs *data)
 		return (NULL);
 	if (parse_cmd_args(&data->token, &ret_input) == FAIL)
 		return (NULL);
+	// print_double_ptr(ret_input->cmd_arr);
 	if (parse_redirection(&data->token, &ret_input) == FAIL)
 		return (NULL);
 	return (ret_input);
@@ -39,13 +40,8 @@ static int	assign_value_cmd_arrs(t_input **input, t_token **token_list)
 {
 	char	**cmd_arr;
 	t_input	*new_node;
-	int		size;
 
-	size = cmd_arr_num(*token_list);
-	cmd_arr = ft_calloc(size + 1, sizeof(char *));
-	if (!cmd_arr)
-		return (FAIL);
-	cmd_arr_str_process(token_list, &cmd_arr);
+	cmd_arr = cmd_arr_str_process(token_list);
 	if (!cmd_arr)
 		return (FAIL);
 	new_node = cmd_table_init(cmd_arr);
@@ -73,26 +69,28 @@ static int	parse_cmd_args(t_token **token_list, t_input **input)
 	return (SUCCESS);
 }
 
-static void	cmd_arr_str_process(t_token **token_list, char ***cmd_arr)
+static char	**cmd_arr_str_process(t_token **token_list)
 {
-	int	i;
+	int		i;
+	int		size;
+	char	**cmd_arr;
 
+	size = cmd_arr_num(*token_list);
+	cmd_arr = ft_calloc(size + 1, sizeof(char *));
+	if (!cmd_arr)
+		return (NULL);
 	i = 0;
 	while ((*token_list) && (*token_list)->type != PIPE)
 	{
 		if ((*token_list)->type == WORD)
 		{
-			(*cmd_arr)[i] = ft_strdup((*token_list)->value);
+			cmd_arr[i] = ft_strdup((*token_list)->value);
 			if (!cmd_arr[i])
-				return (ft_free_double_ptr(*cmd_arr));
+				return (ft_free_double_ptr(cmd_arr), NULL);
 			i++;
 		}
 		(*token_list) = (t_token *)((*token_list)->base.next);
 	}
-	if (!(*cmd_arr))
-	{
-		*cmd_arr = NULL;
-		return ;
-	}
-	(*cmd_arr)[i] = NULL;
+	cmd_arr[i] = NULL;
+	return (cmd_arr);
 }
