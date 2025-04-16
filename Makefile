@@ -49,9 +49,6 @@ ${LIBFT_A}:
 ${OBJDIR}:
 	@mkdir -p obj
 
-$(BINDIR):
-	@mkdir -p bin
-
 $(TMPDIR):
 	@mkdir -p tmp
 
@@ -70,7 +67,7 @@ clean:
 	@echo "$(PINK)=== 🚮Minishell clean succeed. $(END)\n"
 
 fclean:clean
-	@rm -rf $(NAME) $(BINDIR) $(TMPDIR)
+	@rm -rf $(NAME) $(TMPDIR)
 	@make fclean -C ${LIBFT_DIR} > /dev/null
 	@echo "$(PINK)=== 🔁Minishell fclean succeed. $(END)\n"
 

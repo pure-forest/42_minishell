@@ -1,50 +1,52 @@
 #include "../../../inc/execution.h"
 
-int		unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset);
+# define RET_UNSET_0(x) ((x) == YES || (x) == NOT_FOUND || (x) == EMPTY)
+int		unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset);
 void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr);
 int		check_match(char *cmd_arg, char *var_name);
 int		remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
 
-int	unset(t_struct_ptrs *data)
+int	unset(t_struct_ptrs *data, t_input *curr)
 {
-	int			var_unset;
+	int			env_unset;
+	int			export_unset;
 
-	var_unset = 0;
-	if (data->env && unset_vars(data, &data->env, 0))
-		var_unset += 1;
-	if (data->export && unset_vars(data, &data->export, 11))
-		var_unset += 1;
-	if (var_unset != 0)
+	env_unset = EMPTY;
+	export_unset = EMPTY;
+	if (data->env)
+		env_unset = unset_vars(curr, &data->env, 0); 
+	if (data->export)
+		export_unset = unset_vars(curr, &data->export, 11);
+	if (RET_UNSET_0(env_unset) || RET_UNSET_0(export_unset))
 		return (SUCCESS);
 	else
 		return (0);
 }
 
-int	unset_vars(t_struct_ptrs *data, t_env_nodes **lst_to_unset, int offset)	//static or not??
+int	unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset)	//static or not??
 {
-	t_env_nodes	*curr;
+	t_env_nodes	*list;
 	t_env_nodes	*next;
 	int			i;
 	int			removed;
 
-	curr = *lst_to_unset;
+	list = *lst_to_unset;
 	next = NULL;
-	removed = 0;
-	while (curr)
+	removed = NOT_FOUND;
+	while (list)
 	{
-		next = (t_env_nodes *)curr->base.next;
+		next = (t_env_nodes *)list->base.next;
 		i = 0;
-		while (data->input->cmd_arr[i])
+		while (curr->cmd_arr[++i])
 		{
-			if (is_equal_sign_present(data->input->cmd_arr[i]) && !check_match \
-				(data->input->cmd_arr[i], (curr->var_name + offset)))
+			if (is_equal_sign_present(curr->cmd_arr[i]) && !check_match \
+				(curr->cmd_arr[i], (list->var_name + offset)))
 			{
-				removed = remove_node(lst_to_unset, curr);
+				removed = remove_node(lst_to_unset, list);
 				break ;
 			}
-			i++;
 		}
-		curr = next;
+		list = next;
 	}
 	return (removed);
 }
@@ -79,9 +81,7 @@ int	check_match(char *cmd_arg, char *var_name)
 	int	cmd_arg_len;
 	int	var_name_len_w_equal;
 	int	var_name_len_wo_equal;
-	//int	res;
 
-	//res = 0;
 	cmd_arg_len = ft_strlen(cmd_arg);
 	var_name_len_w_equal = ft_strlen(var_name);
 	var_name_len_wo_equal = ft_strlen(var_name) - 1;

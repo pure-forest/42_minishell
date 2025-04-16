@@ -73,7 +73,7 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 		return (FAIL);
 	if (input->input_fd != -1)
 		dup2(input->input_fd, STDIN_FILENO);
-	else if (input->base.prev)
+	else if (input->base.prev && exec_data->prev_read_end != -1)
 	{
 		dup2(exec_data->prev_read_end, STDIN_FILENO);
 		close_fd(&exec_data->pipe_fd[0]);

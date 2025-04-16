@@ -2,7 +2,7 @@
 
 int	check_arg(char *arg);
 
-int	echo(t_struct_ptrs *data)
+int	echo(t_input *curr)
 {
 	int		i;
 	char	**cmd_arr;
@@ -10,7 +10,7 @@ int	echo(t_struct_ptrs *data)
 
 	i = 1;
 	flag = 0;
-	cmd_arr = data->input->cmd_arr;
+	cmd_arr = curr->cmd_arr;
 	while (cmd_arr[i] && !check_arg(cmd_arr[i]))
 	{
 		flag = 1;

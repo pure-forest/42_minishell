@@ -9,7 +9,7 @@ int	create_env(char **envp, t_struct_ptrs *data)
 
 	i = -1;
 	if (!data || !envp)
-		return (SUCCESS); //this is technically not a fail, it just means the env is empty right?
+		return (EMPTY); //this is technically not a fail, it just means the env is empty right?
 	while (envp[++i])
 	//while (++i < 4)
 	{
