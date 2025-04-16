@@ -37,7 +37,6 @@ char	*generate_heredoc_name(void)
 	static int	index;
 	char		*number_str;
 	char		*file_name;
-	int			result;
 
 	number_str = ft_itoa(index);
 	if (!number_str)
@@ -54,7 +53,6 @@ char	*generate_heredoc_name(void)
 		file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
 		if (!file_name)
 			return (NULL);
-		result = access(file_name, F_OK);
 	}
 	free(number_str);
 	index++;
