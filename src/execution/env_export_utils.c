@@ -66,6 +66,7 @@ void	set_shell_level(t_struct_ptrs *data)
 {
 	char	*shlvl_var_value;
 	long	shlvl;
+	char	*new_value;
 
 	shlvl_var_value = get_var_value(data->env, "SHLVL=");
 	if (!shlvl_var_value)
@@ -80,6 +81,9 @@ void	set_shell_level(t_struct_ptrs *data)
 	}
 	else
 		shlvl++;
-	update_var_in_both(data->env, data->export, "SHLVL=", ft_itoa(shlvl));
-	return ;
+	new_value = ft_itoa(shlvl);
+	if (!new_value)
+		return ; //malloc to be handled!!!
+	update_var_in_both(data->env, data->export, "SHLVL=", new_value);
+	return (free(new_value), (void)01);
 }
