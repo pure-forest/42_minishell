@@ -37,7 +37,7 @@ void execute(t_struct_ptrs *data)
 		}
 		wait_for_children(data);
 	}
-	clean_up_exec_creations(data);
+	clean_up_exec_creations(data, NULL);
 	return;
 }
 
@@ -86,18 +86,18 @@ int	process_pipeline(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 {
 	if (set_std_fds(data, curr, exec_data))
-		return ;
+		exit (data->exit_code) ;
 	if (!curr->cmd_arr[0])
 	{
 		set_exit_code(data, SUCCESS);
-		clean_up_exec_creations(data);
+		clean_up_exec_creations(data, curr);
 		mega_clean(data);
 		exit (data->exit_code);
 	}
 	if (is_builtin(curr))
 	{
 		launch_builtin(data, curr);
-		clean_up_exec_creations(data);
+		clean_up_exec_creations(data, curr);
 		mega_clean(data);
 		exit(data->exit_code);
 	}
@@ -111,7 +111,7 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 			{
 				set_exit_code(data, ENOENT);
 				print_err_exe(data, curr->cmd_arr[0], 3);
-				clean_up_exec_creations(data);
+				clean_up_exec_creations(data, curr);
 				mega_clean(data);
 				exit(data->exit_code);
 			}
@@ -145,7 +145,7 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 		set_exit_code(data, ENOENT);
 		print_err_exe(data, curr->cmd_arr[0], 2);
 	}
-	clean_up_exec_creations(data);
+	clean_up_exec_creations(data, curr);
 	mega_clean(data);
 	return (FAIL);
 }
