@@ -73,7 +73,7 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 	{
 		signal_init_heredoc();
 		temp = readline("> ");
-		if (signal_numb == 2 && !temp)
+		if (g_signal_numb == 2 && !temp)
 			return (close_stdin(stdin_copy, fd), file_name);
 		if (!ft_strncmp(temp, token->value, ft_strlen(token->value)))
 			return (free(temp), close(fd), file_name);

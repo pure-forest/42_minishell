@@ -38,6 +38,6 @@
 # define FT_DELIMINATER "|;&()<>"
 # define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
 
-extern sig_atomic_t signal_numb;
+extern sig_atomic_t g_signal_numb;
 
 #endif
