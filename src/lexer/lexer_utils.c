@@ -15,7 +15,7 @@ int	tokenize_pipe(char *str, int *i, t_token **token_list)
 			return (FAIL);
 		node = token_init(PIPE, token_value);
 		if (!node)
-			return (FAIL);
+			return (free(token_value), FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,
@@ -42,6 +42,8 @@ int	tokenize_redir(char *str, int *i, t_token **token_list)
 		if (!token_value)
 			return (FAIL);
 		node = token_init(REDIR, token_value);
+		if (!node)
+			return (free(token_value), FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,
@@ -70,7 +72,7 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 			return (FAIL);
 		node = token_init(WORD, token_value);
 		if (!node)
-			return (FAIL);
+			return (free(token_value), FAIL);
 		if (!(*token_list))
 			(*token_list) = node;
 		else if (append_node((t_list_base **)token_list,

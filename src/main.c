@@ -23,7 +23,10 @@ int	main(int argc, char **av, char **envp)
 			break ;
 		add_history(read_line);
 		if (start_tokenization(read_line, data) == FAIL)
+		{
+			free_lexer(&data->token);
 			continue ;
+		}
 		execute(data);
 		mini_clean(data);
 	}

@@ -11,12 +11,15 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		return (FAIL);
 	if (remove_quotes(data) == FAIL)
 	{
-		free(data->token);
+		free_lexer(&data->token);
 		return (FAIL);
 	}
 	data->input = parser(data);
 	if (!data->input)
+	{
+		mini_clean(data);
 		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
