@@ -17,7 +17,7 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 
 void	print_error(char *var, char *var_2, char *str)
 {
-	ft_putstr_fd(PROMPT, 2);
+	ft_putstr_fd("catshell: ", 2);
 	ft_putstr_fd(var, 2);
 	ft_putstr_fd(var_2, 2);
 	ft_putstr_fd(str, 2);

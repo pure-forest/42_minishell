@@ -30,8 +30,8 @@ static t_token	*create_token_list(char *str)
 	token_list = NULL;
 	while (str && str[i])
 	{
-		// if (ft_strchr(";&()\\", str[i]))
-		// 	break ;
+		if (ft_strchr(";&()\\", str[i]))
+			break;
 		if (tokenize_pipe(str, &i, &token_list) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == FAIL)
@@ -42,7 +42,11 @@ static t_token	*create_token_list(char *str)
 			i++;
 	}
 	if (str[i] != '\0')
-		return (NULL);
+	{
+		print_error("Syntax error", NULL, NULL);
+		return (free_lexer(&token_list), NULL);
+	}
+
 	return (token_list);
 }
 
