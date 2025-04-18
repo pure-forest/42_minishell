@@ -23,7 +23,8 @@ int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in,
 			input->input_fd = open(redir_in[i], O_RDONLY, 0777);
 			if (input->input_fd == -1)
 			{
-				set_exit_code(data, errno);
+				// set_exit_code(data, errno);
+				set_exit_code(data, 6);
 				close_fd(&pipe_fd[0]);
 				close_fd(&pipe_fd[1]);
 				return (print_err_exe(data, redir_in[i], 2), FAIL);
@@ -53,7 +54,8 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
 					0777);
 			if (input->output_fd == -1)
 			{
-				set_exit_code(data, errno);
+				// set_exit_code(data, errno);
+				set_exit_code(data, 6);
 				close_fd(&pipe_fd[0]);
 				close_fd(&pipe_fd[1]);
 				return (print_err_exe(data, redir_out[i], 2), FAIL);

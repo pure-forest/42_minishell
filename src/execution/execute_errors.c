@@ -35,6 +35,8 @@ void	close_fd(int *fd)
 
 int	get_errno_codes(int err)
 {
+	if (err == 6)
+		return (1);
 	if (err == SUCCESS)
 		return (0);
 	if (err == ENOENT) // No such file or directory
