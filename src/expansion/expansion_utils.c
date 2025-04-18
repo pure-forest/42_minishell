@@ -29,3 +29,14 @@ char	*handle_exit_code(t_struct_ptrs *data)
 {
 	return (ft_itoa(data->exit_code));
 }
+
+void	strcpy_to_valid_variable(char *src, char **valid_variable,
+		int *i, int *j)
+{
+	while (is_valid_expandable(src[*i]) == YES)
+		{
+			(*valid_variable)[*j] = src[(*i)];
+			(*j)++;
+			(*i)++;
+		}
+}

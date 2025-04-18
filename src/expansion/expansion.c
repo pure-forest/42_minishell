@@ -34,6 +34,8 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 		return (NULL);
 	i = 0;
 	new_str = ft_strdup("");
+	if (!new_str)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	expanded_value = NULL;
 	while (src[i])
 	{
@@ -64,6 +66,8 @@ static char	*append_or_expand(char *src, int *i, char **new_str,
 	if (src[*i] && should_just_append(src[*i], &src[*i]) == YES)
 	{
 		*new_str = append_character_in_string(*new_str, src[(*i)++]);
+		if (!(*new_str))
+			return (NULL);
 		return (NULL);
 	}
 	else
@@ -89,16 +93,11 @@ static char	*chop_valid_variable(char *src, int *i)
 		j++;
 	}
 	else
-	{
-		while (is_valid_expandable(src[*i]) == YES)
-		{
-			valid_variable[j] = src[(*i)];
-			j++;
-			(*i)++;
-		}
-	}
+		strcpy_to_valid_variable(src, &valid_variable, i, &j);
 	valid_variable[j] = 0;
 	valid_variable = append_character_in_string(valid_variable, '=');
+	if (!valid_variable)
+		return (NULL);
 	return (valid_variable);
 }
 
@@ -106,20 +105,29 @@ static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 {
 	t_env_nodes	*temp;
 	char		*ret;
+	char		*empty_string;
 
 	temp = data->env;
 	ret = NULL;
+	empty_string = NULL;
 	if (!ft_strncmp(valid_variable, "$=", 2))
 		return (free(valid_variable), ft_itoa(getpid()));
 	if (!ft_strncmp(valid_variable, "?=", 2))
 		return (free(valid_variable), handle_exit_code(data));
 	else if (!get_var_value(temp, valid_variable))
-		ret = NULL;
+	{
+		free(valid_variable);
+		empty_string = ft_strdup("");
+		if (!empty_string)
+			return (print_error("Malloc failure", NULL, NULL), NULL);
+		return (empty_string);
+	}
 	else
+	{
 		ret = ft_strdup(get_var_value(temp, valid_variable));
-	free(valid_variable);
-	if (!ret)
-		return (ft_strdup(""));
-	else
-		return (ret);
+		free(valid_variable);
+		if (ret)
+			return (ret);
+		return (print_error("Malloc failure", NULL, NULL), NULL);
+	}
 }

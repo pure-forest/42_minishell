@@ -40,7 +40,7 @@ int	tokenize_redir(char *str, int *i, t_token **token_list)
 			length++;
 		token_value = ft_substr(str, *i, length);
 		if (!token_value)
-			return (FAIL);
+			return (FAIL);;
 		node = token_init(REDIR, token_value);
 		if (!node)
 			return (free(token_value), FAIL);

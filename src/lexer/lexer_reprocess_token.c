@@ -97,6 +97,8 @@ static int	replace_unclose_pipe(t_token *node, t_struct_ptrs *data)
 		return (FAIL);
 	while (str[i])
 	{
+		if (ft_strchr(";&()\\", str[i]))
+			return (print_error("Syntax error",	NULL, NULL), FAIL);
 		if (tokenize_pipe(str, &i, &node) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &node) == FAIL)

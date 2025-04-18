@@ -29,7 +29,7 @@ t_input	*cmd_table_init(char **cmd_arr)
 		return (NULL);
 	temp = ft_calloc(1, sizeof(t_input));
 	if (!temp)
-		return (NULL);
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	temp->cmd_arr = cmd_arr;
 	temp->append = NO;
 	temp->redir_in = NULL;

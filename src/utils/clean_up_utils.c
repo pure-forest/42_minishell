@@ -1,30 +1,35 @@
 #include "../../inc/utils.h"
 
-void	clean_up_temp_files(void)
-{
-	int		index;
-	char	*index_str;
-	char	*file_name;
+static void	loop_clean_temp_files(char **file_name, char **index_str,
+				int *index);
 
-	index = 0;
-	index_str = ft_itoa(index);
-	if (!index_str)
-		return ;
-	file_name = ft_strjoin(HEREDOC_TEMP_NAME, index_str);
-	while (access(file_name, F_OK) == 0)
+void	clean_up_temp_files(t_input **input)
+{
+	char	**infile;
+	t_input	*node;
+
+	node = *input;
+	while (node)
 	{
-		unlink(file_name);
-		free(index_str);
-		free(file_name);
-		index++;
-		index_str = ft_itoa(index);
-		if (!index_str)
-			return ;
-		file_name = ft_strjoin(HEREDOC_TEMP_NAME, index_str);
+		if ()
 	}
-	free(file_name);
-	free(index_str);
-	file_name = NULL;
+	infile = (*input)->redir_in;
+	delete_temp_files(infile);
+
+	return ;
+}
+
+void	delete_temp_files(char **infile)
+{
+	int	i;
+
+	i = 0;
+	while (infile[i])
+	{
+		if (!ft_strncmp(infile, HEREDOC_TEMP_NAME, 14))
+			unlink(infile[i]);
+		i++;
+	}
 	return ;
 }
 
@@ -40,7 +45,7 @@ void	mega_clean(t_struct_ptrs *data)
 	if (data->export)
 		free_env_nodes(&data->export);
 	error_handling(data);
-	clean_up_temp_files();
+	clean_up_temp_files(&data->input);
 	return ;
 }
 

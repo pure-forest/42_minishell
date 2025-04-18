@@ -28,6 +28,7 @@
 # define END "\033[0m"
 # define PROMPT PINK "🐱 --Catshell > " END
 # define FAIL 1
+# define SYSTEM_FAIL -1
 # define SUCCESS 0
 # define YES 1
 # define NO 0

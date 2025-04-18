@@ -13,7 +13,7 @@ int	check_for_expansion(t_struct_ptrs *data, char **new_line)
 		return (SUCCESS);
 	words = ft_split(*new_line, ' ');
 	if (!words)
-		return (FAIL);
+		return (print_error("Malloc failure", NULL, NULL), FAIL);
 	i = 0;
 	while (words[i])
 	{
@@ -73,17 +73,17 @@ static char	*ft_rejoin_str(char **words)
 	temp = NULL;
 	str = ft_strdup(words[0]);
 	if (!str)
-		return (NULL);
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	while (words[i])
 	{
 		temp = ft_strjoin(str, " ");
 		free(str);
 		if (!temp)
-			return (NULL);
+			return (print_error("Malloc failure", NULL, NULL), NULL);
 		str = ft_strjoin(temp, words[i]);
 		free(temp);
 		if (!str)
-			return (NULL);
+			return (print_error("Malloc failure", NULL, NULL), NULL);
 		i++;
 	}
 	return (str);
@@ -94,7 +94,7 @@ static int	handle_not_valid_expansion(char **new_line)
 	free(*new_line);
 	*new_line = ft_strdup("");
 	if (!*new_line)
-		return (FAIL);
+		return (print_error("Malloc failure", NULL, NULL), FAIL);
 	return (SUCCESS);
 }
 

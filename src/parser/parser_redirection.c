@@ -49,10 +49,9 @@ static int	parse_infile(t_token *temp, t_input **input)
 	while (head)
 	{
 		redir_files = parse_files(temp, INPUT);
-		if (redir_files)
-			head->redir_in = redir_files;
-		else
+		if (!redir_files)
 			return (FAIL);
+		head->redir_in = redir_files;
 		head = (t_input *)(head->base.next);
 		get_next_cmd_node(&temp);
 	}
@@ -67,6 +66,8 @@ static char	**parse_files(t_token *token, t_token_type type)
 
 	redir_num = get_redir_num(token, type);
 	redir_files = ft_calloc(redir_num + 1, sizeof(char *));
+	if (!redir_files)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	i = 0;
 	while (token && i < redir_num)
 	{
@@ -74,7 +75,8 @@ static char	**parse_files(t_token *token, t_token_type type)
 		{
 			redir_files[i] = ft_strdup(((t_token *)(token->base.next))->value);
 			if (!redir_files[i])
-				return (NULL);
+				return (ft_free_double_ptr(redir_files),
+				print_error("Malloc failure", NULL, NULL), NULL);
 			i++;
 		}
 		token = (t_token *)(token->base.next);
@@ -92,6 +94,8 @@ static char	**parse_files_output_append(t_token *token)
 	redir_num = get_redir_num(token, OUTPUT);
 	redir_num += get_redir_num(token, APPEND);
 	redir_files = ft_calloc(redir_num + 1, sizeof(char *));
+	if (!redir_files)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	i = 0;
 	while (token && i < redir_num)
 	{
@@ -99,7 +103,8 @@ static char	**parse_files_output_append(t_token *token)
 		{
 			redir_files[i] = ft_strdup(((t_token *)(token->base.next))->value);
 			if (!redir_files[i])
-				return (NULL);
+				return (ft_free_double_ptr(redir_files),
+				print_error("Malloc failure", NULL, NULL), NULL);
 			i++;
 		}
 		token = (t_token *)(token->base.next);
