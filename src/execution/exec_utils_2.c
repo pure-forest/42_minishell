@@ -1,12 +1,11 @@
 #include "../../inc/execution.h"
 
-int	get_err_code(int err)
+void	close_pipe_fd(int *pipe_fd)
 {
-	if (err == EACCES)
-		return (126);
-	if (err == ENOENT)
-		return (127);
-	return (1);
+	if (pipe_fd[0] >= 0)
+		close_fd(&pipe_fd[0]);
+	if (pipe_fd[1] >= 0)
+		close_fd(&pipe_fd[1]);
 }
 
 int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in,
@@ -23,11 +22,10 @@ int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in,
 			input->input_fd = open(redir_in[i], O_RDONLY, 0777);
 			if (input->input_fd == -1)
 			{
-				// set_exit_code(data, errno);
-				set_exit_code(data, 6);
-				close_fd(&pipe_fd[0]);
-				close_fd(&pipe_fd[1]);
-				return (print_err_exe(data, redir_in[i], 2), FAIL);
+				set_exit_code(data, errno);
+				// set_exit_code(data, 6);
+				close_pipe_fd(pipe_fd);
+				return (print_err_exe(data, redir_in[i], 6), FAIL);
 			}
 			if (redir_in[i + 1])
 				close_fd(&input->input_fd);
@@ -54,11 +52,10 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
 					0777);
 			if (input->output_fd == -1)
 			{
-				// set_exit_code(data, errno);
-				set_exit_code(data, 6);
-				close_fd(&pipe_fd[0]);
-				close_fd(&pipe_fd[1]);
-				return (print_err_exe(data, redir_out[i], 2), FAIL);
+				set_exit_code(data, errno);
+				// set_exit_code(data, 6);
+				close_pipe_fd(pipe_fd);
+				return (print_err_exe(data, redir_out[i], 6), FAIL);
 			}
 			if (redir_out[i + 1])
 				close_fd(&input->output_fd);

@@ -11,7 +11,6 @@ void		execute(t_struct_ptrs *data);
 int			is_builtin(t_input *curr);
 void		launch_builtin(t_struct_ptrs *data, t_input *curr);
 int			create_execute_env(t_struct_ptrs *data);
-int			get_err_code(int err);
 int			check_inp_files(t_struct_ptrs *data, t_input *input,
 				char **redir_in, int *pipe_fd);
 int			check_out_files(t_struct_ptrs *data, t_input *input,

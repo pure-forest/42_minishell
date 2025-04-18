@@ -74,6 +74,7 @@ typedef struct s_struct_ptrs
 	t_env_nodes			*export;
 	t_token				*token;
 	t_input				*input;
+	t_exec_data			*exec_data;
 	int					exit_code;
 	char				**exec_env;
 	char				**split_path;

@@ -7,24 +7,23 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr,
 int		run_execve(t_struct_ptrs *data, t_input *curr);
 int		process_pipeline(t_struct_ptrs *data, t_input *curr,
 			t_exec_data *exec_data);
+void	init_exec_data(t_exec_data *exec_data);
 
 void execute(t_struct_ptrs *data)
 {
 	t_exec_data exec_data;
 	t_input *curr;
-	int split_res;
-	int create_env_res;
+	int check_return_value;
 
-	exec_data = (t_exec_data){0};
-	exec_data.prev_read_end = -1;
+	init_exec_data(&exec_data);
 	curr = data->input;
-	create_env_res = create_execute_env(data);
-	if (!create_env_res || create_env_res == EMPTY)
+	check_return_value = create_execute_env(data);
+	if (!check_return_value || check_return_value == EMPTY)
 	{
-		split_res = split_env_path(data);
+		check_return_value = split_env_path(data);
 		while (curr)
 		{
-			if ((split_res == EMPTY || split_res == NOT_FOUND) && is_builtin(curr) == NO)
+			if ((check_return_value == EMPTY || check_return_value == NOT_FOUND) && is_builtin(curr) == NO)
 			{
 				set_exit_code(data, 3);
 				print_err_exe(data, curr->cmd_arr[0], 2);
@@ -39,6 +38,15 @@ void execute(t_struct_ptrs *data)
 	}
 	clean_up_exec_creations(data, NULL);
 	return;
+}
+
+void	init_exec_data(t_exec_data *exec_data)
+{
+	*exec_data = (t_exec_data){0};
+	exec_data->prev_read_end = -1;
+	exec_data->pipe_fd[0] = -1;
+	exec_data->pipe_fd[1] = -1;
+	return ;
 }
 
 int	launch_cmd_exec(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
