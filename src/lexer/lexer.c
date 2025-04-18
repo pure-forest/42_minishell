@@ -11,13 +11,15 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 		return (FAIL);
 	if (remove_quotes(data) == FAIL)
 	{
-		free(data->token);
+		free_lexer(&data->token);
 		return (FAIL);
 	}
 	data->input = parser(data);
-	// print_input(data->input);
 	if (!data->input)
+	{
+		mini_clean(data);
 		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
@@ -30,8 +32,8 @@ static t_token	*create_token_list(char *str)
 	token_list = NULL;
 	while (str && str[i])
 	{
-		// if (ft_strchr(";&()\\", str[i]))
-		// 	break ;
+		if (ft_strchr(";&()\\", str[i]))
+			break ;
 		if (tokenize_pipe(str, &i, &token_list) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == FAIL)
@@ -42,7 +44,10 @@ static t_token	*create_token_list(char *str)
 			i++;
 	}
 	if (str[i] != '\0')
-		return (NULL);
+	{
+		print_error("Syntax error", NULL, NULL);
+		return (free_lexer(&token_list), NULL);
+	}
 	return (token_list);
 }
 

@@ -31,10 +31,14 @@ void	clean_up_temp_files(void)
 void	mega_clean(t_struct_ptrs *data)
 {
 	rl_clear_history();
-	free_lexer(&data->token);
-	free_cmd_table(&data->input);
-	free_env_nodes(&data->env);
-	free_env_nodes(&data->export);
+	if (data->token)
+		free_lexer(&data->token);
+	if (data->input)
+		free_cmd_table(&data->input);
+	if (data->env)
+		free_env_nodes(&data->env);
+	if (data->export)
+		free_env_nodes(&data->export);
 	error_handling(data);
 	clean_up_temp_files();
 	return ;
@@ -42,7 +46,9 @@ void	mega_clean(t_struct_ptrs *data)
 
 void	mini_clean(t_struct_ptrs *data)
 {
-	free_lexer(&data->token);
-	free_cmd_table(&data->input);
+	if (data->token)
+		free_lexer(&data->token);
+	if (data->input)
+		free_cmd_table(&data->input);
 	return ;
 }

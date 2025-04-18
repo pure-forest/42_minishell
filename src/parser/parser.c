@@ -16,7 +16,6 @@ t_input	*parser(t_struct_ptrs *data)
 		return (NULL);
 	if (parse_cmd_args(&data->token, &ret_input) == FAIL)
 		return (NULL);
-	// print_double_ptr(ret_input->cmd_arr);
 	if (parse_redirection(&data->token, &ret_input) == FAIL)
 		return (NULL);
 	return (ret_input);

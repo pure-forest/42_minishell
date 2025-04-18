@@ -91,7 +91,7 @@ static int	replace_unclose_pipe(t_token *node, t_struct_ptrs *data)
 
 	str = readline("> ");
 	i = 0;
-	if (!str)
+	if (!*str)
 		return (FAIL);
 	if (check_for_expansion(data, &str) == FAIL)
 		return (FAIL);
