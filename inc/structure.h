@@ -53,14 +53,22 @@ typedef struct s_token
 	char			*value;
 }					t_token;
 
+typedef struct s_redir
+{
+	t_list_base		base;
+	t_token_type	type;
+	char			*file_name;
+}					t_redir;
+
 //The main structure will be used in the execution phase
 typedef struct s_input
 {
 	t_list_base	base;
+	t_redir		*redirection;
 	char		**cmd_arr;
-	char		**redir_in;
-	char		**redir_out;
-	bool		append;
+//	char		**redir_in;
+//	char		**redir_out;
+	// bool		append;
 	int			input_fd;
 	int			output_fd;
 	char		*cmd_path;
