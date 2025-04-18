@@ -42,6 +42,8 @@ char	*generate_heredoc_name(void)
 	if (!number_str)
 		return (NULL);
 	file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
+	if (!file_name)
+		return (free(number_str), NULL);
 	while (access(file_name, F_OK) == 0)
 	{
 		free(number_str);
@@ -52,7 +54,7 @@ char	*generate_heredoc_name(void)
 			return (NULL);
 		file_name = ft_strjoin(HEREDOC_TEMP_NAME, number_str);
 		if (!file_name)
-			return (NULL);
+			return (free(number_str), NULL);
 	}
 	free(number_str);
 	index++;
@@ -70,12 +72,18 @@ static char	*ft_rejoin_str(char **words)
 	i = 1;
 	temp = NULL;
 	str = ft_strdup(words[0]);
+	if (!str)
+		return (NULL);
 	while (words[i])
 	{
 		temp = ft_strjoin(str, " ");
 		free(str);
+		if (!temp)
+			return (NULL);
 		str = ft_strjoin(temp, words[i]);
 		free(temp);
+		if (!str)
+			return (NULL);
 		i++;
 	}
 	return (str);
@@ -85,6 +93,8 @@ static int	handle_not_valid_expansion(char **new_line)
 {
 	free(*new_line);
 	*new_line = ft_strdup("");
+	if (!*new_line)
+		return (FAIL);
 	return (SUCCESS);
 }
 

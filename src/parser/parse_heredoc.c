@@ -18,6 +18,8 @@ int	parse_heredoc(t_struct_ptrs *data)
 		{
 			heredoc_file = here_doc_put_input(data,
 					(t_token *)(token_list->base.next));
+			if (!heredoc_file)
+				return (FAIL);
 			if (replace_heredoc_node(&token_list, heredoc_file) == FAIL)
 				return (FAIL);
 		}
@@ -32,10 +34,18 @@ static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token)
 	char	*file_name;
 
 	file_name = generate_heredoc_name();
+	if (!file_name)
+		return (NULL);
 	fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return (NULL);
 	file_name = write_or_expand(fd, file_name, token, data);
+	if (!file_name)
+	{
+		free(file_name);
+		file_name = NULL;
+		return (NULL);
+	}
 	return (file_name);
 }
 
@@ -73,10 +83,10 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 	{
 		signal_init_heredoc();
 		temp = readline("> ");
-		if (signal_numb == 2 && !temp)
+		if (g_signal_numb == 2 && !temp)
 			return (close_stdin(stdin_copy, fd), file_name);
 		if (!ft_strncmp(temp, token->value, ft_strlen(token->value)))
-			return (free(temp), close(fd), file_name);
+			return (free(temp), close_stdin(stdin_copy, fd), file_name);
 		if (token->expand_heredoc == YES)
 		{
 			if (check_for_expansion(data, &temp) == FAIL)
@@ -84,14 +94,14 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 		}
 		write_into_temp_file(fd, &temp);
 	}
-	close(fd);
-	return (NULL);
+	return (close_stdin(stdin_copy, fd), free(file_name), NULL);
 }
 
 static void	close_stdin(int stdin_copy, int fd)
 {
 	if (dup2(stdin_copy, STDIN_FILENO) < 0)
 		return ;
+	close(stdin_copy);
 	close(fd);
 	return ;
 }

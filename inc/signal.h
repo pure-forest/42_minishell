@@ -6,5 +6,6 @@
 
 int	signal_init(void);
 int	signal_init_heredoc(void);
+int	signal_hanging_init(void);
 
 #endif

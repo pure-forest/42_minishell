@@ -17,7 +17,7 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 
 void	print_error(char *var, char *var_2, char *str)
 {
-	ft_putstr_fd(PROMPT, 2);
+	ft_putstr_fd("catshell: ", 2);
 	ft_putstr_fd(var, 2);
 	ft_putstr_fd(var_2, 2);
 	ft_putstr_fd(str, 2);
@@ -35,6 +35,8 @@ void	close_fd(int *fd)
 
 int	get_errno_codes(int err)
 {
+	if (err == 6)
+		return (1);
 	if (err == SUCCESS)
 		return (0);
 	if (err == ENOENT) // No such file or directory
