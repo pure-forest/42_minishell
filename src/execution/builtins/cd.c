@@ -14,7 +14,10 @@ int	cd(t_struct_ptrs *data, t_input *curr)
 		if (chdir(curr->cmd_arr[1]) == 0)
 		{
 			if (!getcwd(buff, PATH_MAX))
-				return (FAIL);
+			{
+				set_exit_code(data, errno);
+				return (perror("getcwd"), FAIL);
+			}
 			update_var_in_both(data->env, data->export, "OLDPWD=", \
 								get_var_value(data->env, "PWD="));
 			update_var_in_both(data->env, data->export, "PWD=", buff);

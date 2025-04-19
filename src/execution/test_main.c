@@ -1,10 +1,14 @@
 #include "../../inc/execution.h"
 
-void	init_cmd_arr(t_struct_ptrs *data);
+//void	init_cmd_arr(t_struct_ptrs *data);
 void	init_input(t_struct_ptrs *data);
-void	init_input_2(t_struct_ptrs *data);
-void	set_redirection(char *input, char *output, t_input *node);
+//void	init_input_2(t_struct_ptrs *data);
+//void	set_redirection(char *input, char *output, t_input *node);
+// void	set_redirection(t_input *node);
+void	set_redirection(t_input *node, int t_one, char *one, int t_two, \
+	char *two, int t_three, char *three);
 
+// ccc *.c ../../libft/*.c builtins/*.c -g -o exec
 //////////////	DEBUGGING THINGS - DELETE
 int	main(int ac, char **av, char **envp)
 {
@@ -27,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 	execute(&data);
 	printf("\n\n\nFinished execution\nExecute Exit Code is: %d\n\n", data.exit_code);
 
-if (data.input)
+/*if (data.input)
 	{
 		t_input *curr = data.input;
 		t_input	*next;
@@ -52,7 +56,7 @@ if (data.input)
 	printf("\n\nProcessing Execute TWO\n\n");
 	execute(&data);
 	printf("\n\n\nFinished execution\nExecute Exit Code is: %d\n\n", data.exit_code);
-
+*/
 	error_handling(&data);
 	if (data.input)
 	{
@@ -63,10 +67,18 @@ if (data.input)
 			next = (t_input *)curr->base.next;
 			if (curr->cmd_arr)
 				free(curr->cmd_arr);
-			if (curr->redir_in)
-				free(curr->redir_in);
-			if (curr->redir_out)
-				free(curr->redir_out);
+/*			if (curr->redirection)
+			{
+				t_redir	red_curr = curr->redirection;
+				t_redir	*tmp;
+				while (red_curr)
+				{
+					tmp = (t_redir	*)curr->base.next;
+					free (red_curr);
+					red_curr = tmp;
+				}
+				free(red_curr);
+			}*/
 			free(curr);
 			curr = next;
 		}
@@ -111,10 +123,11 @@ void	init_input(t_struct_ptrs *data)
 	new_var->cmd_arr = malloc(sizeof(char *) * 3);
 	if (!new_var->cmd_arr)
 		return ;
-	new_var->cmd_arr[0] = "cat";
-	new_var->cmd_arr[1] = "inf";
-	new_var->cmd_arr[2] = NULL;
-	new_var->redir_in = malloc(sizeof(char *) * 4);
+	new_var->cmd_arr[0] = "ls";
+	// new_var->cmd_arr[1] = "hi";
+	new_var->cmd_arr[1] = NULL;
+	set_redirection(new_var, APPEND, "out_1", 0, NULL, 0, NULL);
+	/*new_var->redir_in = malloc(sizeof(char *) * 4);
 	if (!new_var->redir_in)
 		return ;
 	// new_var->redir_in[0] = "infile";
@@ -126,7 +139,7 @@ void	init_input(t_struct_ptrs *data)
 		return ;
 	// new_var->redir_out[0] = "out";
 	// new_var->redir_out[0] = "outf";
-	new_var->redir_out[0] = NULL;
+	new_var->redir_out[0] = NULL;*/
 	new_var->base.next = NULL;
 	data->input = new_var;
 
@@ -138,23 +151,10 @@ void	init_input(t_struct_ptrs *data)
 	// second->cmd_arr = malloc(sizeof(char *) * 3);
 	// if (!second->cmd_arr)
 	// 	return ;
-	// second->cmd_arr[0] = "cat";
-	// // second->cmd_arr[1] = "line";
-	// second->cmd_arr[1] = NULL;
-	// second->redir_in = malloc(sizeof(char *) * 4);
-	// if (!second->redir_in)
-	// 	return ;
-	// // second->redir_in[0] = "inf";
-	// // second->redir_in[1] = "inf1";
-	// // second->redir_in[0] = "Makefile";
-	// second->redir_in[0] = NULL;
-	// second->redir_out = malloc(sizeof(char *) * 3);
-	// if (!second->redir_out)
-	// 	return ;
-	// second->redir_out[0] = "out";
-	// // second->redir_out[1] = "outf";
-	// second->redir_out[1] = NULL;
-
+	// second->cmd_arr[0] = "echo";
+	// second->cmd_arr[1] = "bye";
+	// second->cmd_arr[2] = NULL;
+	// set_redirection(second, 0, NULL, 0, NULL, 0, NULL);
 	// second->base.next = NULL;
 	// second->base.prev = (t_list_base *)new_var;
 	// new_var->base.next = (t_list_base *)second;
@@ -181,31 +181,44 @@ void	init_input(t_struct_ptrs *data)
 	// second->base.next = (t_list_base *)third;
 }
 
-// void	set_redirection(char *input, char *output, t_input *node)
-// {
-// 	t_token	*redir_in;
-// 	redir_in = malloc(sizeof(t_token));
-// 	if (!redir_in)
-// 		return ;
-// 	*redir_in = (t_token){0};
-// 	redir_in->type = INPUT;
-// 	redir_in->value = input;
-// 	redir_in->base.next = NULL;
-// 	node->redirection = redir_in;
-// 	t_token	*redir_out;
-// 	redir_out = malloc(sizeof(t_token));
-// 	if(!redir_out)
-// 		return ;
-// 	*redir_out = (t_token){0};
-// 	redir_out->type = OUTPUT;
-// 	redir_out->value = output;
-// 	redir_out->base.next = NULL;
-// 	redir_out->base.prev = (t_list_base *)redir_in;
-// 	redir_in->base.next = (t_list_base *)redir_out;
-// }
+ void	set_redirection(t_input *node, int t_one, char *one, int t_two, \
+	char *two, int t_three, char *three)
+ {
+ 	t_redir	*redir_1;
+ 	redir_1 = malloc(sizeof(t_redir));
+ 	if (!redir_1)
+ 		return ;
+ 	*redir_1 = (t_redir){0};
+ 	redir_1->type = t_one;
+ 	redir_1->file_name = one;
+ 	redir_1->base.next = NULL;
+ 	node->redirection = redir_1;
+
+ 	t_redir	*redir_2;
+ 	redir_2 = malloc(sizeof(t_redir));
+ 	if (!redir_2)
+ 		return ;
+ 	*redir_2 = (t_redir){0};
+ 	redir_2->type = t_two;
+ 	redir_2->file_name = two;
+	redir_2->base.prev = (t_list_base *)redir_1;
+ 	redir_2->base.next = NULL;
+	redir_1->base.next = (t_list_base *)redir_2;
+
+	t_redir	*redir_3;
+	redir_3 = malloc(sizeof(t_redir));
+	if (!redir_3)
+		return ;
+	*redir_3 = (t_redir){0};
+	redir_3->type = t_three;
+	redir_3->file_name = three;
+   	redir_3->base.prev = (t_list_base *)redir_2;
+	redir_3->base.next = NULL;
+   	redir_2->base.next = (t_list_base *)redir_3;
+ }
 
 
-void	init_input_2(t_struct_ptrs *data)
+/*void	init_input_2(t_struct_ptrs *data)
 {
 	// if (!data->input)
 	// {
@@ -240,4 +253,4 @@ void	init_input_2(t_struct_ptrs *data)
 	new_var->redir_out[0] = NULL;
 	new_var->base.next = NULL;
 	data->input = new_var;
-}
+}*/
