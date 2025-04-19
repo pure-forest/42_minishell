@@ -42,7 +42,7 @@ int	get_redir_num(t_token *token)
 	while (token)
 	{
 		if (token->type == INFILE || token->type == OUTFILE
-			|| token->type == APPEND)
+			|| token->type == OUTFILE_APPEN)
 			num++;
 		if (token->type == PIPE)
 			break ;

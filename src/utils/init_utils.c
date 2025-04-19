@@ -46,7 +46,12 @@ t_redir *redirection_init(t_token_type type, char *file_name)
 	temp = ft_calloc(1, sizeof(t_redir));
 	if (!temp)
 		return (print_error("Malloc failure", NULL, NULL), NULL);
-	temp->type = type;
+	if (type == INFILE)
+		temp->type = INPUT;
+	else if (type == OUTFILE)
+		temp->type = OUTPUT;
+	else if (type == OUTFILE_APPEN)
+		temp->type = APPEND;
 	temp->file_name = file_name;
 	temp->base.next = NULL;
 	temp->base.prev = NULL;

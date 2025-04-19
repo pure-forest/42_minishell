@@ -76,7 +76,7 @@ int	check_heredoc(t_token *token_list)
 			else if (!ft_strncmp(token_list->value, ">>", 3))
 			{
 				token_list->type = APPEND;
-				((t_token *)(token_list->base.next))->type = OUTFILE;
+				((t_token *)(token_list->base.next))->type = OUTFILE_APPEN;
 			}
 		}
 		token_list = ((t_token *)(token_list->base.next));

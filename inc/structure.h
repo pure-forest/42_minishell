@@ -35,8 +35,9 @@ typedef enum e_token_num
 	HEREDOC, // <<
 	APPEND,  // >>
 	REDIR,   // everthing including ><>><<
-	INFILE,  // things after > or >>
-	OUTFILE, // things after < or <<
+	INFILE,  // files after >
+	OUTFILE, // files after <
+	OUTFILE_APPEN, //files after >>
 	PIPE,    // |
 }						t_token_type;
 
@@ -66,12 +67,10 @@ typedef struct s_input
 	t_list_base	base;
 	t_redir		*redirection;
 	char		**cmd_arr;
-//	char		**redir_in;
-//	char		**redir_out;
-	// bool		append;
 	int			input_fd;
 	int			output_fd;
 	char		*cmd_path;
+}			t_input;
 
 // main struct for everyting used in minshell
 typedef struct s_struct_ptrs

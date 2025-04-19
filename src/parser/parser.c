@@ -18,6 +18,7 @@ t_input	*parser(t_struct_ptrs *data)
 		return (free_cmd_table(&ret_input), NULL);
 	if (parse_redirection(&data->token, &ret_input) == FAIL)
 		return (free_cmd_table(&ret_input), NULL);
+	print_input(ret_input);
 	return (ret_input);
 }
 

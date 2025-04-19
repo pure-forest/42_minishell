@@ -8,6 +8,9 @@ int	parse_redirection(t_token **token, t_input **input)
 	t_token	*temp;
 
 	temp = *token;
+	if (get_redir_num(temp) == 0)
+		return (SUCCESS);
+	temp = *token;
 	if (modify_input_node(temp, input) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
@@ -18,10 +21,10 @@ static int	modify_input_node(t_token *temp, t_input **input)
 	t_redir	*redirection;
 	t_input	*head;
 
-	redirection = NULL;
 	head = *input;
 	while (head)
 	{
+		redirection = NULL;
 		if (parse_files(temp, &redirection) == FAIL)
 			return (FAIL);
 		if (!redirection)
@@ -44,7 +47,7 @@ static int	parse_files(t_token *token, t_redir **head)
 	while (token && i < redir_num)
 	{
 		if (token->type == INFILE || token->type == OUTFILE
-			|| token->type == APPEND)
+			|| token->type == OUTFILE_APPEN)
 		{
 			temp = redirection_init(token->type, token->value);
 			if (!temp)
@@ -54,6 +57,7 @@ static int	parse_files(t_token *token, t_redir **head)
 			else if (append_node((t_list_base **)(head), (t_list_base *)temp)
 				== FAIL)
 				return (FAIL);
+			i++;
 		}
 		token = (t_token *)(token->base.next);
 	}
