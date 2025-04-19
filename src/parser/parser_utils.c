@@ -36,17 +36,19 @@ void	get_next_cmd_node(t_token **token_list)
 
 int	get_redir_num(t_token *token)
 {
-	int	num;
+	int		num;
+	t_token	*temp;
 
 	num = 0;
-	while (token)
+	temp = token;
+	while (temp)
 	{
-		if (token->type == INFILE || token->type == OUTFILE
-			|| token->type == OUTFILE_APPEN)
+		if (temp->type == INFILE || temp->type == OUTFILE
+			|| temp->type == OUTFILE_APPEN)
 			num++;
-		if (token->type == PIPE)
+		if (temp->type == PIPE)
 			break ;
-		token = (t_token *)(token->base.next);
+		temp = (t_token *)(temp->base.next);
 	}
 	return (num);
 }

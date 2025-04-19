@@ -8,9 +8,6 @@ int	parse_redirection(t_token **token, t_input **input)
 	t_token	*temp;
 
 	temp = *token;
-	if (get_redir_num(temp) == 0)
-		return (SUCCESS);
-	temp = *token;
 	if (modify_input_node(temp, input) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
@@ -22,16 +19,23 @@ static int	modify_input_node(t_token *temp, t_input **input)
 	t_input	*head;
 
 	head = *input;
-	while (head)
+	while (head && temp)
 	{
-		redirection = NULL;
-		if (parse_files(temp, &redirection) == FAIL)
-			return (FAIL);
-		if (!redirection)
-			return (FAIL);
-		head->redirection = redirection;
-		head = (t_input *)(head->base.next);
-		get_next_cmd_node(&temp);
+		if (get_redir_num(temp) == 0)
+		{
+			head = (t_input *)(head->base.next);
+			get_next_cmd_node(&temp);
+		}
+		else
+		{
+			redirection = NULL;
+			if (parse_files(temp, &redirection) == FAIL)
+				return (FAIL);
+			if (!redirection)
+				return (FAIL);
+			head->redirection = redirection;
+			get_next_cmd_node(&temp);
+		}
 	}
 	return (SUCCESS);
 }
