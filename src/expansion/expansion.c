@@ -4,30 +4,7 @@ static char	*chop_valid_variable(char *src, int *i);
 static char	*append_or_expand(char *src, int *i, char **new_str,
 				t_struct_ptrs *data);
 static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data);
-
-int	expand_word_token(t_struct_ptrs *data)
-{
-	t_token	*node;
-
-	node = data->token;
-	while (node)
-	{
-		if (node->should_expand == YES && ft_strchr(node->value, '$'))
-		{
-			(node)->expanded_value = expand_variable(data, node->value);
-			if (!(node)->expanded_value)
-				return (FAIL);
-			else if (!ft_strncmp(node->expanded_value, "", 1))
-			{
-				free(node->expanded_value);
-				node->expanded_value = NULL;
-			}
-			node->value = (node)->expanded_value;
-		}
-		node = (t_token *)(node->base.next);
-	}
-	return (SUCCESS);
-}
+static void	variable_init(int *i, char **new_str, char **expanded_value);
 
 char	*expand_variable(t_struct_ptrs *data, char *src)
 {
@@ -37,11 +14,9 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 
 	if (!src || !*src)
 		return (NULL);
-	i = 0;
-	new_str = ft_strdup("");
+	variable_init(&i, &new_str, &expanded_value);
 	if (!new_str)
-		return (print_error("Malloc failure", NULL, NULL), NULL);
-	expanded_value = NULL;
+		return (NULL);
 	while (src[i])
 	{
 		if (expanded_value == NULL)
@@ -110,23 +85,15 @@ static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 {
 	t_env_nodes	*temp;
 	char		*ret;
-	char		*empty_string;
 
 	temp = data->env;
 	ret = NULL;
-	empty_string = NULL;
 	if (!ft_strncmp(valid_variable, "$=", 2))
 		return (free(valid_variable), ft_itoa(getpid()));
 	if (!ft_strncmp(valid_variable, "?=", 2))
 		return (free(valid_variable), handle_exit_code(data));
 	else if (!get_var_value(temp, valid_variable))
-	{
-		free(valid_variable);
-		empty_string = ft_strdup("");
-		if (!empty_string)
-			return (print_error("Malloc failure", NULL, NULL), NULL);
-		return (empty_string);
-	}
+		return (handle_non_valid_expansion(&valid_variable));
 	else
 	{
 		ret = ft_strdup(get_var_value(temp, valid_variable));
@@ -135,4 +102,13 @@ static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 			return (ret);
 		return (print_error("Malloc failure", NULL, NULL), NULL);
 	}
+}
+
+static void	variable_init(int *i, char **new_str, char **expanded_value)
+{
+	*i = 0;
+	*new_str = ft_strdup("");
+	if (!new_str)
+		return (print_error("Malloc failure", NULL, NULL));
+	*expanded_value = NULL;
 }

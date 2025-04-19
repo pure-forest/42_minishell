@@ -27,16 +27,33 @@ bool	should_just_append(char c, char *src)
 
 char	*handle_exit_code(t_struct_ptrs *data)
 {
-	return (ft_itoa(data->exit_code));
+	char	*exit_code;
+
+	exit_code = ft_itoa(data->exit_code);
+	if (!exit_code)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
+	return (exit_code);
 }
 
-void	strcpy_to_valid_variable(char *src, char **valid_variable,
-		int *i, int *j)
+void	strcpy_to_valid_variable(char *src, char **valid_variable, int *i,
+		int *j)
 {
 	while (is_valid_expandable(src[*i]) == YES)
-		{
-			(*valid_variable)[*j] = src[(*i)];
-			(*j)++;
-			(*i)++;
-		}
+	{
+		(*valid_variable)[*j] = src[(*i)];
+		(*j)++;
+		(*i)++;
+	}
+}
+
+char	*handle_non_valid_expansion(char **valid_variable)
+{
+	char	*empty_string;
+
+	free(*valid_variable);
+	*valid_variable = NULL;
+	empty_string = ft_strdup("");
+	if (!empty_string)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
+	return (empty_string);
 }

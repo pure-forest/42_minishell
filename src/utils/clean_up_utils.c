@@ -1,37 +1,7 @@
 #include "../../inc/utils.h"
 
-// static void	loop_clean_temp_files(char **file_name, char **index_str,
-// 				int *index);
-
-// void	clean_up_temp_files(t_input **input)
-// {
-// 	char	**infile;
-// 	t_input	*node;
-
-// 	node = *input;
-// 	while (node)
-// 	{
-// 		if ()
-// 	}
-// 	infile = (*input)->redir_in;
-// 	delete_temp_files(infile);
-
-// 	return ;
-// }
-
-// void	delete_temp_files(char **infile)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (infile[i])
-// 	{
-// 		if (!ft_strncmp(infile, HEREDOC_TEMP_NAME, 14))
-// 			unlink(infile[i]);
-// 		i++;
-// 	}
-// 	return ;
-// }
+static void	delete_temp_files_in_node(t_redir *redirection);
+static void	clean_up_temp_files(t_input **input);
 
 void	mega_clean(t_struct_ptrs *data)
 {
@@ -45,7 +15,6 @@ void	mega_clean(t_struct_ptrs *data)
 	if (data->export)
 		free_env_nodes(&data->export);
 	error_handling(data);
-	// clean_up_temp_files(&data->input);
 	return ;
 }
 
@@ -53,7 +22,39 @@ void	mini_clean(t_struct_ptrs *data)
 {
 	if (data->token)
 		free_lexer(&data->token);
+	if (data->input->redirection)
+		clean_up_temp_files(&data->input);
 	if (data->input)
 		free_cmd_table(&data->input);
+	return ;
+}
+
+static void	clean_up_temp_files(t_input **input)
+{
+	t_input	*node;
+
+	node = *input;
+	while (node)
+	{
+		if (node->redirection)
+			delete_temp_files_in_node(node->redirection);
+		node = (t_input *)(node->base.next);
+	}
+	return ;
+}
+
+static void	delete_temp_files_in_node(t_redir *redirection)
+{
+	int		i;
+	t_redir	*temp;
+
+	i = 0;
+	temp = redirection;
+	while (temp)
+	{
+		if (!ft_strncmp(temp->file_name, HEREDOC_TEMP_NAME, 14))
+			unlink(temp->file_name);
+		temp = (t_redir *)(temp->base.next);
+	}
 	return ;
 }

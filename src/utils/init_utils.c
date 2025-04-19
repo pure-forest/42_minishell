@@ -37,9 +37,9 @@ t_input	*cmd_table_init(char **cmd_arr)
 	return (temp);
 }
 
-t_redir *redirection_init(t_token_type type, char *file_name)
+t_redir	*redirection_init(t_token_type type, char *file_name)
 {
-	t_redir *temp;
+	t_redir	*temp;
 
 	if (!file_name)
 		return (NULL);

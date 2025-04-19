@@ -33,8 +33,8 @@ static t_token	*create_token_list(char *str)
 	while (str && str[i])
 	{
 		if (ft_strchr(";&()\\", str[i]))
-			return (free_lexer(&token_list), print_error("Syntax error",
-			NULL, NULL), NULL);
+			return (free_lexer(&token_list), print_error("Syntax error", NULL,
+					NULL), NULL);
 		if (tokenize_pipe(str, &i, &token_list) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == FAIL)

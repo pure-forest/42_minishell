@@ -86,7 +86,7 @@ static char	**cmd_arr_str_process(t_token **token_list)
 			cmd_arr[i] = ft_strdup((*token_list)->value);
 			if (!cmd_arr[i])
 				return (ft_free_double_ptr(cmd_arr),
-				print_error("Malloc failure", NULL, NULL),NULL);
+					print_error("Malloc failure", NULL, NULL), NULL);
 			i++;
 		}
 		(*token_list) = (t_token *)((*token_list)->base.next);

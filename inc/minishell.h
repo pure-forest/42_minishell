@@ -1,32 +1,28 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <errno.h>
+# include <fcntl.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <unistd.h>
+# include <signal.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <errno.h>
 # include <sys/stat.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <signal.h>
 # include <sys/types.h>
-
+# include <sys/wait.h>
+# include <unistd.h>
 # include "../libft/libft.h"
-# include "lexer.h"
-# include "parsing.h"
 # include "execution.h"
 # include "expansion.h"
-# include "utils.h"
+# include "lexer.h"
+# include "parsing.h"
 # include "signal.h"
+# include "utils.h"
 
-# define PINK "\033[1;38;5;218m"
-# define BLUE "\033[1;34m"
-# define END "\033[0m"
-# define PROMPT PINK "🐱 --Catshell > " END
+# define PROMPT "\033[1;38;5;218m🐱 --Catshell > \033[0m"
 # define FAIL 1
 # define SYSTEM_FAIL -1
 # define SUCCESS 0
@@ -39,6 +35,6 @@
 # define FT_DELIMINATER "|;&()<>"
 # define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
 
-extern sig_atomic_t g_signal_numb;
+extern sig_atomic_t	g_signal_numb;
 
 #endif

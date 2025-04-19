@@ -30,18 +30,17 @@ typedef enum e_token_num
 {
 	WORD,
 	QUOTE,
-	INPUT,   // <
-	OUTPUT,  // >
-	HEREDOC, // <<
-	APPEND,  // >>
-	REDIR,   // everthing including ><>><<
-	INFILE,  // files after >
-	OUTFILE, // files after <
-	OUTFILE_APPEN, //files after >>
-	PIPE,    // |
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
+	REDIR,
+	INFILE,
+	OUTFILE,
+	OUTFILE_APPEN,
+	PIPE,
 }						t_token_type;
 
-// should be freed before execution? Or not
 typedef struct s_token
 {
 	t_list_base			base;
@@ -61,7 +60,6 @@ typedef struct s_redir
 	char			*file_name;
 }					t_redir;
 
-//The main structure will be used in the execution phase
 typedef struct s_input
 {
 	t_list_base	base;
@@ -72,7 +70,6 @@ typedef struct s_input
 	char		*cmd_path;
 }			t_input;
 
-// main struct for everyting used in minshell
 typedef struct s_struct_ptrs
 {
 	t_env_nodes			*env;
