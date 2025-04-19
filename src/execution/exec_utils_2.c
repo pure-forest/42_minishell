@@ -1,67 +1,73 @@
 #include "../../inc/execution.h"
 
-int	get_err_code(int err)
+void	close_pipe_fd(int *pipe_fd)
 {
-	if (err == EACCES)
-		return (126);
-	if (err == ENOENT)
-		return (127);
-	return (1);
+	if (pipe_fd[0] >= 0)
+		close_fd(&pipe_fd[0]);
+	if (pipe_fd[1] >= 0)
+		close_fd(&pipe_fd[1]);
 }
 
-int	check_inp_files(t_struct_ptrs *data, t_input *input, char **redir_in,
-		int *pipe_fd)
+int check_inp_files(t_struct_ptrs *data, t_input *input, t_redir *redir_in, int *pipe_fd)
 {
-	int	i;
-
-	i = -1;
-	input->input_fd = -1;
-	if (redir_in)
+	if (input->input_fd >= 0)
+		close_fd(&input->input_fd);
+	input->input_fd = open(redir_in->file_name, O_RDONLY, 0777);
+	if (input->input_fd == -1)
 	{
-		while (redir_in[++i])
-		{
-			input->input_fd = open(redir_in[i], O_RDONLY, 0777);
-			if (input->input_fd == -1)
-			{
-				// set_exit_code(data, errno);
-				set_exit_code(data, 6);
-				close_fd(&pipe_fd[0]);
-				close_fd(&pipe_fd[1]);
-				return (print_err_exe(data, redir_in[i], 2), FAIL);
-			}
-			if (redir_in[i + 1])
-				close_fd(&input->input_fd);
-		}
+		set_exit_code(data, errno);
+		close_pipe_fd(pipe_fd);
+		return (print_err_exe(data, redir_in->file_name, 6), NO);
 	}
-	return (SUCCESS);
+	return (YES);
 }
 
-int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
-		int *pipe_fd)
+int	check_out_files(t_struct_ptrs *data, t_input *input, t_redir *redir_out, int *pipe_fd)
 {
-	int	i;
-
-	i = -1;
-	input->output_fd = -1;
-	if (redir_out)
+	if (input->output_fd >= 0)
+		close_fd(&input->output_fd);
+	if (redir_out->type == APPEND)
+		input->output_fd = open(redir_out->file_name, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	else
+		input->output_fd = open(redir_out->file_name, O_WRONLY | O_CREAT | O_TRUNC,
+			0777);
+	if (input->output_fd == -1)
 	{
-		while (redir_out[++i])
+		set_exit_code(data, errno);
+		close_pipe_fd(pipe_fd);
+		return (print_err_exe(data, redir_out->file_name, 6), NO);
+	}
+	return (YES);
+}
+
+int	check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, int *pipe_fd)
+{
+	t_redir	*redir;
+
+	input->input_fd = -1;
+	input->output_fd = -1;
+	redir = input->redirection;
+	if (redir)
+	{
+		while (redir)
 		{
-			if (input->append == YES && !redir_out[i + 1])
-				input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_APPEND, 0777);
-			else
-				input->output_fd = open(redir_out[i], O_WRONLY | O_CREAT | O_TRUNC,
-					0777);
-			if (input->output_fd == -1)
+			// printf("Before check_files:\n");
+			// system("ls -l /proc/self/fd");
+			if (redir->type == INPUT)
 			{
-				// set_exit_code(data, errno);
-				set_exit_code(data, 6);
-				close_fd(&pipe_fd[0]);
-				close_fd(&pipe_fd[1]);
-				return (print_err_exe(data, redir_out[i], 2), FAIL);
+				if (!check_inp_files(data, input, redir, pipe_fd))
+					return (FAIL);
+				// printf("After check_inp_files:\n");
+				// system("ls -l /proc/self/fd");
 			}
-			if (redir_out[i + 1])
-				close_fd(&input->output_fd);
+			else if (redir->type == OUTPUT || redir->type == APPEND)
+			{
+				if (!check_out_files(data, input, redir, pipe_fd))
+					return (FAIL);
+				// printf("After check_out_files:\n");
+				// system("ls -l /proc/self/fd");
+			}
+			redir = (t_redir *)redir->base.next;
 		}
 	}
 	return (SUCCESS);
@@ -69,9 +75,7 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, char **redir_out,
 
 int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 {
-	if (check_inp_files(data, input, input->redir_in, exec_data->pipe_fd))
-		return (FAIL);
-	if (check_out_files(data, input, input->redir_out, exec_data->pipe_fd))
+	if (check_redir_files_for_exec(data, input, exec_data->pipe_fd))
 		return (FAIL);
 	if (input->input_fd != -1)
 		dup2(input->input_fd, STDIN_FILENO);
