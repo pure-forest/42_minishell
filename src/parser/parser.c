@@ -81,7 +81,7 @@ static char	**cmd_arr_str_process(t_token **token_list)
 	i = 0;
 	while ((*token_list) && (*token_list)->type != PIPE)
 	{
-		if ((*token_list)->type == WORD)
+		if ((*token_list)->type == WORD && (*token_list)->value)
 		{
 			cmd_arr[i] = ft_strdup((*token_list)->value);
 			if (!cmd_arr[i])

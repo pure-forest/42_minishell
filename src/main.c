@@ -27,7 +27,6 @@ int	main(int argc, char **av, char **envp)
 			free_lexer(&data->token);
 			continue ;
 		}
-		// print_input(&data->input);
 		execute(data);
 		mini_clean(data);
 	}
