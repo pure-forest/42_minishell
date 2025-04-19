@@ -19,63 +19,62 @@ typedef struct s_env_nodes
 
 typedef struct s_exec_data
 {
-	int	pipe_fd[2];
-	int	prev_read_end;
-	int	pid;
-	int	orig_stdin;
-	int	orig_stdout;
-} t_exec_data;
+	int					pipe_fd[2];
+	int					prev_read_end;
+	int					pid;
+	int					orig_stdin;
+	int					orig_stdout;
+}						t_exec_data;
 
 typedef enum e_token_num
 {
 	WORD,
 	QUOTE,
-	INPUT, // <
-	OUTPUT, // >
+	INPUT,   // <
+	OUTPUT,  // >
 	HEREDOC, // <<
-	APPEND, // >>
-	REDIR, // everthing including ><>><<
-	INFILE, // things after > or >>
+	APPEND,  // >>
+	REDIR,   // everthing including ><>><<
+	INFILE,  // things after > or >>
 	OUTFILE, // things after < or <<
-	PIPE, // |
-}					t_token_type;
+	PIPE,    // |
+}						t_token_type;
 
-//should be freed before execution? Or not
+// should be freed before execution? Or not
 typedef struct s_token
 {
-	t_list_base		base;
-	t_token_type	type;
-	int				quote_count;
-	bool			should_expand;
-	bool			expand_heredoc;
-	char			quote_mark;
-	char			*expanded_value;
-	char			*value;
-}					t_token;
+	t_list_base			base;
+	t_token_type		type;
+	int					quote_count;
+	bool				should_expand;
+	bool				expand_heredoc;
+	char				quote_mark;
+	char				*expanded_value;
+	char				*value;
+}						t_token;
 
 typedef struct s_redir
 {
-	t_list_base		base;
-	t_token_type	type;
-	char			*file_name;
-}					t_redir;
+	t_list_base			base;
+	t_token_type		type;
+	char				*file_name;
+}						t_redir;
 
-//The main structure will be used in the execution phase
+// The main structure will be used in the execution phase
 typedef struct s_input
 {
-	t_list_base	base;
-	char		**cmd_arr;
-	t_redir		*redir;
+	t_list_base			base;
+	char				**cmd_arr;
+	t_redir				*redirection;
 	// char		**redir_in;
 	// char		**redir_out;
-	bool		append;
-	int			input_fd;
-	int			output_fd;
-	char		*cmd_path;
+	// bool				append;
+	int					input_fd;
+	int					output_fd;
+	char				*cmd_path;
+}						t_input;
 
-}				t_input;
-
-//main struct for everyting used in minshell
+// main struct for everyting used in minshell
 typedef struct s_struct_ptrs
 {
 	t_env_nodes			*env;

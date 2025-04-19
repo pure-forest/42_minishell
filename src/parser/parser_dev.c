@@ -24,20 +24,14 @@ void	print_input(t_input *head)
 			i++;
 		}
 		i = 0;
-		printf("-----------redir_in--------------\n");
-		while (head->redir_in[i])
+		printf("-----------redirections-------------\n");
+		while (head->redirection)
 		{
-			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->redir_in)[i]);
-			i++;
+			printf("| %-*d | %-*s |\n", fix_dis_index, head->redirection->type, fix_dis,
+				head->redirection->file_name);
+			head->redirection = (t_redir*)(head->redirection->base.next);
 		}
-		printf("-----------redir_out--------------\n");
-		i  = 0;
-		while (head->redir_out[i])
-		{
-			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->redir_out)[i]);
-			i++;
-		}
-		printf("append = %d\n", head->append);
+		printf("-----------redirections-------------\n");
 		head = (t_input *)(head->base.next);
 		node++;
 	}

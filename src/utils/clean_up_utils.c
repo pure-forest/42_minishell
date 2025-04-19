@@ -1,37 +1,37 @@
 #include "../../inc/utils.h"
 
-static void	loop_clean_temp_files(char **file_name, char **index_str,
-				int *index);
+// static void	loop_clean_temp_files(char **file_name, char **index_str,
+// 				int *index);
 
-void	clean_up_temp_files(t_input **input)
-{
-	char	**infile;
-	t_input	*node;
+// void	clean_up_temp_files(t_input **input)
+// {
+// 	char	**infile;
+// 	t_input	*node;
 
-	node = *input;
-	while (node)
-	{
-		if ()
-	}
-	infile = (*input)->redir_in;
-	delete_temp_files(infile);
+// 	node = *input;
+// 	while (node)
+// 	{
+// 		if ()
+// 	}
+// 	infile = (*input)->redir_in;
+// 	delete_temp_files(infile);
 
-	return ;
-}
+// 	return ;
+// }
 
-void	delete_temp_files(char **infile)
-{
-	int	i;
+// void	delete_temp_files(char **infile)
+// {
+// 	int	i;
 
-	i = 0;
-	while (infile[i])
-	{
-		if (!ft_strncmp(infile, HEREDOC_TEMP_NAME, 14))
-			unlink(infile[i]);
-		i++;
-	}
-	return ;
-}
+// 	i = 0;
+// 	while (infile[i])
+// 	{
+// 		if (!ft_strncmp(infile, HEREDOC_TEMP_NAME, 14))
+// 			unlink(infile[i]);
+// 		i++;
+// 	}
+// 	return ;
+// }
 
 void	mega_clean(t_struct_ptrs *data)
 {
@@ -45,7 +45,7 @@ void	mega_clean(t_struct_ptrs *data)
 	if (data->export)
 		free_env_nodes(&data->export);
 	error_handling(data);
-	clean_up_temp_files(&data->input);
+	// clean_up_temp_files(&data->input);
 	return ;
 }
 

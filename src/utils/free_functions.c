@@ -33,10 +33,8 @@ void	free_cmd_table(t_input **head)
 		*head = (t_input *)((*head)->base.next);
 		if (temp->cmd_arr)
 			ft_free_double_ptr(temp->cmd_arr);
-		if (temp->redir_in)
-			ft_free_double_ptr(temp->redir_in);
-		if (temp->redir_out)
-			ft_free_double_ptr(temp->redir_out);
+		if (temp->redirection)
+			free(temp->redirection);
 		free(temp);
 		temp = NULL;
 	}

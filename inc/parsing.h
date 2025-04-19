@@ -16,7 +16,6 @@ char	get_quote_mark(char *src);
 void	get_next_cmd_node(t_token **token_list);
 char	*generate_heredoc_name(void);
 void	write_into_temp_file(int fd, char **str);
-int		get_redir_num(t_token *token, t_token_type redir);
-int		is_last_file_append(t_token *token);
+int		get_redir_num(t_token *token);
 
 #endif
