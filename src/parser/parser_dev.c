@@ -1,6 +1,6 @@
 #include "../../inc/parsing.h"
 
-void	print_input(t_input *head)
+void	print_input(t_input **head)
 {
 	int			fix_dis;
 	int			fix_dis_index;
@@ -12,13 +12,13 @@ void	print_input(t_input *head)
 	fix_dis_index = 5;
 	node = 1;
 	fix_dis = 20;
-	temp_head = head;
+	temp_head = *head;
+	temp = temp_head->redirection;
 	printf("\n----------start of cmd table--------\n");
 	printf("| %-*s | %-*s |\n", fix_dis_index, "index", fix_dis, "cmd args");
 	printf("--------------------------------------\n");
-	while (temp_head)
+	while (temp_head && temp)
 	{
-		temp = temp_head->redirection;
 		printf("\n-----------node %d--------------\n", node);
 		printf("-----------cmd args--------------\n");
 		i = 0;
@@ -37,7 +37,11 @@ void	print_input(t_input *head)
 		}
 		printf("-----------redirections-------------\n");
 		temp_head = (t_input *)(temp_head->base.next);
-		node++;
+		if (temp_head)
+		{
+			temp = temp_head->redirection;
+			node++;
+		}
 	}
 	printf("-----------end of cmd table--------\n");
 }

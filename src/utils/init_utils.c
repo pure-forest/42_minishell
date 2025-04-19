@@ -52,7 +52,9 @@ t_redir *redirection_init(t_token_type type, char *file_name)
 		temp->type = OUTPUT;
 	else if (type == OUTFILE_APPEN)
 		temp->type = APPEND;
-	temp->file_name = file_name;
+	temp->file_name = ft_strdup(file_name);
+	if (!temp->file_name)
+		return (free(temp), print_error("Malloc failure", NULL, NULL), NULL);
 	temp->base.next = NULL;
 	temp->base.prev = NULL;
 	return (temp);
