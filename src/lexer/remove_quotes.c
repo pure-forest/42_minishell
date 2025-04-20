@@ -31,10 +31,14 @@ static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 	(*node)->expanded_value = ft_calloc(ft_strlen((*node)->value),
 			sizeof(char));
 	if (!(*node)->expanded_value)
-		return (FAIL);
+		return (print_error("Malloc failure", NULL, NULL), FAIL);
 	(*node)->expanded_value = trim_quotes_and_expand(data, node);
 	if (!(*node)->expanded_value)
-		return (free((*node)->expanded_value), FAIL);
+	{
+		free((*node)->expanded_value);
+		print_error("Malloc failure", NULL, NULL);
+		return (FAIL);
+	}
 	free((*node)->value);
 	(*node)->value = (*node)->expanded_value;
 	(*node)->expand_heredoc = NO;
@@ -57,7 +61,7 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node)
 			modify_quote_mark(&i, node);
 		else
 		{
-			if (strcpy_or_expand(data, node, &i, &j) == FAIL)
+			if (strcpy_or_expand(data, node, &i, &j) == SYSTEM_FAIL)
 				return (free((*node)->expanded_value), NULL);
 		}
 	}
@@ -104,7 +108,7 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 			= append_character_in_string(((*node)->expanded_value),
 				(*node)->value[*i]);
 		if (!((*node)->expanded_value))
-			return (FAIL);
+			return (SYSTEM_FAIL);
 		(*j)++;
 		(*i)++;
 	}
@@ -115,7 +119,7 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 		(*node)->expanded_value = ft_strjoin_and_free(((*node)->expanded_value),
 				temp);
 		if (!((*node)->expanded_value))
-			return (free(temp), FAIL);
+			return (free(temp), SYSTEM_FAIL);
 	}
 	return (SUCCESS);
 }

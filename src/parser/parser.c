@@ -11,13 +11,13 @@ t_input	*parser(t_struct_ptrs *data)
 
 	ret_input = NULL;
 	if (parse_heredoc(data) == FAIL)
-		return (NULL);
+		return (free_cmd_table(&ret_input), NULL);
 	if (expand_word_token(data) == FAIL)
-		return (NULL);
+		return (free_cmd_table(&ret_input), NULL);
 	if (parse_cmd_args(&data->token, &ret_input) == FAIL)
-		return (NULL);
+		return (free_cmd_table(&ret_input), NULL);
 	if (parse_redirection(&data->token, &ret_input) == FAIL)
-		return (NULL);
+		return (free_cmd_table(&ret_input), NULL);
 	return (ret_input);
 }
 
@@ -77,15 +77,16 @@ static char	**cmd_arr_str_process(t_token **token_list)
 	size = cmd_arr_num(*token_list);
 	cmd_arr = ft_calloc(size + 1, sizeof(char *));
 	if (!cmd_arr)
-		return (NULL);
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	i = 0;
 	while ((*token_list) && (*token_list)->type != PIPE)
 	{
-		if ((*token_list)->type == WORD)
+		if ((*token_list)->type == WORD && (*token_list)->value)
 		{
 			cmd_arr[i] = ft_strdup((*token_list)->value);
 			if (!cmd_arr[i])
-				return (ft_free_double_ptr(cmd_arr), NULL);
+				return (ft_free_double_ptr(cmd_arr),
+					print_error("Malloc failure", NULL, NULL), NULL);
 			i++;
 		}
 		(*token_list) = (t_token *)((*token_list)->base.next);

@@ -21,6 +21,27 @@ void	free_lexer(t_token **head)
 	return ;
 }
 
+void	free_redir(t_redir **head)
+{
+	t_redir	*temp;
+
+	if (!(*head))
+		return ;
+	while ((*head))
+	{
+		temp = (*head);
+		(*head) = (t_redir *)(*head)->base.next;
+		if (temp->file_name)
+		{
+			free(temp->file_name);
+			temp->file_name = NULL;
+		}
+		free(temp);
+		temp = NULL;
+	}
+	return ;
+}
+
 void	free_cmd_table(t_input **head)
 {
 	t_input	*temp;
@@ -33,10 +54,12 @@ void	free_cmd_table(t_input **head)
 		*head = (t_input *)((*head)->base.next);
 		if (temp->cmd_arr)
 			ft_free_double_ptr(temp->cmd_arr);
-		if (temp->redir_in)
-			ft_free_double_ptr(temp->redir_in);
-		if (temp->redir_out)
-			ft_free_double_ptr(temp->redir_out);
+		if (temp->redirection)
+		{
+			free_redir(&temp->redirection);
+			free(temp->redirection);
+			temp->redirection = NULL;
+		}
 		free(temp);
 		temp = NULL;
 	}

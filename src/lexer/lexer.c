@@ -17,7 +17,7 @@ int	start_tokenization(char *read_line, t_struct_ptrs *data)
 	data->input = parser(data);
 	if (!data->input)
 	{
-		mini_clean(data);
+		free_lexer(&data->token);
 		return (FAIL);
 	}
 	return (SUCCESS);
@@ -33,7 +33,8 @@ static t_token	*create_token_list(char *str)
 	while (str && str[i])
 	{
 		if (ft_strchr(";&()\\", str[i]))
-			break ;
+			return (free_lexer(&token_list), print_error("Syntax error", NULL,
+					NULL), NULL);
 		if (tokenize_pipe(str, &i, &token_list) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &token_list) == FAIL)
@@ -45,7 +46,7 @@ static t_token	*create_token_list(char *str)
 	}
 	if (str[i] != '\0')
 	{
-		print_error("Syntax error", NULL, NULL);
+		print_error("Malloc failure", NULL, NULL);
 		return (free_lexer(&token_list), NULL);
 	}
 	return (token_list);

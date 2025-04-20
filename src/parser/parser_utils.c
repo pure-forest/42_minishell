@@ -34,39 +34,21 @@ void	get_next_cmd_node(t_token **token_list)
 	return ;
 }
 
-int	get_redir_num(t_token *token, t_token_type redir)
+int	get_redir_num(t_token *token)
 {
-	int	num;
+	int		num;
+	t_token	*temp;
 
 	num = 0;
-	while (token)
+	temp = token;
+	while (temp)
 	{
-		if (token->type == redir)
+		if (temp->type == INFILE || temp->type == OUTFILE
+			|| temp->type == OUTFILE_APPEN)
 			num++;
-		if (token->type == PIPE)
+		if (temp->type == PIPE)
 			break ;
-		token = (t_token *)(token->base.next);
+		temp = (t_token *)(temp->base.next);
 	}
 	return (num);
-}
-
-int	is_last_file_append(t_token *token)
-{
-	int	redir_num;
-	int	i;
-
-	redir_num = get_redir_num(token, OUTPUT);
-	redir_num += get_redir_num(token, APPEND);
-	i = 0;
-	while (token && i < redir_num)
-	{
-		if (token->type == OUTPUT || token->type == APPEND)
-			i++;
-		token = (t_token *)(token->base.next);
-	}
-	if ((t_token *)(token->base.prev)
-		&& ((t_token *)(token->base.prev))->type == APPEND)
-		return (YES);
-	else
-		return (NO);
 }
