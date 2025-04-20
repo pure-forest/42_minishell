@@ -10,7 +10,8 @@ char	*append_character_in_string(char *s1, char c)
 	{
 		s_new = ft_calloc((ft_strlen(s1) + 1 + 1), sizeof(char));
 		if (!s_new)
-			return (free((char *)s1), NULL);
+			return (print_error("Malloc failure", NULL, NULL),
+				free((char *)s1), NULL);
 		i = 0;
 		j = 0;
 		while (s1 && s1[j])

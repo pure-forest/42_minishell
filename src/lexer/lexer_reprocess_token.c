@@ -40,14 +40,12 @@ int	check_pipe(t_token *token_list, t_struct_ptrs *data)
 			if ((t_token *)(token_list->base.prev) == NULL
 				|| ((t_token *)(token_list->base.next))->type == PIPE)
 			{
-				ft_putstr_fd("syntax FAIL near unexpected token `|'\n",
-					2);
+				ft_putstr_fd("syntax FAIL near unexpected token `|'\n", 2);
 				return (FAIL);
 			}
 			if (((t_token *)(token_list->base.prev))->type == REDIR)
 			{
-				ft_putstr_fd("syntax FAIL near unexpected token`newline'\n",
-					2);
+				ft_putstr_fd("syntax FAIL near unexpected token`newline'\n", 2);
 				return (FAIL);
 			}
 		}
@@ -76,7 +74,7 @@ int	check_heredoc(t_token *token_list)
 			else if (!ft_strncmp(token_list->value, ">>", 3))
 			{
 				token_list->type = APPEND;
-				((t_token *)(token_list->base.next))->type = OUTFILE;
+				((t_token *)(token_list->base.next))->type = OUTFILE_APPEN;
 			}
 		}
 		token_list = ((t_token *)(token_list->base.next));
@@ -97,6 +95,8 @@ static int	replace_unclose_pipe(t_token *node, t_struct_ptrs *data)
 		return (FAIL);
 	while (str[i])
 	{
+		if (ft_strchr(";&()\\", str[i]))
+			return (print_error("Syntax error", NULL, NULL), FAIL);
 		if (tokenize_pipe(str, &i, &node) == FAIL)
 			break ;
 		if (tokenize_redir(str, &i, &node) == FAIL)

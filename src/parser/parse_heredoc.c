@@ -38,7 +38,7 @@ static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token)
 		return (NULL);
 	fd = open(file_name, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
-		return (NULL);
+		return (print_error("File open failure", NULL, NULL), NULL);
 	file_name = write_or_expand(fd, file_name, token, data);
 	if (!file_name)
 	{
@@ -63,7 +63,7 @@ static int	replace_heredoc_node(t_token **node, char *file_name)
 	free(temp->value);
 	new_value = ft_calloc(2, sizeof(char));
 	if (!new_value)
-		return (FAIL);
+		return (print_error("Malloc failure", NULL, NULL), FAIL);
 	new_value[0] = '<';
 	temp->value = new_value;
 	temp->type = INPUT;
@@ -77,8 +77,8 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 	int		stdin_copy;
 
 	stdin_copy = dup(STDIN_FILENO);
-	if (stdin_copy < 1)
-		return (NULL);
+	if (stdin_copy < 0)
+		return (print_error("dup2 failure", NULL, NULL), NULL);
 	while (1)
 	{
 		signal_init_heredoc();
@@ -100,7 +100,10 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 static void	close_stdin(int stdin_copy, int fd)
 {
 	if (dup2(stdin_copy, STDIN_FILENO) < 0)
+	{
+		print_error("dup2 failure", NULL, NULL);
 		return ;
+	}
 	close(stdin_copy);
 	close(fd);
 	return ;

@@ -29,11 +29,32 @@ t_input	*cmd_table_init(char **cmd_arr)
 		return (NULL);
 	temp = ft_calloc(1, sizeof(t_input));
 	if (!temp)
-		return (NULL);
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	temp->cmd_arr = cmd_arr;
-	temp->append = NO;
-	temp->redir_in = NULL;
-	temp->redir_out = NULL;
+	temp->redirection = NULL;
+	temp->base.next = NULL;
+	temp->base.prev = NULL;
+	return (temp);
+}
+
+t_redir	*redirection_init(t_token_type type, char *file_name)
+{
+	t_redir	*temp;
+
+	if (!file_name)
+		return (NULL);
+	temp = ft_calloc(1, sizeof(t_redir));
+	if (!temp)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
+	if (type == INFILE)
+		temp->type = INPUT;
+	else if (type == OUTFILE)
+		temp->type = OUTPUT;
+	else if (type == OUTFILE_APPEN)
+		temp->type = APPEND;
+	temp->file_name = ft_strdup(file_name);
+	if (!temp->file_name)
+		return (free(temp), print_error("Malloc failure", NULL, NULL), NULL);
 	temp->base.next = NULL;
 	temp->base.prev = NULL;
 	return (temp);

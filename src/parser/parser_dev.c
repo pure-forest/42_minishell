@@ -1,45 +1,47 @@
 #include "../../inc/parsing.h"
 
-void	print_input(t_input *head)
+void	print_input(t_input **head)
 {
 	int			fix_dis;
 	int			fix_dis_index;
 	int			i = 0;
 	int			node;
+	t_redir		*temp;
+	t_input		*temp_head;
 
 	fix_dis_index = 5;
 	node = 1;
 	fix_dis = 20;
+	temp_head = *head;
+	temp = temp_head->redirection;
 	printf("\n----------start of cmd table--------\n");
 	printf("| %-*s | %-*s |\n", fix_dis_index, "index", fix_dis, "cmd args");
 	printf("--------------------------------------\n");
-	while (head)
+	while (temp_head && temp)
 	{
 		printf("\n-----------node %d--------------\n", node);
 		printf("-----------cmd args--------------\n");
 		i = 0;
-		while (head->cmd_arr[i])
+		while (temp_head->cmd_arr[i])
 		{
-			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->cmd_arr)[i]);
+			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (temp_head->cmd_arr)[i]);
 			i++;
 		}
 		i = 0;
-		printf("-----------redir_in--------------\n");
-		while (head->redir_in[i])
+		printf("-----------redirections-------------\n");
+		while (temp)
 		{
-			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->redir_in)[i]);
-			i++;
+			printf("| %-*d | %-*s |\n", fix_dis_index, temp->type, fix_dis,
+				temp->file_name);
+			temp = (t_redir*)(temp->base.next);
 		}
-		printf("-----------redir_out--------------\n");
-		i  = 0;
-		while (head->redir_out[i])
+		printf("-----------redirections-------------\n");
+		temp_head = (t_input *)(temp_head->base.next);
+		if (temp_head)
 		{
-			printf("| %-*d | %-*s |\n", fix_dis_index, i, fix_dis, (head->redir_out)[i]);
-			i++;
+			temp = temp_head->redirection;
+			node++;
 		}
-		printf("append = %d\n", head->append);
-		head = (t_input *)(head->base.next);
-		node++;
 	}
 	printf("-----------end of cmd table--------\n");
 }
