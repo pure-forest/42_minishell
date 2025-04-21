@@ -34,16 +34,17 @@ void	free_one_env_node(t_env_nodes *node_to_free)
 	free(node_to_free);
 }
 
-void	clean_up_arr(char **arr_ptr)
+void	clean_up_arr(char ***arr_ptr)
 {
 	int	i;
 
 	i = 0;
-	if (arr_ptr)
+	if (*arr_ptr)
 	{
-		while(arr_ptr[i])
-			free (arr_ptr[i++]);
-		free(arr_ptr);
+		while((*arr_ptr)[i])
+			free ((*arr_ptr)[i++]);
+		free(*arr_ptr);
+		*arr_ptr = NULL;
 	}
 	return ;
 }
@@ -52,12 +53,12 @@ void	clean_up_exec_creations(t_struct_ptrs *data, t_input *curr)
 {
 	if (data->exec_env)
 	{
-		clean_up_arr(data->exec_env);
+		clean_up_arr(&data->exec_env);
 		data->exec_env = NULL;
 	}
 	if (data->split_path)
 	{
-		clean_up_arr(data->split_path);
+		clean_up_arr(&data->split_path);
 		data->split_path = NULL;
 	}
 	if (curr)

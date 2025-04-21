@@ -32,7 +32,7 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 	if (!ft_strcmp(cmd, "env"))
 		res = env(data);
 	if (!ft_strcmp(cmd, "export"))
-		res = export(data, curr);	
+		res = export(data, curr);
 	if (!ft_strcmp(cmd, "pwd"))
 		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
@@ -72,11 +72,11 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	{
 		tmp = ft_strdup(env->var_name);
 		if (!tmp)
-			return (clean_up_arr(data->exec_env), FAIL);
+			return (clean_up_arr(&data->exec_env), FAIL);
 		data->exec_env[i] = ft_strjoin(tmp, env->var_value);
 		free (tmp);
 		if (!data->exec_env[i])
-			return (clean_up_arr(data->exec_env), FAIL);
+			return (clean_up_arr(&data->exec_env), FAIL);
 		env = (t_env_nodes *)env->base.next;
 		i++;
 	}

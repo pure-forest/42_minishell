@@ -74,7 +74,7 @@ int			is_valid_numeric_input(char *arg);
 //**************		ERROR HANDLING
 void		error_handling(t_struct_ptrs *data);
 void		free_env_nodes(t_env_nodes **root);
-void		clean_up_arr(char **arr);
+void		clean_up_arr(char ***arr);
 void		clean_up_exec_creations(t_struct_ptrs *data, t_input *curr);
 void		print_error(char *var, char *var_2, char *str);
 
