@@ -18,9 +18,9 @@ int	main(int argc, char **av, char **envp)
 		signal_init();
 		g_signal_numb = 0;
 		read_line = readline(PROMPT);
-		signal_hanging_init();
 		if (!read_line)
 			break ;
+		signal_hanging_init();
 		add_history(read_line);
 		if (start_tokenization(read_line, data) == FAIL)
 		{

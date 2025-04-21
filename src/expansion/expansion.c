@@ -65,6 +65,8 @@ static char	*chop_valid_variable(char *src, int *i)
 
 	j = 0;
 	valid_variable = ft_calloc(ft_strlen(src), sizeof(char));
+	if (!valid_variable)
+		return (print_error("Malloc failure", NULL, NULL), NULL);
 	(*i)++;
 	if (src[*i] == '?' || src[*i] == '$')
 	{

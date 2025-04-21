@@ -32,7 +32,7 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 	if (!ft_strcmp(cmd, "env"))
 		res = env(data);
 	if (!ft_strcmp(cmd, "export"))
-		res = export(data, curr);	
+		res = export(data, curr);
 	if (!ft_strcmp(cmd, "pwd"))
 		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
