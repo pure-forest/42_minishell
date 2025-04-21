@@ -71,7 +71,8 @@ void	wait_for_children(t_struct_ptrs *data)
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			data->exit_code = 128 + WTERMSIG(status);
+			//data->exit_code = 128 + WTERMSIG(status);
+			data->exit_code = 0;
 		pid = wait(&status);
 	}
 }

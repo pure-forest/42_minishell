@@ -51,8 +51,6 @@ int	check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, int *pipe_fd
 	{
 		while (redir)
 		{
-			// printf("Before check_files:\n");
-			// system("ls -l /proc/self/fd");
 			if (redir->type == INPUT)
 			{
 				if (!check_inp_files(data, input, redir, pipe_fd))
@@ -82,14 +80,15 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 	else if (input->base.prev && exec_data->prev_read_end != -1)
 	{
 		dup2(exec_data->prev_read_end, STDIN_FILENO);
-		close_fd(&exec_data->pipe_fd[0]);
+		//close_fd(&exec_data->pipe_fd[0]);
+		close_fd(&exec_data->prev_read_end);
 	}
-	if (!input->base.next)
+	if (input->output_fd >= 0)
 	{
-		if (input->output_fd != -1 && input->output_fd != STDOUT_FILENO)
+		if (input->output_fd != STDOUT_FILENO)
 			dup2(input->output_fd, STDOUT_FILENO);
 	}
-	else
+	else if (input->base.next)
 	{
 		dup2(exec_data->pipe_fd[1], STDOUT_FILENO);
 		close_fd(&exec_data->pipe_fd[1]);
@@ -112,4 +111,9 @@ void	handle_standard_fds(t_exec_data *exec_data, int reset)
 		close_fd(&exec_data->orig_stdout);
 	}
 	return ;
+}
+void	close_all_exec_fds(t_exec_data *exec_data)
+{
+	close_pipe_fd(exec_data->pipe_fd);
+	close_fd(&exec_data->prev_read_end);
 }
