@@ -23,8 +23,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 		{
 			expanded_value = append_or_expand(src, &i, &new_str, data);
 			if (src[i] == 0 && expanded_value)
-				return (free(src), ft_strjoin_and_free(new_str,
-						expanded_value));
+				return (ft_strjoin_and_free(new_str, expanded_value));
 		}
 		else
 		{
