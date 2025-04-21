@@ -28,6 +28,8 @@ void		wait_for_children(t_struct_ptrs *data);
 //**************		EXEC ERROR HANDLING
 void		print_err_exe(t_struct_ptrs *data, char *cmd, int err);
 void		close_fd(int *fd);
+//void		close_pipe_fd(int *pipe_fd, int prev_read_end);
+void	close_all_exec_fds(t_exec_data *exec_data);
 int			get_errno_codes(int err);
 void		set_exit_code(t_struct_ptrs *data, int err);
 

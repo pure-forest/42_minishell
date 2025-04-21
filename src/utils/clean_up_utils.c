@@ -45,10 +45,10 @@ static void	clean_up_temp_files(t_input **input)
 
 static void	delete_temp_files_in_node(t_redir *redirection)
 {
-	int		i;
+	// int		i;
 	t_redir	*temp;
 
-	i = 0;
+	// i = 0;
 	temp = redirection;
 	while (temp)
 	{
