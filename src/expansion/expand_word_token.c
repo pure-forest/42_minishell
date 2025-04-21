@@ -17,6 +17,7 @@ int	expand_word_token(t_struct_ptrs *data)
 				free(node->expanded_value);
 				node->expanded_value = NULL;
 			}
+			free(node->value);
 			node->value = (node)->expanded_value;
 		}
 		node = (t_token *)(node->base.next);
