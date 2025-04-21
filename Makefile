@@ -13,8 +13,8 @@ END = \033[0m
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c \
-		remove_quotes.c remove_quotes_utils.c lexer_dev.c
+LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c lexer_dev.c \
+		remove_quotes.c remove_quotes_utils.c remove_quote_checks.c
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
 		parser_redirection.c parser_dev.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
@@ -22,7 +22,7 @@ BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
 EXECUTE= error_handling.c exec_utils.c exec_utils_2.c exec_utils_3.c \
 	execute_errors.c execute.c  node_utils.c string_utils.c
 ENV=create_env.c create_export.c env_export_utils.c
-EXPANSION= expansion.c expansion_utils.c expand_word_token.c
+EXPANSION= expansion.c expansion_utils.c expansion_checks.c
 UTILS=clean_up_utils.c init_utils.c string_utils_yutong.c \
 		free_functions.c
 SIGNAL=signal_init.c signal_utils.c

@@ -21,6 +21,7 @@ char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 bool	should_expand(char c, char quote_mark);
 int		get_character_number(char *src, char not_to_count);
 t_token	*get_quote_token(t_token *token_list);
+bool	should_expand_node(t_token **node, int *i);
 
 // delete later
 void	print_token_list(t_token *lexer);

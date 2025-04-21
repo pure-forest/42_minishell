@@ -61,8 +61,8 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node)
 			modify_quote_mark(&i, node);
 		else
 		{
-			if (strcpy_or_expand(data, node, &i, &j) == SYSTEM_FAIL)
-				return (free((*node)->expanded_value), NULL);
+			if (strcpy_or_expand(data, node, &i, &j) == FAIL)
+				return (NULL);
 		}
 	}
 	return ((*node)->expanded_value);
@@ -100,15 +100,13 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 	char	*temp;
 
 	temp = NULL;
-	if (((t_token *)((*node)->base.prev)
-		&& ((t_token *)((*node)->base.prev))->type == HEREDOC)
-		|| should_expand((*node)->value[*i], (*node)->quote_mark) == NO)
+	if (should_expand_node(node, i) == NO)
 	{
 		(*node)->expanded_value
 			= append_character_in_string(((*node)->expanded_value),
 				(*node)->value[*i]);
 		if (!((*node)->expanded_value))
-			return (SYSTEM_FAIL);
+			return (free(temp), FAIL);
 		(*j)++;
 		(*i)++;
 	}
@@ -116,10 +114,12 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 	{
 		((*node)->expanded_value)[*j] = 0;
 		temp = check_quote_expansion(data, node, i, j);
+		if (!temp)
+			return (free((*node)->expanded_value), FAIL);
 		(*node)->expanded_value = ft_strjoin_and_free(((*node)->expanded_value),
 				temp);
 		if (!((*node)->expanded_value))
-			return (free(temp), SYSTEM_FAIL);
+			return (free(temp), FAIL);
 	}
 	return (SUCCESS);
 }

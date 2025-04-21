@@ -14,7 +14,6 @@ void execute(t_struct_ptrs *data)
 	t_exec_data exec_data;
 	t_input *curr;
 	int check_return_value;
-
 	init_exec_data(&exec_data);
 	curr = data->input;
 	check_return_value = create_execute_env(data);

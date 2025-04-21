@@ -20,7 +20,7 @@ int	main(int argc, char **av, char **envp)
 		read_line = readline(PROMPT);
 		if (!read_line)
 			break ;
-		signal_hanging_init();
+		// signal_hanging_init();
 		add_history(read_line);
 		if (start_tokenization(read_line, data) == FAIL)
 		{
