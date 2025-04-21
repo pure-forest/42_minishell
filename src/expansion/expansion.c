@@ -4,7 +4,7 @@ static char	*chop_valid_variable(char *src, int *i);
 static char	*append_or_expand(char *src, int *i, char **new_str,
 				t_struct_ptrs *data);
 static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data);
-static void	variable_init(int *i, char **new_str, char **expanded_value);
+static int	variable_init(int *i, char **new_str, char **expanded_value);
 
 char	*expand_variable(t_struct_ptrs *data, char *src)
 {
@@ -15,13 +15,16 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 	if (!src || !*src)
 		return (NULL);
 	variable_init(&i, &new_str, &expanded_value);
-	if (!new_str)
-		return (NULL);
 	while (src[i])
 	{
 		if (expanded_value == NULL)
 		{
 			expanded_value = append_or_expand(src, &i, &new_str, data);
+			if (!expanded_value)
+			{
+				if (!new_str)
+					return (free(new_str), NULL);
+			}
 			if (src[i] == 0 && expanded_value)
 				return (ft_strjoin_and_free(new_str, expanded_value));
 		}
@@ -52,6 +55,12 @@ static char	*append_or_expand(char *src, int *i, char **new_str,
 	else
 	{
 		valid_variable = chop_valid_variable(src, i);
+		if (!valid_variable)
+		{
+			free(*new_str);
+			*new_str = NULL;
+			return (NULL);
+		}
 		expand_value = expand_valid_variable(valid_variable, data);
 		return (expand_value);
 	}
@@ -105,11 +114,15 @@ static char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 	}
 }
 
-static void	variable_init(int *i, char **new_str, char **expanded_value)
+static int	variable_init(int *i, char **new_str, char **expanded_value)
 {
 	*i = 0;
 	*new_str = ft_strdup("");
 	if (!new_str)
-		return (print_error("Malloc failure", NULL, NULL));
+	{
+		print_error("Malloc failure", NULL, NULL);
+		return (FAIL);
+	}
 	*expanded_value = NULL;
+	return (SUCCESS);
 }
