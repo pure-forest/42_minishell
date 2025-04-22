@@ -3,7 +3,6 @@ SRCDIR=src
 OBJDIR=obj
 BINDIR=bin
 INCDIR=inc
-TMPDIR=tmp
 CC=cc
 FLAGS=-Wall -Wextra -Werror -g
 SANITIZER=-fsanitize=address -fno-omit-frame-pointer
@@ -48,9 +47,6 @@ ${LIBFT_A}:
 
 ${OBJDIR}:
 	@mkdir -p obj
-
-$(TMPDIR):
-	@mkdir -p tmp
 
 ${OBJDIR}/%.o:${SRCDIR}/%.c
 	@mkdir -p $(dir $@)

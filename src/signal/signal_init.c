@@ -27,9 +27,10 @@ int	signal_hanging_init(void)
 		return (FAIL);
 	sa.sa_sigaction = signal_handler_hanging;
 	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	return (SUCCESS);
+	if (sigaction(SIGINT, &sa, NULL) || sigaction(SIGQUIT, &sa, NULL))
+		return (FAIL);
+	else
+		return (SUCCESS);
 }
 
 static void	signal_handler_hanging(int signum, siginfo_t *info, void *context)

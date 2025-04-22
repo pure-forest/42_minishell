@@ -12,7 +12,8 @@ int	signal_init_heredoc(void)
 		return (FAIL);
 	sa.sa_sigaction = signal_handler_heredoc;
 	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (FAIL);
 	return (SUCCESS);
 }
 

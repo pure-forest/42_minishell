@@ -50,7 +50,7 @@ static void	delete_temp_files_in_node(t_redir *redirection)
 	temp = redirection;
 	while (temp)
 	{
-		if (!ft_strncmp(temp->file_name, HEREDOC_TEMP_NAME, 14))
+		if (!ft_strncmp(temp->file_name, HEREDOC_TEMP_NAME, 12))
 			unlink(temp->file_name);
 		temp = (t_redir *)(temp->base.next);
 	}
