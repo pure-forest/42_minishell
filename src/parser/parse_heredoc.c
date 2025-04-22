@@ -47,6 +47,7 @@ static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token)
 		file_name = NULL;
 		return (NULL);
 	}
+	data->should_delete_heredoc = YES;
 	return (file_name);
 }
 
@@ -82,11 +83,13 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 		return (print_error("dup2 failure", NULL, NULL), NULL);
 	while (1)
 	{
-		temp = readline("> ");
 		signal_init_heredoc();
+		temp = readline("> ");
+		if (!temp)
+			break;
 		if (g_signal_numb == SIGINT && !temp)
 			return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
-		if (!ft_strncmp(temp, token->value, ft_strlen(token->value)))
+		if (!ft_strcmp(temp, token->value))
 			return (free(temp), close_stdin(stdin_copy, fd, NULL, NULL),
 					file_name);
 		if (token->expand_heredoc == YES)
@@ -96,7 +99,7 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 		}
 		write_into_temp_file(fd, &temp);
 	}
-	return (close_stdin(stdin_copy, fd, &file_name, NULL), NULL);
+	return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
 }
 
 static void	close_stdin(int stdin_copy, int fd, char **file_name,
@@ -114,7 +117,10 @@ static void	close_stdin(int stdin_copy, int fd, char **file_name,
 		unlink(*file_name);
 		free(*file_name);
 		*file_name = NULL;
-		data->exit_code = 130;
+		if (g_signal_numb)
+			data->exit_code = 128 + g_signal_numb;
+		else
+			data->exit_code = 0;
 	}
 	g_signal_numb = 0;
 	return ;

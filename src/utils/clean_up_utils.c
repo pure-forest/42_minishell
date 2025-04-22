@@ -22,7 +22,7 @@ void	mini_clean(t_struct_ptrs *data)
 {
 	if (data->token)
 		free_lexer(&data->token);
-	if (data->input->redirection)
+	if (data->should_delete_heredoc == YES && data->input->redirection)
 		clean_up_temp_files(&data->input);
 	if (data->input)
 		free_cmd_table(&data->input);
