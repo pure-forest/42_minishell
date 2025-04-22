@@ -1,19 +1,22 @@
 #include "../../../inc/execution.h"
 
-int			print_export(t_struct_ptrs *data);
-int			update_export(t_struct_ptrs *data, t_input *curr);
-int			var_fill(char *cmd_arr, char *equal_sign, t_env_nodes *new_var);
-void		insert_node(t_env_nodes **export, t_env_nodes *new_var);
+static int	print_export(t_struct_ptrs *data);
+static int	update_export(t_struct_ptrs *data, t_input *curr, int i);
+static int	var_fill_export(char *cmd_arr, char *equal_sign, \
+							t_env_nodes *new_var);
+static void	insert_node(t_env_nodes **export, t_env_nodes *new_var);
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 
 int	export(t_struct_ptrs *data, t_input *curr)
 {
+	int	i;
+
+	i = 0;
 	if (!curr->cmd_arr[1])
-	// if (!data->input || !data->input->cmd_arr[1]) //this is for test, case where export gets called before data input cmdarr is populated isnt present in mini right?
 		return (print_export(data));
 	else
 	{
-		if (update_export(data, curr))
+		if (update_export(data, curr, i))
 			return (FAIL);
 		if (update_env(data, curr))
 			return (FAIL);
@@ -21,7 +24,7 @@ int	export(t_struct_ptrs *data, t_input *curr)
 	}
 }
 
-int	print_export(t_struct_ptrs *data)
+static int	print_export(t_struct_ptrs *data)
 {
 	t_env_nodes	*curr;
 
@@ -31,7 +34,7 @@ int	print_export(t_struct_ptrs *data)
 		curr = data->export;
 		while (curr)
 		{
-			if (ft_strncmp(curr->var_name, "declare -x _=", 13)) //ask about this, is it true that export doesnt print the _=?
+			if (ft_strncmp(curr->var_name, "declare -x _=", 13))
 			{
 				if (curr->var_value)
 					printf("%s\"%s\"\n", curr->var_name, curr->var_value);
@@ -45,29 +48,28 @@ int	print_export(t_struct_ptrs *data)
 	return (1);
 }
 
-int	update_export(t_struct_ptrs *data, t_input *curr)
+static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 {
 	t_env_nodes	*new_var;
 	char		*equal_sign;
-	int			i;
 	int			ret_value;
 
-	i = 0;
 	ret_value = 0;
 	while (curr->cmd_arr[++i])
 	{
 		if (check_export_syntax(curr->cmd_arr[i]))
 		{
-			print_error("export: `", curr->cmd_arr[i], "': not a valid identifier");
+			print_error("export: `", curr->cmd_arr[i], \
+			"': not a valid identifier");
 			ret_value = 1;
 			continue ;
 		}
-		equal_sign = ft_strchr(curr->cmd_arr[i], '='); //qnd faccio x env posso mettere check se non c'e l'equal allora vai al prossimo arg
+		equal_sign = ft_strchr(curr->cmd_arr[i], '=');
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
 			return (FAIL);
 		*new_var = (t_env_nodes){0};
-		if (var_fill(curr->cmd_arr[i], equal_sign, new_var))
+		if (var_fill_export(curr->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
 		does_var_exist(&data->export, new_var->var_name);
 		insert_node(&data->export, new_var);
@@ -75,7 +77,8 @@ int	update_export(t_struct_ptrs *data, t_input *curr)
 	return (ret_value);
 }
 
-int	var_fill(char *cmd_arr, char *equal_sign, t_env_nodes *new_var)
+static int	var_fill_export(char *cmd_arr, char *equal_sign, \
+							t_env_nodes *new_var)
 {
 	char		*tmp;
 
@@ -101,7 +104,7 @@ int	var_fill(char *cmd_arr, char *equal_sign, t_env_nodes *new_var)
 	return (SUCCESS);
 }
 
-void	insert_node(t_env_nodes **export, t_env_nodes *new_var)
+static void	insert_node(t_env_nodes **export, t_env_nodes *new_var)
 {
 	t_env_nodes	*target;
 

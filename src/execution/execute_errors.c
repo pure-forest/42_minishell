@@ -8,7 +8,8 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 	{
 		if (data->exit_code == 126 && err != 4)
 			print_error(cmd, NULL, ": Permission denied");
-		else if ((data->exit_code == 127 && err == 2) || (data->exit_code == 126 && err == 4) \
+		else if ((data->exit_code == 127 && err == 2) \
+			|| (data->exit_code == 126 && err == 4) \
 			|| (data->exit_code == -1) || err == 6)
 			print_error(cmd, NULL, ": No such file or directory");
 		else if (data->exit_code == 127 && err == 3)
@@ -38,20 +39,16 @@ void	close_fd(int *fd)
 
 int	get_errno_codes(int err)
 {
-	// if (err == 6)
-	// 	return (1);
 	if (err == SUCCESS)
 		return (0);
-	if (err == ENOENT) // No such file or directory
+	if (err == ENOENT)
 		return (127);
-	if (err == EACCES) // Permission denied
+	if (err == EACCES)
 		return (126);
 	if (err == 3)
 		return (-1);
 	if (err == 4)
 		return (2);
-	// if (err == 255)	//DELETE?????
-	// 	return (255);
 	return (1);
 }
 

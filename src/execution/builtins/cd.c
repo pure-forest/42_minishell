@@ -1,7 +1,7 @@
 #include "../../../inc/execution.h"
 
-int		cd_to_home(t_struct_ptrs *data);
-void	cd_error_print(char *path, int err);
+static int		cd_to_home(t_struct_ptrs *data);
+static void		cd_error_print(char *path, int err);
 
 int	cd(t_struct_ptrs *data, t_input *curr)
 {
@@ -30,7 +30,7 @@ int	cd(t_struct_ptrs *data, t_input *curr)
 		return (cd_error_print(curr->cmd_arr[1], 2), FAIL);
 }
 
-int	cd_to_home(t_struct_ptrs *data)
+static int	cd_to_home(t_struct_ptrs *data)
 {
 	char	*home;
 
@@ -38,18 +38,18 @@ int	cd_to_home(t_struct_ptrs *data)
 				get_var_value(data->env, "PWD="));
 	home = get_var_value(data->env, "HOME=");
 	if (!home)
-		return (ft_putstr_fd("catshell: cd: HOME not set\n", 2), FAIL); //CHANGE NAME OF SHELL????
+		return (ft_putstr_fd("catshell: cd: HOME not set\n", 2), FAIL);
 	if (!chdir(home))
 		return (update_var_in_both(data->env, data->export, "PWD=", home), \
 				SUCCESS);
 	return (FAIL);
 }
 
-void	cd_error_print(char *path, int err)
+static void	cd_error_print(char *path, int err)
 {
 	if (err == 1)
 	{
-		ft_putstr_fd("catshell: cd: ", 2); // CHANGE NAME OF SHELL????
+		ft_putstr_fd("catshell: cd: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return ;

@@ -7,7 +7,7 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr,
 int		run_execve(t_struct_ptrs *data, t_input *curr);
 int		process_pipeline(t_struct_ptrs *data, t_input *curr,
 			t_exec_data *exec_data);
-void	init_exec_data(t_exec_data *exec_data);
+void	update_last_cmd_in_env(t_struct_ptrs *data, t_input *curr);
 
 void execute(t_struct_ptrs *data)
 {
@@ -20,9 +20,9 @@ void execute(t_struct_ptrs *data)
 	check_return_value = create_execute_env(data);
 	if (!check_return_value || check_return_value == EMPTY)
 	{
-		check_return_value = split_env_path(data);
 		while (curr)
 		{
+			check_return_value = split_env_path(data, curr);
 			if ((check_return_value == EMPTY || check_return_value == NOT_FOUND) && is_builtin(curr) == NO)
 			{
 				set_exit_code(data, 3);
@@ -30,6 +30,7 @@ void execute(t_struct_ptrs *data)
 				curr = (t_input *)curr->base.next;
 				continue;
 			}
+			update_last_cmd_in_env(data, curr);
 			if (launch_cmd_exec(data, curr, &exec_data))
 				break;
 			curr = (t_input *)curr->base.next;
@@ -38,15 +39,6 @@ void execute(t_struct_ptrs *data)
 	}
 	clean_up_exec_creations(data, NULL);
 	return;
-}
-
-void	init_exec_data(t_exec_data *exec_data)
-{
-	*exec_data = (t_exec_data){0};
-	exec_data->prev_read_end = -1;
-	exec_data->pipe_fd[0] = -1;
-	exec_data->pipe_fd[1] = -1;
-	return ;
 }
 
 int	launch_cmd_exec(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
@@ -95,16 +87,12 @@ int	process_pipeline(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 {
 	if (set_std_fds(data, curr, exec_data))
-	{
-		//close_all_exec_fds(exec_data);
 		exit (data->exit_code);
-	}
 	close_all_exec_fds(exec_data);
 	if (!curr->cmd_arr[0])
 	{
 		set_exit_code(data, SUCCESS);
 		clean_up_exec_creations(data, curr);
-		//close_all_exec_fds(exec_data);
 		mega_clean(data);
 		exit (data->exit_code);
 	}
@@ -112,7 +100,6 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 	{
 		launch_builtin(data, curr);
 		clean_up_exec_creations(data, curr);
-		//close_all_exec_fds(exec_data);
 		mega_clean(data);
 		exit(data->exit_code);
 	}
@@ -127,17 +114,13 @@ void	run_in_child(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 				set_exit_code(data, ENOENT);
 				print_err_exe(data, curr->cmd_arr[0], 3);
 				clean_up_exec_creations(data, curr);
-				//close_all_exec_fds(exec_data);
 				mega_clean(data);
 				exit(data->exit_code);
 			}
 		}
 		if (curr->cmd_path)
 			if (run_execve(data, curr))
-			{
-				//close_all_exec_fds(exec_data);
 				exit(data->exit_code);
-			}
 	}
 }
 
@@ -167,4 +150,15 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 	clean_up_exec_creations(data, curr);
 	mega_clean(data);
 	return (FAIL);
+}
+
+void	update_last_cmd_in_env(t_struct_ptrs *data, t_input *curr)
+{
+	char	*last_cmd;
+
+	last_cmd = get_var_value(data->env, "_=");
+	if (!last_cmd)
+		create_var_env_and_export(data, "_=", curr->cmd_arr[0]);
+	else
+		update_var_in_both(data->env, data->export, "_=", curr->cmd_arr[0]);
 }

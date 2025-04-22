@@ -1,6 +1,6 @@
 #include "../../inc/execution.h"
 
-void	check_if_cmd_is_path(t_input *curr)
+int	check_if_cmd_is_path(t_input *curr)
 {
 	int	i;
 
@@ -12,10 +12,11 @@ void	check_if_cmd_is_path(t_input *curr)
 			if (curr->cmd_arr[0][i] == '/')
 			{
 				curr->cmd_path = curr->cmd_arr[0];
-				return ;
+				return (YES);
 			}
 		}
 	}
+	return (NO);
 }
 
 void	make_cmd_path(t_struct_ptrs *data, t_input *curr)
@@ -71,8 +72,16 @@ void	wait_for_children(t_struct_ptrs *data)
 		if (WIFEXITED(status))
 			data->exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			//data->exit_code = 128 + WTERMSIG(status);
-			data->exit_code = 0;
+			data->exit_code = 128 + WTERMSIG(status);
 		pid = wait(&status);
 	}
+}
+
+void	init_exec_data(t_exec_data *exec_data)
+{
+	*exec_data = (t_exec_data){0};
+	exec_data->prev_read_end = -1;
+	exec_data->pipe_fd[0] = -1;
+	exec_data->pipe_fd[1] = -1;
+	return ;
 }

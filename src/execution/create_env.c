@@ -1,6 +1,6 @@
 #include "../../inc/execution.h"
 
-int		create_var(char *envp, t_env_nodes *new_var);
+static int	create_var(char *envp, t_env_nodes *new_var);
 
 int	create_env(char **envp, t_struct_ptrs *data)
 {
@@ -9,7 +9,7 @@ int	create_env(char **envp, t_struct_ptrs *data)
 
 	i = -1;
 	if (!data || !envp)
-		return (EMPTY); //this is technically not a fail, it just means the env is empty right?
+		return (EMPTY);
 	while (envp[++i])
 	{
 		new_var = malloc(sizeof(t_env_nodes));
@@ -25,20 +25,18 @@ int	create_env(char **envp, t_struct_ptrs *data)
 	return (SUCCESS);
 }
 
-int	create_var(char *envp, t_env_nodes *new_var) //static or not??
+static int	create_var(char *envp, t_env_nodes *new_var)
 {
 	char	*equal_sign;
 
 	equal_sign = ft_strchr(envp, '=');
 	if (!equal_sign)
 		return (FAIL);
-	new_var->var_name = ft_strndup(envp, (equal_sign - envp) + 1); 
+	new_var->var_name = ft_strndup(envp, (equal_sign - envp) + 1);
 	if (!new_var->var_name)
 		return (FAIL);
-	new_var->var_value = ft_strdup(equal_sign + 1); //qui il +1 c'e per copiare dopo il =, dato che strchr ritorna un pointer iniziando al =
+	new_var->var_value = ft_strdup(equal_sign + 1);
 	if (!new_var->var_value)
 		return (free (new_var->var_name), FAIL);
 	return (SUCCESS);
 }
-
-

@@ -1,9 +1,8 @@
 #include "../../../inc/execution.h"
 
-int		is_valid_numeric_input(char *arg);
-long	ft_atol(const char *s);
-int		count_args(char **arr);
-void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code);
+long		ft_atol(const char *s);
+static int	count_args(char **arr);
+static void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code);
 
 int	ft_exit(t_struct_ptrs *data, t_input *curr)
 {
@@ -19,16 +18,16 @@ int	ft_exit(t_struct_ptrs *data, t_input *curr)
 	{
 		set_exit_code(data, 4);
 		ft_putstr_fd("exit\n", 2);
-		print_error("exit: too many arguments",NULL, NULL);
+		print_error("exit: too many arguments", NULL, NULL);
 		return (FAIL);
 	}
 	code = ft_atol(curr->cmd_arr[1]);
-	if (code == FAIL)
+	if (code == -1)
 		print_numeric_error(data, curr->cmd_arr[1], 4);
 	exit(code % 256);
 }
 
-int	count_args(char **arr)
+static int	count_args(char **arr)
 {
 	int	count;
 	int	i;
@@ -48,7 +47,7 @@ int	is_valid_numeric_input(char *arg)
 	int	i;
 
 	i = -1;
-	if(arg)
+	if (arg)
 	{
 		while (arg[++i])
 		{
@@ -62,7 +61,7 @@ int	is_valid_numeric_input(char *arg)
 	return (NO);
 }
 
-void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code)
+static void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code)
 {
 	set_exit_code(data, code);
 	ft_putstr_fd("exit\n", 2);
@@ -88,8 +87,12 @@ long	ft_atol(const char *s)
 		i++;
 	}
 	while (s[i] && s[i] >= '0' && s[i] <= '9')
+	{
 		res = (res * 10) + (s[i++] - '0');
-	if (res < 0 && sign == 1)
-		return (FAIL);
+		if (res < 0 && sign == 1)
+			return (-1);
+		if (res < 0 && sign == -1)
+			return (-1);
+	}
 	return (res * sign);
 }
