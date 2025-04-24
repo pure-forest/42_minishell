@@ -36,7 +36,7 @@ static int	modify_quote_node(t_token **node, t_struct_ptrs *data)
 	if (!(*node)->expanded_value)
 	{
 		free((*node)->expanded_value);
-		print_error("Malloc failure", NULL, NULL);
+		write(1, "\n", 1);
 		return (FAIL);
 	}
 	free((*node)->value);

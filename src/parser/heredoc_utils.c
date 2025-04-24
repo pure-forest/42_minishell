@@ -81,12 +81,25 @@ static char	*ft_rejoin_str(char **words)
 		if (!temp)
 			return (print_error("Malloc failure", NULL, NULL), NULL);
 		str = ft_strjoin(temp, words[i]);
-		free(temp);
 		if (!str)
 			return (print_error("Malloc failure", NULL, NULL), NULL);
 		i++;
 	}
 	return (str);
+}
+
+void	write_into_temp_file(t_token *token, t_struct_ptrs *data, int fd,
+					char **temp)
+{
+	if (token->expand_heredoc == YES)
+	{
+		if (check_for_expansion(data, temp) == FAIL)
+			return ;
+	}
+	write(fd, *temp, ft_strlen(*temp));
+	free(*temp);
+	*temp = NULL;
+	write(fd, "\n", 1);
 }
 
 static int	handle_not_valid_expansion(char **new_line)
@@ -96,12 +109,4 @@ static int	handle_not_valid_expansion(char **new_line)
 	if (!*new_line)
 		return (print_error("Malloc failure", NULL, NULL), FAIL);
 	return (SUCCESS);
-}
-
-void	write_into_temp_file(int fd, char **str)
-{
-	write(fd, *str, ft_strlen(*str));
-	free(*str);
-	*str = NULL;
-	write(fd, "\n", 1);
 }

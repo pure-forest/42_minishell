@@ -35,6 +35,7 @@ void execute(t_struct_ptrs *data)
 		}
 		wait_for_children(data);
 	}
+	signal_init();
 	clean_up_exec_creations(data, NULL);
 	return;
 }
@@ -78,15 +79,19 @@ int	process_pipeline(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 	if (exec_data->pid == -1)
 		return (set_exit_code(data, -1), FAIL);
 	if (exec_data->pid == 0)
-		run_in_child(data, curr, exec_data);
-	else
 	{
+		signal_hanging_init();
+		run_in_child(data, curr, exec_data);
+	}
+	else
+	{	parent_signal();
 		if (exec_data->prev_read_end != -1)
 			close_fd(&exec_data->prev_read_end);
 		exec_data->prev_read_end = exec_data->pipe_fd[0];
 		if (curr->base.next)
 			close_fd(&exec_data->pipe_fd[1]);
 			//close_pipe_fd(exec_data->pipe_fd, exec_data->prev_read_end);
+
 	}
 	return (SUCCESS);
 }

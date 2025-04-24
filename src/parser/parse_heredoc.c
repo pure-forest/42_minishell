@@ -3,7 +3,7 @@
 static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token);
 static int	replace_heredoc_node(t_token **node, char *file_name);
 static void	close_stdin(int stdin_copy, int fd, char **file_name,
-					t_struct_ptrs *data);
+				t_struct_ptrs *data);
 static char	*write_or_expand(int fd, char *file_name, t_token *token,
 				t_struct_ptrs *data);
 
@@ -26,6 +26,7 @@ int	parse_heredoc(t_struct_ptrs *data)
 		}
 		token_list = (t_token *)(token_list->base.next);
 	}
+	signal_init();
 	return (SUCCESS);
 }
 
@@ -86,18 +87,16 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 		signal_init_heredoc();
 		temp = readline("> ");
 		if (!temp)
-			break;
+		{
+			ft_putstr_fd("warning:here-document delimited by end-of-file\n", 2);
+			break ;
+		}
 		if (g_signal_numb == SIGINT && !temp)
 			return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
 		if (!ft_strcmp(temp, token->value))
 			return (free(temp), close_stdin(stdin_copy, fd, NULL, NULL),
-					file_name);
-		if (token->expand_heredoc == YES)
-		{
-			if (check_for_expansion(data, &temp) == FAIL)
-				break ;
-		}
-		write_into_temp_file(fd, &temp);
+				file_name);
+		write_into_temp_file(token, data, fd, &temp);
 	}
 	return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
 }
