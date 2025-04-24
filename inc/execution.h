@@ -10,19 +10,24 @@ void		execute(t_struct_ptrs *data);
 //**************		Execute Utils
 void		init_exec_data(t_exec_data *exec_data);
 int			is_builtin(t_input *curr);
-void		launch_builtin(t_struct_ptrs *data, t_input *curr);
+void		launch_builtin(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data);
 int			create_execute_env(t_struct_ptrs *data);
 int			set_std_fds(t_struct_ptrs *data, t_input *input,
 				t_exec_data *exec_data);
-int	check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, \
+int			check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, \
 								int *pipe_fd);
 int			split_env_path(t_struct_ptrs *data, t_input *curr);
-void		handle_standard_fds(t_exec_data *exec_data, int reset);
+int			handle_standard_fds(t_struct_ptrs *data, t_exec_data *exec_data, \
+								int reset);
+void		handle_fd_error(t_struct_ptrs *data, char *err_msg);
 int			check_if_cmd_is_path(t_input *curr);
 void		make_cmd_path(t_struct_ptrs *data, t_input *curr);
 void		turn_cmd_into_directory(t_struct_ptrs *data, t_input *curr, int i,
 				char **tmp_cmd_path);
 void		wait_for_children(t_struct_ptrs *data);
+void		run_in_child(t_struct_ptrs *data, t_input *curr,
+							t_exec_data *exec_data);
+int			run_execve(t_struct_ptrs *data, t_input *curr);
 
 //**************		EXEC ERROR HANDLING
 void		print_err_exe(t_struct_ptrs *data, char *cmd, int err);
@@ -42,7 +47,8 @@ t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 int			update_env(t_struct_ptrs *data, t_input *curr);
 int			check_export_syntax(char *arg);
 void		set_shell_level(t_struct_ptrs *data);
-void 		create_var_env_and_export(t_struct_ptrs *data, char *var_name, char *var_value);
+void 		create_var_env_and_export(t_struct_ptrs *data, char *var_name, \
+									char *var_value);
 
 //**************		BUILTINS
 int			env(t_struct_ptrs *data);
@@ -51,7 +57,7 @@ int			export(t_struct_ptrs *data, t_input *curr);
 int			unset(t_struct_ptrs *data, t_input *curr);
 int			cd(t_struct_ptrs *data, t_input *curr);
 int			echo(t_input *curr);
-int			ft_exit(t_struct_ptrs *data, t_input *curr);
+int			ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data);
 int			is_equal_sign_present(char *arg);
 int			check_match(char *cmd_arg, char *var_name);
 int			remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
@@ -60,7 +66,7 @@ void		does_var_exist(t_env_nodes **list, char *arg);
 //**************		NODE UTILS
 int			append_node(t_list_base **list_to_modify, t_list_base *new_var);
 t_list_base	*find_last(t_list_base *root);
-void	free_one_env_node(t_env_nodes *node_to_free);
+void		free_one_env_node(t_env_nodes *node_to_free);
 
 //**************		STRING UTILS
 int			ft_strcmp(char *s1, char *s2);

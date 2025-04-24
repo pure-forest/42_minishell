@@ -12,3 +12,10 @@
    fun:add_history
    ...
 }
+{
+   readline_general
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+   ...
+}

@@ -19,7 +19,8 @@ int	is_builtin(t_input *curr)
 	return (NO);
 }
 
-void	launch_builtin(t_struct_ptrs *data, t_input *curr)
+void	launch_builtin(t_struct_ptrs *data, t_input *curr, \
+						t_exec_data *exec_data)
 {
 	char	*cmd;
 	int		res;
@@ -38,7 +39,7 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 	if (!ft_strcmp(cmd, "unset"))
 		res = unset(data, curr);
 	if (!ft_strcmp(cmd, "exit"))
-		res = ft_exit(data, curr);
+		res = ft_exit(data, curr, exec_data);
 	data->exit_code = res;
 }
 

@@ -62,20 +62,3 @@ int	check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, \
 	}
 	return (SUCCESS);
 }
-
-void	handle_standard_fds(t_exec_data *exec_data, int reset)
-{
-	if (reset == NO)
-	{
-		exec_data->orig_stdin = dup(STDIN_FILENO);
-		exec_data->orig_stdout = dup(STDOUT_FILENO);
-	}
-	if (reset == YES)
-	{
-		dup2(exec_data->orig_stdin, STDIN_FILENO);
-		dup2(exec_data->orig_stdout, STDOUT_FILENO);
-		close_fd(&exec_data->orig_stdin);
-		close_fd(&exec_data->orig_stdout);
-	}
-	return ;
-}

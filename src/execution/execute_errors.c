@@ -45,7 +45,7 @@ int	get_errno_codes(int err)
 		return (127);
 	if (err == EACCES)
 		return (126);
-	if (err == 3)
+	if (err == SYSTEM_FAIL)
 		return (-1);
 	if (err == 4)
 		return (2);
