@@ -75,7 +75,7 @@ void	wait_for_children(t_struct_ptrs *data)
 			// data->exit_code = 0;
 		pid = wait(&status);
 	}
-	if (data->exit_code == 130)
+	if (data->exit_code == 131)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 	else if (data->exit_code == 130)
 		printf("\n");
