@@ -1,13 +1,13 @@
 #include "../../inc/execution.h"
 #include <errno.h>
 
-int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
+static int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
 
 int	is_builtin(t_input *curr)
 {
 	if (curr->cmd_arr && curr->cmd_arr[0])
 	{
-		if(!ft_strcmp(curr->cmd_arr[0], "cd") \
+		if (!ft_strcmp(curr->cmd_arr[0], "cd") \
 		|| !ft_strcmp(curr->cmd_arr[0], "echo") \
 		|| !ft_strcmp(curr->cmd_arr[0], "env") \
 		|| !ft_strcmp(curr->cmd_arr[0], "export") \
@@ -19,7 +19,8 @@ int	is_builtin(t_input *curr)
 	return (NO);
 }
 
-void	launch_builtin(t_struct_ptrs *data, t_input *curr)
+void	launch_builtin(t_struct_ptrs *data, t_input *curr, \
+						t_exec_data *exec_data)
 {
 	char	*cmd;
 	int		res;
@@ -37,9 +38,9 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr)
 		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
 		res = unset(data, curr);
-	if (!ft_strcmp(cmd, "exit"))	//Should I check for SHELL LEVEL
-	 	res = ft_exit(data, curr);
-	data->exit_code	= res;
+	if (!ft_strcmp(cmd, "exit"))
+		res = ft_exit(data, curr, exec_data);
+	data->exit_code = res;
 }
 
 int	create_execute_env(t_struct_ptrs *data)
@@ -59,7 +60,7 @@ int	create_execute_env(t_struct_ptrs *data)
 	return (allocate_env_arr(data, data->env, amount));
 }
 
-int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static??
+static int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount)
 {
 	char	*tmp;
 	int		i;
@@ -84,16 +85,24 @@ int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount) //static
 	return (SUCCESS);
 }
 
-int	split_env_path(t_struct_ptrs *data)
+int	split_env_path(t_struct_ptrs *data, t_input *curr)
 {
 	char	*path_str;
 
 	if (!data->env)
+	{
+		if (check_if_cmd_is_path(curr) == YES)
+			return (SUCCESS);
 		return (EMPTY);
+	}
 	path_str = get_var_value(data->env, "PATH=");
 	if (!path_str)
+	{
+		if (check_if_cmd_is_path(curr) == YES)
+			return (SUCCESS);
 		return (NOT_FOUND);
-	data->split_path = ft_split(path_str, ':'); //should i modify this to use calloc?
+	}
+	data->split_path = ft_split(path_str, ':');
 	if (!data->split_path)
 		return (FAIL);
 	return (SUCCESS);
