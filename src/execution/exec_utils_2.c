@@ -21,11 +21,11 @@ int	check_out_files(t_struct_ptrs *data, t_input *input, t_redir *redir_out,
 	if (input->output_fd >= 0)
 		close_fd(&input->output_fd);
 	if (redir_out->type == APPEND)
-		input->output_fd = open(redir_out->file_name, O_WRONLY | O_CREAT
-				| O_APPEND, 0777);
+		input->output_fd = open(redir_out->file_name,
+				O_WRONLY | O_CREAT | O_APPEND, 0777);
 	else
-		input->output_fd = open(redir_out->file_name, O_WRONLY | O_CREAT
-				| O_TRUNC, 0777);
+		input->output_fd = open(redir_out->file_name,
+				O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (input->output_fd == -1)
 	{
 		set_exit_code(data, errno);

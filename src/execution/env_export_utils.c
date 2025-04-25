@@ -21,7 +21,7 @@ char	*get_var_value(t_env_nodes *list, char *var)
 }
 
 void	update_var_in_both(t_env_nodes *env, t_env_nodes *export,
-							char *var_to_change, char *new_value)
+		char *var_to_change, char *new_value)
 {
 	int	var_name_offset;
 
@@ -33,6 +33,7 @@ void	update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 
 int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
 					int offset)
+  
 {
 	t_env_nodes	*curr;
 
@@ -43,7 +44,7 @@ int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
 		{
 			if (!ft_strcmp(var_to_change, (curr->var_name + offset)))
 			{
-				free (curr->var_value);
+				free(curr->var_value);
 				curr->var_value = NULL;
 				if (new_value)
 				{
