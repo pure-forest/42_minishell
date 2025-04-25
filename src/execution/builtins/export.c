@@ -2,8 +2,8 @@
 
 static int	print_export(t_struct_ptrs *data);
 static int	update_export(t_struct_ptrs *data, t_input *curr, int i);
-static int	var_fill_export(char *cmd_arr, char *equal_sign, \
-							t_env_nodes *new_var);
+static int	var_fill_export(char *cmd_arr, char *equal_sign,
+				t_env_nodes *new_var);
 static void	insert_node(t_env_nodes **export, t_env_nodes *new_var);
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 
@@ -59,8 +59,8 @@ static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 	{
 		if (check_export_syntax(curr->cmd_arr[i]))
 		{
-			print_error("export: `", curr->cmd_arr[i], \
-			"': not a valid identifier");
+			print_error("export: `", curr->cmd_arr[i],
+				"': not a valid identifier");
 			ret_value = 1;
 			continue ;
 		}
@@ -77,10 +77,10 @@ static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 	return (ret_value);
 }
 
-static int	var_fill_export(char *cmd_arr, char *equal_sign, \
-							t_env_nodes *new_var)
+static int	var_fill_export(char *cmd_arr, char *equal_sign,
+		t_env_nodes *new_var)
 {
-	char		*tmp;
+	char	*tmp;
 
 	if (equal_sign)
 	{

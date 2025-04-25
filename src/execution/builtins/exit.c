@@ -2,8 +2,8 @@
 
 static int	count_args(char **arr);
 static void	print_numeric_error(t_struct_ptrs *data, char *str_input, int code);
-static void	clean_up_and_exit(t_struct_ptrs *data, t_input *curr, \
-								t_exec_data *exec_data);
+static void	clean_up_and_exit(t_struct_ptrs *data, t_input *curr,
+				t_exec_data *exec_data);
 
 int	ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 {
@@ -14,7 +14,7 @@ int	ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 	if (arg_count == 1)
 	{
 		clean_up_and_exit(data, curr, exec_data);
-		exit (data->exit_code);
+		exit(data->exit_code);
 	}
 	if (is_valid_numeric_input(curr->cmd_arr[1]) == NO)
 		print_numeric_error(data, curr->cmd_arr[1], 4);
@@ -32,8 +32,8 @@ int	ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 	exit(code % 256);
 }
 
-static void	clean_up_and_exit(t_struct_ptrs *data, t_input *curr, \
-								t_exec_data *exec_data)
+static void	clean_up_and_exit(t_struct_ptrs *data, t_input *curr,
+		t_exec_data *exec_data)
 {
 	handle_standard_fds(data, exec_data, YES);
 	clean_up_exec_creations(data, curr);

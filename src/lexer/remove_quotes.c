@@ -61,7 +61,7 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node)
 			modify_quote_mark(&i, node);
 		else
 		{
-			if (strcpy_or_expand(data, node, &i, &j) == SYSTEM_FAIL)
+			if (strcpy_or_expand(data, node, &i, &j) == SYS_FAIL)
 				return (free((*node)->expanded_value), NULL);
 		}
 	}
@@ -108,7 +108,7 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 			= append_character_in_string(((*node)->expanded_value),
 				(*node)->value[*i]);
 		if (!((*node)->expanded_value))
-			return (SYSTEM_FAIL);
+			return (SYS_FAIL);
 		(*j)++;
 		(*i)++;
 	}
@@ -119,7 +119,7 @@ static int	strcpy_or_expand(t_struct_ptrs *data, t_token **node, int *i,
 		(*node)->expanded_value = ft_strjoin_and_free(((*node)->expanded_value),
 				temp);
 		if (!((*node)->expanded_value))
-			return (free(temp), SYSTEM_FAIL);
+			return (free(temp), SYS_FAIL);
 	}
 	return (SUCCESS);
 }
