@@ -32,7 +32,8 @@ void	update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 }
 
 int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
-		int offset)
+					int offset)
+  
 {
 	t_env_nodes	*curr;
 
@@ -89,7 +90,7 @@ void	set_shell_level(t_struct_ptrs *data)
 }
 
 void	create_var_env_and_export(t_struct_ptrs *data, char *var_name,
-		char *var_value)
+									char *var_value)
 {
 	t_input	*var;
 

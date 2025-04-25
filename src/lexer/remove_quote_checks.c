@@ -39,18 +39,11 @@ int	get_character_number(char *src, char not_to_count)
 	return (char_num);
 }
 
-char	get_quote_mark(char *src)
+char	get_quote_mark(char c)
 {
-	int	i;
-
-	i = 0;
-	while (src[i])
+	if (ft_strchr("\'\"", c))
 	{
-		if (ft_strchr("\'\"", src[i]))
-		{
-			return (src[i]);
-		}
-		i++;
+		return (c);
 	}
 	return (0);
 }

@@ -26,6 +26,7 @@
 # define FAIL 1
 # define SYS_FAIL -1
 # define SUCCESS 0
+# define FAIL 1
 # define YES 1
 # define NO 0
 # define NOT_FOUND 2

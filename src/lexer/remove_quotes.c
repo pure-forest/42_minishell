@@ -71,18 +71,18 @@ static char	*trim_quotes_and_expand(t_struct_ptrs *data, t_token **node)
 static void	modify_quote_mark(int *i, t_token **node)
 {
 	(*node)->quote_count++;
-	if ((*node)->quote_mark == 0)
+	if ((*node)->value[*i] != (*node)->quote_mark)
 	{
-		(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
+		(*node)->quote_mark = get_quote_mark((*node)->value[*i]);
 		(*i)++;
 		return ;
 	}
-	if ((*node)->value[*i] == (*node)->quote_mark)
+	else if ((*node)->value[*i] == (*node)->quote_mark)
 	{
 		if ((*node)->quote_count == 2 && (*node)->value[*i])
 		{
 			(*i)++;
-			(*node)->quote_mark = get_quote_mark(&((*node)->value[*i]));
+			(*node)->quote_mark = get_quote_mark((*node)->value[*i]);
 			(*node)->quote_count = 0;
 			return ;
 		}

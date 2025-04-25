@@ -17,6 +17,17 @@ int	signal_init(void)
 	return (SUCCESS);
 }
 
+int	signal_init_interrupt(t_struct_ptrs *data)
+{
+	if (g_signal_numb == SIGINT)
+	{
+		g_signal_numb = 0;
+		data->exit_code = 130;
+		return (SUCCESS);
+	}
+	return (SUCCESS);
+}
+
 static void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 	(void)context;
@@ -40,15 +51,4 @@ void	handle_sigquit(void)
 		return ;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
-}
-
-int	interupt_input(t_struct_ptrs *data)
-{
-	if (g_signal_numb == SIGINT)
-	{
-		g_signal_numb = 0;
-		data->exit_code = 130;
-		return (SUCCESS);
-	}
-	return (SUCCESS);
 }

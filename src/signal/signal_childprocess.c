@@ -3,7 +3,7 @@
 static void	handle_child_sigquit_as_default(void);
 static void	signal_handler_child(int signum, siginfo_t *info, void *context);
 
-int	signal_hanging_init(void)
+int	signal_init_child_process(void)
 {
 	struct sigaction	sa;
 
@@ -18,7 +18,7 @@ int	signal_hanging_init(void)
 		return (SUCCESS);
 }
 
-int	parent_signal(void)
+int	signal_init_parent_process(void)
 {
 	struct sigaction	sa;
 
