@@ -41,7 +41,7 @@ void	clean_up_arr(char ***arr_ptr)
 	i = 0;
 	if (*arr_ptr)
 	{
-		while((*arr_ptr)[i])
+		while ((*arr_ptr)[i])
 			free ((*arr_ptr)[i++]);
 		free(*arr_ptr);
 		*arr_ptr = NULL;

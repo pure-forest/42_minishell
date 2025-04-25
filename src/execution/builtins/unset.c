@@ -1,10 +1,7 @@
 #include "../../../inc/execution.h"
 
-# define RET_UNSET_0(x) ((x) == YES || (x) == NOT_FOUND || (x) == EMPTY)
-int		unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset);
-void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr);
-int		check_match(char *cmd_arg, char *var_name);
-int		remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
+static int	unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset);
+static void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr);
 
 int	unset(t_struct_ptrs *data, t_input *curr)
 {
@@ -14,16 +11,18 @@ int	unset(t_struct_ptrs *data, t_input *curr)
 	env_unset = EMPTY;
 	export_unset = EMPTY;
 	if (data->env)
-		env_unset = unset_vars(curr, &data->env, 0); 
+		env_unset = unset_vars(curr, &data->env, 0);
 	if (data->export)
 		export_unset = unset_vars(curr, &data->export, 11);
-	if (RET_UNSET_0(env_unset) || RET_UNSET_0(export_unset))
+	if ((env_unset == YES || env_unset == NOT_FOUND || env_unset == EMPTY) \
+		|| (export_unset == YES || export_unset == NOT_FOUND \
+		|| export_unset == EMPTY))
 		return (SUCCESS);
 	else
 		return (0);
 }
 
-int	unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset)	//static or not??
+static int	unset_vars(t_input *curr, t_env_nodes **lst_to_unset, int offset)
 {
 	t_env_nodes	*list;
 	t_env_nodes	*next;
@@ -58,7 +57,7 @@ int	remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr)
 	return (1);
 }
 
-void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr) //static or not??
+static void	reassign_node_pointers(t_env_nodes **list_root, t_env_nodes *curr)
 {
 	if (!curr->base.prev && !curr->base.next)
 		*list_root = NULL;

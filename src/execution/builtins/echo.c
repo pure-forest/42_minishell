@@ -1,6 +1,6 @@
 #include "../../../inc/execution.h"
 
-int	check_arg(char *arg);
+static int	check_arg(char *arg);
 
 int	echo(t_input *curr)
 {
@@ -28,7 +28,7 @@ int	echo(t_input *curr)
 	return (SUCCESS);
 }
 
-int	check_arg(char *arg)
+static int	check_arg(char *arg)
 {
 	while (*arg)
 	{
