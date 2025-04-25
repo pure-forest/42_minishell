@@ -1,7 +1,6 @@
 #include "../../inc/signal.h"
 
 static void	signal_handler(int signum, siginfo_t *info, void *context);
-static void	handle_sigquit(void);
 
 int	signal_init(void)
 {
@@ -43,7 +42,7 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 	}
 }
 
-static void	handle_sigquit(void)
+void	handle_sigquit(void)
 {
 	struct sigaction	sa;
 

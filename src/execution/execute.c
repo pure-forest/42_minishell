@@ -85,12 +85,12 @@ int	process_pipeline(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data)
 		return (set_exit_code(data, SYSTEM_FAIL), FAIL);
 	if (exec_data->pid == 0)
 	{
-		signal_init_childprocess();
+		signal_init_child_process();
 		run_in_child(data, curr, exec_data);
 	}
 	else
 	{
-		parent_signal();
+		signal_init_parent_process();
 		if (exec_data->prev_read_end != -1)
 			close_fd(&exec_data->prev_read_end);
 		exec_data->prev_read_end = exec_data->pipe_fd[0];
