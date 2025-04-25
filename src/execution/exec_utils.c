@@ -7,20 +7,19 @@ int	is_builtin(t_input *curr)
 {
 	if (curr->cmd_arr && curr->cmd_arr[0])
 	{
-		if (!ft_strcmp(curr->cmd_arr[0], "cd") \
-		|| !ft_strcmp(curr->cmd_arr[0], "echo") \
-		|| !ft_strcmp(curr->cmd_arr[0], "env") \
-		|| !ft_strcmp(curr->cmd_arr[0], "export") \
-		|| !ft_strcmp(curr->cmd_arr[0], "pwd") \
-		|| !ft_strcmp(curr->cmd_arr[0], "unset") \
-		|| !ft_strcmp(curr->cmd_arr[0], "exit"))
+		if (!ft_strcmp(curr->cmd_arr[0], "cd") || !ft_strcmp(curr->cmd_arr[0],
+				"echo") || !ft_strcmp(curr->cmd_arr[0], "env")
+			|| !ft_strcmp(curr->cmd_arr[0], "export")
+			|| !ft_strcmp(curr->cmd_arr[0], "pwd")
+			|| !ft_strcmp(curr->cmd_arr[0], "unset")
+			|| !ft_strcmp(curr->cmd_arr[0], "exit"))
 			return (YES);
 	}
 	return (NO);
 }
 
-void	launch_builtin(t_struct_ptrs *data, t_input *curr, \
-						t_exec_data *exec_data)
+void	launch_builtin(t_struct_ptrs *data, t_input *curr,
+		t_exec_data *exec_data)
 {
 	char	*cmd;
 	int		res;
@@ -75,7 +74,7 @@ static int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount)
 		if (!tmp)
 			return (clean_up_arr(&data->exec_env), FAIL);
 		data->exec_env[i] = ft_strjoin(tmp, env->var_value);
-		free (tmp);
+		free(tmp);
 		if (!data->exec_env[i])
 			return (clean_up_arr(&data->exec_env), FAIL);
 		env = (t_env_nodes *)env->base.next;

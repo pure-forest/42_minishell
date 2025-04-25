@@ -27,6 +27,8 @@ void	make_cmd_path(t_struct_ptrs *data, t_input *curr)
 	i = -1;
 	if (data->split_path)
 	{
+		if (curr->cmd_arr[0])
+			return ;
 		while (data->split_path[++i])
 		{
 			turn_cmd_into_directory(data, curr, i, &tmp_cmd_path);

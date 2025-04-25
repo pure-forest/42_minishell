@@ -1,7 +1,7 @@
 #include "../../../inc/execution.h"
 
-static int		cd_to_home(t_struct_ptrs *data);
-static void		cd_error_print(char *path, int err);
+static int	cd_to_home(t_struct_ptrs *data);
+static void	cd_error_print(char *path, int err);
 
 int	cd(t_struct_ptrs *data, t_input *curr)
 {
@@ -18,8 +18,8 @@ int	cd(t_struct_ptrs *data, t_input *curr)
 				set_exit_code(data, errno);
 				return (perror("getcwd"), FAIL);
 			}
-			update_var_in_both(data->env, data->export, "OLDPWD=", \
-								get_var_value(data->env, "PWD="));
+			update_var_in_both(data->env, data->export, "OLDPWD=",
+				get_var_value(data->env, "PWD="));
 			update_var_in_both(data->env, data->export, "PWD=", buff);
 			return (SUCCESS);
 		}
@@ -34,14 +34,14 @@ static int	cd_to_home(t_struct_ptrs *data)
 {
 	char	*home;
 
-	update_var_in_both(data->env, data->export, "OLDPWD=", \
-				get_var_value(data->env, "PWD="));
+	update_var_in_both(data->env, data->export, "OLDPWD=",
+		get_var_value(data->env, "PWD="));
 	home = get_var_value(data->env, "HOME=");
 	if (!home)
 		return (ft_putstr_fd("catshell: cd: HOME not set\n", 2), FAIL);
 	if (!chdir(home))
-		return (update_var_in_both(data->env, data->export, "PWD=", home), \
-				SUCCESS);
+		return (update_var_in_both(data->env, data->export, "PWD=", home),
+			SUCCESS);
 	return (FAIL);
 }
 
