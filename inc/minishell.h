@@ -33,7 +33,7 @@
 # define IS_OK_TO_RUN(x) ((x) == SUCCESS || (x) == EMPTY)
 # define FT_SPACE " \t\n"
 # define FT_DELIMINATER "|;&()<>"
-# define HEREDOC_TEMP_NAME "tmp/.heredoc_no_"
+# define HEREDOC_TEMP_NAME ".heredoc_no_"
 
 extern sig_atomic_t	g_signal_numb;
 

@@ -1,8 +1,6 @@
 #include "../../inc/signal.h"
 
 static void	signal_handler(int signum, siginfo_t *info, void *context);
-static void	handle_sigquit(void);
-static void	signal_handler_hanging(int signum, siginfo_t *info, void *context);
 
 int	signal_init(void)
 {
@@ -19,36 +17,13 @@ int	signal_init(void)
 	return (SUCCESS);
 }
 
-int	signal_hanging_init(void)
-{
-	struct sigaction	sa;
-
-	if (sigemptyset(&sa.sa_mask) == -1)
-		return (FAIL);
-	sa.sa_sigaction = signal_handler_hanging;
-	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-	return (SUCCESS);
-}
-
-static void	signal_handler_hanging(int signum, siginfo_t *info, void *context)
-{
-	(void)context;
-	(void)info;
-	if (signum == SIGINT || signum == SIGQUIT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-	}
-}
-
 static void	signal_handler(int signum, siginfo_t *info, void *context)
 {
 	(void)context;
 	(void)info;
 	if (signum == SIGINT)
 	{
+		g_signal_numb = SIGINT;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -56,7 +31,7 @@ static void	signal_handler(int signum, siginfo_t *info, void *context)
 	}
 }
 
-static void	handle_sigquit(void)
+void	handle_sigquit(void)
 {
 	struct sigaction	sa;
 
@@ -65,4 +40,15 @@ static void	handle_sigquit(void)
 		return ;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+int	interupt_input(t_struct_ptrs *data)
+{
+	if (g_signal_numb == SIGINT)
+	{
+		g_signal_numb = 0;
+		data->exit_code = 130;
+		return (SUCCESS);
+	}
+	return (SUCCESS);
 }

@@ -2,6 +2,7 @@
 
 static void		signal_handler_heredoc(int signum, siginfo_t *info,
 					void *context);
+
 sig_atomic_t	g_signal_numb;
 
 int	signal_init_heredoc(void)
@@ -10,9 +11,11 @@ int	signal_init_heredoc(void)
 
 	if (sigemptyset(&sa.sa_mask) == -1)
 		return (FAIL);
+	handle_sigquit();
 	sa.sa_sigaction = signal_handler_heredoc;
 	sa.sa_flags = SA_SIGINFO;
-	sigaction(SIGINT, &sa, NULL);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		return (FAIL);
 	return (SUCCESS);
 }
 
@@ -22,7 +25,7 @@ static void	signal_handler_heredoc(int signum, siginfo_t *info, void *context)
 	(void)info;
 	if (signum == SIGINT)
 	{
-		g_signal_numb = 2;
+		g_signal_numb = SIGINT;
 		close(STDIN_FILENO);
 		write(1, "\n", 1);
 	}

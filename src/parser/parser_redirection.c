@@ -55,8 +55,7 @@ static int	parse_files(t_token *token, t_redir **head)
 		{
 			temp = redirection_init(token->type, token->value);
 			if (!temp)
-				return (print_error("Malloc failure", NULL, NULL),
-					free_redir(head), FAIL);
+				return (free_redir(head), FAIL);
 			if (!(*head))
 				*head = temp;
 			else if (append_node((t_list_base **)(head),
