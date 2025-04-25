@@ -1,6 +1,6 @@
 #include "../../inc/lexer.h"
 
-static char *valid_variable_init(t_token **node, int *i);
+static char	*valid_variable_init(t_token **node, int *i);
 
 char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 		int *j)
@@ -27,7 +27,7 @@ char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 	return (ret);
 }
 
-static char *valid_variable_init(t_token **node, int *i)
+static char	*valid_variable_init(t_token **node, int *i)
 {
 	int		length;
 	char	*valid_variable;

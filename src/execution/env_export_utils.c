@@ -1,7 +1,7 @@
 #include "../../inc/execution.h"
 
-int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value, \
-	int offset);
+int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
+		int offset);
 
 char	*get_var_value(t_env_nodes *list, char *var)
 {
@@ -20,7 +20,7 @@ char	*get_var_value(t_env_nodes *list, char *var)
 	return (NULL);
 }
 
-void	update_var_in_both(t_env_nodes *env, t_env_nodes *export, \
+void	update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 							char *var_to_change, char *new_value)
 {
 	int	var_name_offset;
@@ -31,7 +31,7 @@ void	update_var_in_both(t_env_nodes *env, t_env_nodes *export, \
 	change_var_value(export, var_to_change, new_value, var_name_offset);
 }
 
-int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value, \
+int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
 					int offset)
 {
 	t_env_nodes	*curr;
@@ -88,7 +88,7 @@ void	set_shell_level(t_struct_ptrs *data)
 	return (free(new_value), (void)01);
 }
 
-void	create_var_env_and_export(t_struct_ptrs *data, char *var_name, \
+void	create_var_env_and_export(t_struct_ptrs *data, char *var_name,
 									char *var_value)
 {
 	t_input	*var;

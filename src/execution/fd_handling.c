@@ -69,8 +69,8 @@ int	handle_standard_fds(t_struct_ptrs *data, t_exec_data *exec_data, int reset)
 	return (SUCCESS);
 }
 
-void	handle_fd_err(t_struct_ptrs *data, t_exec_data *exec_data, \
-						char *err_msg)
+void	handle_fd_err(t_struct_ptrs *data, t_exec_data *exec_data,
+			char *err_msg)
 {
 	print_error(err_msg, NULL, NULL);
 	set_exit_code(data, SYSTEM_FAIL);

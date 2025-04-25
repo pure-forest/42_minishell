@@ -1,6 +1,7 @@
 #include "../../inc/lexer.h"
 
 static int	calculate_valid_word(char *str);
+static int	handle_quote(char *str, int *i, int *in_quote);
 
 int	tokenize_pipe(char *str, int *i, t_token **token_list)
 {
@@ -83,7 +84,7 @@ int	tokenize_text(char *str, int *i, t_token **token_list)
 	return (0);
 }
 
-int	handle_quote(char *str, int *i, int *in_quote)
+static int	handle_quote(char *str, int *i, int *in_quote)
 {
 	int		index;
 	char	quote_mark;

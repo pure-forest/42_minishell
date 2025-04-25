@@ -23,9 +23,9 @@
 # include "utils.h"
 
 # define PROMPT "\033[1;38;5;218m🐱 --Catshell > \033[0m"
-# define FAIL 1
 # define SYSTEM_FAIL -1
 # define SUCCESS 0
+# define FAIL 1
 # define YES 1
 # define NO 0
 # define NOT_FOUND 2

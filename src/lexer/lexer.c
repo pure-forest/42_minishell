@@ -45,7 +45,10 @@ static t_token	*create_token_list(char *str)
 			i++;
 	}
 	if (str[i] != '\0')
+	{
+		print_error("Syntax error", NULL, NULL);
 		return (free_lexer(&token_list), NULL);
+	}
 	return (token_list);
 }
 
