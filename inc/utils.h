@@ -13,5 +13,6 @@ void	mini_clean(t_struct_ptrs *data);
 t_input	*cmd_table_init(char **cmd_arr);
 t_token	*token_init(t_token_type type, char *token_value);
 t_redir	*redirection_init(t_token_type type, char *file_name);
+void	free_and_null(char **str);
 
 #endif

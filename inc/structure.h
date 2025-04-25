@@ -80,6 +80,7 @@ typedef struct s_struct_ptrs
 	int					exit_code;
 	char				**exec_env;
 	char				**split_path;
+	bool				should_delete_heredoc;
 }						t_struct_ptrs;
 
 #endif

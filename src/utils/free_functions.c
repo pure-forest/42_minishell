@@ -83,3 +83,14 @@ void	ft_free_double_ptr(char **str)
 	free(str);
 	str = NULL;
 }
+
+void	free_and_null(char **str)
+{
+	if (*str)
+	{
+		free(*str);
+		*str = NULL;
+		return ;
+	}
+	return ;
+}

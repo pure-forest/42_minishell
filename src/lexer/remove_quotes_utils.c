@@ -1,86 +1,46 @@
 #include "../../inc/lexer.h"
 
-t_token	*get_quote_token(t_token *token_list)
-{
-	t_token	*temp;
-
-	temp = token_list;
-	while (temp)
-	{
-		if ((ft_strchr(temp->value, '\'') || ft_strchr(temp->value, '\"'))
-			&& (temp->type == WORD || temp->type == INFILE
-				|| temp->type == OUTFILE))
-			return (temp);
-		temp = ((t_token *)(temp->base.next));
-	}
-	return (NULL);
-}
+static char *valid_variable_init(t_token **node, int *i);
 
 char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 		int *j)
 {
-	int		variable_length;
 	char	*ret;
+	char	*valid_variable;
 
-	variable_length = 0;
-	while ((!ft_strchr("\'\"", (*node)->value[*i])) && (*node)->value[*i])
-	{
-		(*i)++;
-		variable_length++;
-	}
-	ret = ft_strndup(&((*node)->value)[*i - variable_length], variable_length);
+	valid_variable = valid_variable_init(node, i);
+	ret = expand_variable(data, valid_variable);
 	if (!ret)
-		return (NULL);
-	ret = expand_variable(data, ret);
-	if (!ret || !*ret)
+	{
+		free_and_null(&ret);
+		free_and_null(&valid_variable);
 		(*j)++;
+	}
+	else if (!*ret)
+	{
+		free_and_null(&ret);
+		(*j)++;
+	}
 	else
 		(*j) += ft_strlen(ret);
 	(*node)->should_expand = NO;
 	return (ret);
 }
 
-int	get_character_number(char *src, char not_to_count)
+static char *valid_variable_init(t_token **node, int *i)
 {
-	int	i;
-	int	char_num;
+	int		length;
+	char	*valid_variable;
 
-	i = ft_strchr(src, not_to_count) - src + 1;
-	char_num = 0;
-	if (!src || !*src)
-		return (0);
-	while (src[i] != not_to_count)
+	length = 0;
+	valid_variable = NULL;
+	while ((!ft_strchr("\'\"", (*node)->value[*i])) && (*node)->value[*i])
 	{
-		char_num++;
-		i++;
+		(*i)++;
+		length++;
 	}
-	return (char_num);
-}
-
-char	get_quote_mark(char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		if (ft_strchr("\'\"", src[i]))
-		{
-			return (src[i]);
-		}
-		i++;
-	}
-	return (0);
-}
-
-bool	should_expand(char c, char quote_mark)
-{
-	if (quote_mark == '\'')
-		return (NO);
-	else if (quote_mark == '\"' && c == '\'')
-		return (NO);
-	else if (c != '$')
-		return (NO);
-	else
-		return (YES);
+	valid_variable = ft_strndup(&((*node)->value)[*i - length], length);
+	if (!valid_variable)
+		return (NULL);
+	return (valid_variable);
 }

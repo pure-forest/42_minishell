@@ -45,7 +45,10 @@ static int	assign_value_cmd_arrs(t_input **input, t_token **token_list)
 		return (FAIL);
 	new_node = cmd_table_init(cmd_arr);
 	if (!new_node)
+	{
+		ft_free_double_ptr(cmd_arr);
 		return (FAIL);
+	}
 	if (append_node((t_list_base **)input, (t_list_base *)new_node) == FAIL)
 		return (FAIL);
 	get_next_cmd_node(token_list);

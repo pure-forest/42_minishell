@@ -2,7 +2,8 @@
 
 static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token);
 static int	replace_heredoc_node(t_token **node, char *file_name);
-static void	close_stdin(int stdin_copy, int fd);
+static void	close_stdin(int stdin_copy, int fd, char **file_name,
+				t_struct_ptrs *data);
 static char	*write_or_expand(int fd, char *file_name, t_token *token,
 				t_struct_ptrs *data);
 
@@ -25,6 +26,7 @@ int	parse_heredoc(t_struct_ptrs *data)
 		}
 		token_list = (t_token *)(token_list->base.next);
 	}
+	signal_init();
 	return (SUCCESS);
 }
 
@@ -46,6 +48,7 @@ static char	*here_doc_put_input(t_struct_ptrs *data, t_token *token)
 		file_name = NULL;
 		return (NULL);
 	}
+	data->should_delete_heredoc = YES;
 	return (file_name);
 }
 
@@ -83,21 +86,23 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 	{
 		signal_init_heredoc();
 		temp = readline("> ");
-		if (g_signal_numb == 2 && !temp)
-			return (close_stdin(stdin_copy, fd), file_name);
-		if (!ft_strncmp(temp, token->value, ft_strlen(token->value)))
-			return (free(temp), close_stdin(stdin_copy, fd), file_name);
-		if (token->expand_heredoc == YES)
+		if (!temp)
 		{
-			if (check_for_expansion(data, &temp) == FAIL)
-				break ;
+			ft_putstr_fd("warning:here-document delimited by end-of-file\n", 2);
+			break ;
 		}
-		write_into_temp_file(fd, &temp);
+		if (g_signal_numb == SIGINT && !temp)
+			return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
+		if (!ft_strcmp(temp, token->value))
+			return (free(temp), close_stdin(stdin_copy, fd, NULL, NULL),
+				file_name);
+		write_into_temp_file(token, data, fd, &temp);
 	}
-	return (close_stdin(stdin_copy, fd), free(file_name), NULL);
+	return (close_stdin(stdin_copy, fd, &file_name, data), NULL);
 }
 
-static void	close_stdin(int stdin_copy, int fd)
+static void	close_stdin(int stdin_copy, int fd, char **file_name,
+					t_struct_ptrs *data)
 {
 	if (dup2(stdin_copy, STDIN_FILENO) < 0)
 	{
@@ -106,5 +111,16 @@ static void	close_stdin(int stdin_copy, int fd)
 	}
 	close(stdin_copy);
 	close(fd);
+	if (file_name)
+	{
+		unlink(*file_name);
+		free(*file_name);
+		*file_name = NULL;
+		if (g_signal_numb)
+			data->exit_code = 128 + g_signal_numb;
+		else
+			data->exit_code = 0;
+	}
+	g_signal_numb = 0;
 	return ;
 }
