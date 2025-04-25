@@ -6,16 +6,17 @@ INCDIR=inc
 CC=cc
 FLAGS=-Wall -Wextra -Werror -g
 SANITIZER=-fsanitize=address -fno-omit-frame-pointer
+
 PINK = \033[38;5;218m
 END = \033[0m
 
 LIBFT_DIR = ./libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
-LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c lexer_dev.c \
-		remove_quotes.c remove_quotes_utils.c remove_quote_checks.c
+LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c remove_quotes.c \
+		remove_quotes_utils.c remove_quote_checks.c
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
-		parser_redirection.c parser_dev.c
+		parser_redirection.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
 		unset_utils.c exit.c
 EXECUTE= error_handling.c exec_utils.c exec_utils_2.c exec_utils_3.c \
@@ -26,9 +27,9 @@ UTILS=clean_up_utils.c init_utils.c string_utils_yutong.c \
 		free_functions.c
 SIGNAL=signal_default.c signal_heredoc.c signal_childprocess.c
 
-MINISHEL=main.c
+MAIN=main.c
 
-SRC=$(addprefix ${SRCDIR}/, $(MINISHEL)) \
+SRC=$(addprefix ${SRCDIR}/, $(MAIN)) \
 	$(addprefix ${SRCDIR}/lexer/, $(LEXER)) \
 	$(addprefix $(SRCDIR)/parser/, $(PARSER)) \
 	$(addprefix $(SRCDIR)/execution/, $(EXECUTE)) \
@@ -53,9 +54,8 @@ ${OBJDIR}/%.o:${SRCDIR}/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-${NAME}:$(LIBFT_A) ${OBJ} | $(TMPDIR)
-	@$(CC) $(OBJ) $(LIBFT_A) -lreadline  \
-	-o $(NAME)
+${NAME}:$(LIBFT_A) ${OBJ}
+	@$(CC) $(OBJ) $(LIBFT_A) -lreadline  -o $(NAME)
 	@echo "$(PINK)=== ✅Minishell compile succeed. $(END)\n"
 
 clean:

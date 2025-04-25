@@ -12,7 +12,7 @@ int		parse_redirection(t_token **token, t_input **input);
 int		check_for_expansion(t_struct_ptrs *data, char **new_line);
 char	*generate_heredoc_name(void);
 void	write_into_temp_file(t_token *token, t_struct_ptrs *data, int fd,
-					char **temp);
+			char **temp);
 
 //parse utils
 int		cmd_arr_num(t_token *token_list);

@@ -70,7 +70,7 @@ char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 	else
 	{
 		ret = ft_strdup(get_var_value(temp, valid_variable));
-		free(valid_variable);
+		free_and_null(&valid_variable);
 		if (ret)
 			return (ret);
 		return (print_error("Malloc failure", NULL, NULL), NULL);
