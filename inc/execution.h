@@ -19,7 +19,7 @@ int			check_redir_files_for_exec(t_struct_ptrs *data, t_input *input, \
 int			split_env_path(t_struct_ptrs *data, t_input *curr);
 int			handle_standard_fds(t_struct_ptrs *data, t_exec_data *exec_data, \
 								int reset);
-void		handle_fd_error(t_struct_ptrs *data, char *err_msg);
+void		handle_fd_err(t_struct_ptrs *data, t_exec_data *exec_data, char *err_msg);
 int			check_if_cmd_is_path(t_input *curr);
 void		make_cmd_path(t_struct_ptrs *data, t_input *curr);
 void		turn_cmd_into_directory(t_struct_ptrs *data, t_input *curr, int i,
