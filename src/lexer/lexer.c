@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:15:58 by ydeng             #+#    #+#             */
+/*   Updated: 2025/04/26 17:15:59 by ydeng            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/lexer.h"
 
 static t_token	*lexer(char *str, t_struct_ptrs *data);
@@ -62,10 +74,10 @@ static t_token	*lexer(char *str, t_struct_ptrs *data)
 	if (!token_list)
 		return (NULL);
 	if (check_pipe(token_list, data) == FAIL)
-		return (free_lexer(&token_list), NULL);
+		return (free_lexer(&token_list), set_exit_code(data, 4), NULL);
 	if (check_redir_file(token_list) == FAIL)
-		return (free_lexer(&token_list), NULL);
+		return (free_lexer(&token_list), set_exit_code(data, 4), NULL);
 	if (check_heredoc(token_list) == FAIL)
-		return (free_lexer(&token_list), NULL);
+		return (free_lexer(&token_list), set_exit_code(data, 4), NULL);
 	return (token_list);
 }

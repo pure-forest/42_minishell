@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:17:58 by ydeng             #+#    #+#             */
+/*   Updated: 2025/04/26 17:18:00 by ydeng            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/expansion.h"
 
 char	*expand_variable(t_struct_ptrs *data, char *src)
@@ -26,7 +38,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 			expanded = NULL;
 		}
 	}
-	return (new_str);
+	return (free(src), new_str);
 }
 
 int	expand_word_token(t_struct_ptrs *data)
