@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:18:05 by ydeng             #+#    #+#             */
+/*   Updated: 2025/04/26 17:18:08 by ydeng            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_H
 # define UTILS_H
 
 # include "minishell.h"
-
 
 t_input	*cmd_table_init(char **cmd_arr);
 t_token	*token_init(t_token_type type, char *token_value);
