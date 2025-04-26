@@ -26,7 +26,7 @@ char	*expand_variable(t_struct_ptrs *data, char *src)
 			expanded = NULL;
 		}
 	}
-	return (new_str);
+	return (free(src), new_str);
 }
 
 int	expand_word_token(t_struct_ptrs *data)
