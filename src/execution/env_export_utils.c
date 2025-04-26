@@ -33,7 +33,6 @@ void	update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 
 int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
 					int offset)
-  
 {
 	t_env_nodes	*curr;
 

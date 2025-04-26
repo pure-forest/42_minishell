@@ -1,16 +1,14 @@
 #include "../inc/minishell.h"
 
+static int	is_ok_to_run(t_struct_ptrs *data, char **envp);
+
 int	main(int argc, char **av, char **envp)
 {
 	char			*read_line;
 	t_struct_ptrs	*data;
 
-	if (!argc || !av)
-		return (FAIL);
 	data = &((t_struct_ptrs){0});
-	if (!IS_OK_TO_RUN(create_env(envp, data)))
-		return (FAIL);
-	if (!IS_OK_TO_RUN(create_export(data)))
+	if (!argc || !av || is_ok_to_run(data, envp) == FAIL)
 		return (FAIL);
 	set_shell_level(data);
 	while (1)
@@ -30,6 +28,18 @@ int	main(int argc, char **av, char **envp)
 		execute(data);
 		mini_clean(data);
 	}
-	mega_clean(data);
-	return (0);
+	return (mega_clean(data), 0);
+}
+
+static int	is_ok_to_run(t_struct_ptrs *data, char **envp)
+{
+	int	return_value;
+
+	return_value = create_env(envp, data);
+	if (return_value == FAIL)
+		return (FAIL);
+	return_value = create_export(data);
+	if (return_value == FAIL)
+		return (FAIL);
+	return (SUCCESS);
 }
