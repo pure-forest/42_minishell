@@ -4,8 +4,7 @@ OBJDIR=obj
 BINDIR=bin
 INCDIR=inc
 CC=cc
-FLAGS=-Wall -Wextra -Werror -g
-SANITIZER=-fsanitize=address -fno-omit-frame-pointer
+FLAGS=-Wall -Wextra -Werror
 
 PINK = \033[38;5;218m
 END = \033[0m

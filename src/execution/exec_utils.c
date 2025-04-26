@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:29:19 by gboggion          #+#    #+#             */
+/*   Updated: 2025/04/26 17:29:45 by gboggion         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/execution.h"
-#include <errno.h>
 
 static int	allocate_env_arr(t_struct_ptrs *data, t_env_nodes *env, int amount);
 
