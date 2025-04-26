@@ -27,7 +27,7 @@ void	make_cmd_path(t_struct_ptrs *data, t_input *curr)
 	i = -1;
 	if (data->split_path)
 	{
-		if (curr->cmd_arr[0])
+		if (!curr->cmd_arr[0])
 			return ;
 		while (data->split_path[++i])
 		{
