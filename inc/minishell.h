@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:27:25 by gboggion          #+#    #+#             */
+/*   Updated: 2025/04/26 17:27:25 by gboggion         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -8,10 +20,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
 # include "../libft/libft.h"
@@ -23,7 +32,6 @@
 # include "utils.h"
 
 # define PROMPT "\033[1;38;5;218m🐱 --Catshell > \033[0m"
-# define FAIL 1
 # define SYS_FAIL -1
 # define SUCCESS 0
 # define FAIL 1

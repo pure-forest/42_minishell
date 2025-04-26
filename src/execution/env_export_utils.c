@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_export_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 17:28:58 by gboggion          #+#    #+#             */
+/*   Updated: 2025/04/26 17:28:58 by gboggion         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/execution.h"
 
 int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
