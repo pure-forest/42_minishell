@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:16:45 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 19:41:05 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/28 12:16:45 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ static void	close_stdin(int stdin_copy, int fd, char **file_name,
 		unlink(*file_name);
 		free(*file_name);
 		*file_name = NULL;
+		delete_temp_files_in_token(&data->token);
 		if (g_signal_numb)
 			data->exit_code = 128 + g_signal_numb;
 		else

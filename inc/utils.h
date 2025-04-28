@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:18:05 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:18:08 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/28 12:13:42 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	free_redir(t_redir **head);
 void	mega_clean(t_struct_ptrs *data);
 void	mini_clean(t_struct_ptrs *data);
 void	free_and_null(char **str);
+void	delete_temp_files_in_token(t_token **token);
 
 #endif
