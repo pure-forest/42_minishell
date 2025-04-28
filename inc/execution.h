@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:27:16 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:27:18 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:16:43 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			split_env_path(t_struct_ptrs *data, t_input *curr);
 int			handle_standard_fds(t_struct_ptrs *data, t_exec_data *exec_data,
 				int reset);
 void		handle_fd_err(t_struct_ptrs *data, t_exec_data *exec_data,
-				char *err_msg, int print);
+				char *err_msg);
 int			check_if_cmd_is_path(t_input *curr);
 void		make_cmd_path(t_struct_ptrs *data, t_input *curr);
 void		turn_cmd_into_directory(t_struct_ptrs *data, t_input *curr, int i,

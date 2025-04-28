@@ -50,7 +50,7 @@ int	update_env(t_struct_ptrs *data, t_input *curr)
 			continue ;
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
-			return (FAIL);
+			return (SYS_FAIL);
 		*new_var = (t_env_nodes){0};
 		if (var_fill_env(curr->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);

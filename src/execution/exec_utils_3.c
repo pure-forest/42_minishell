@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:14 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:29:15 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:07:22 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	wait_for_children(t_struct_ptrs *data)
 
 void	init_exec_data(t_exec_data *exec_data)
 {
-	*exec_data = (t_exec_data){0};
+	exec_data->orig_stdin = -1;
+	exec_data->orig_stdout = -1;
 	exec_data->prev_read_end = -1;
 	exec_data->pipe_fd[0] = -1;
 	exec_data->pipe_fd[1] = -1;

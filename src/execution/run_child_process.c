@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:30:20 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:30:21 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:38:40 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	run_execve(t_struct_ptrs *data, t_input *curr)
 		}
 		else
 		{
-			set_exit_code(data, EACCES);
+			set_exit_code(data, errno);
 			print_err_exe(data, curr->cmd_arr[0], 2);
 		}
 	}
 	else
 	{
-		set_exit_code(data, ENOENT);
+		set_exit_code(data, errno);
 		print_err_exe(data, curr->cmd_arr[0], 2);
 	}
 	clean_up_exec_creations(data, curr);
