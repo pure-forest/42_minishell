@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:19 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:29:45 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:43:06 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr,
 	if (!ft_strcmp(cmd, "env"))
 		res = env(data);
 	if (!ft_strcmp(cmd, "export"))
+	{
 		res = export(data, curr);
+		if (data->exit_code == -3)
+			res = 1;
+	}
 	if (!ft_strcmp(cmd, "pwd"))
 		res = pwd(data);
 	if (!ft_strcmp(cmd, "unset"))
