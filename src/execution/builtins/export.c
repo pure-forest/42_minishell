@@ -71,6 +71,7 @@ static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 		{
 			print_error("export: `", curr->cmd_arr[i],
 				"': not a valid identifier");
+			data->exit_code = -3;
 			continue ;
 		}
 		equal_sign = ft_strchr(curr->cmd_arr[i], '=');
