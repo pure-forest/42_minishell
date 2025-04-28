@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:54 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:29:55 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:36:42 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,17 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 			print_error(cmd, NULL, ": No such file or directory");
 		else if (data->exit_code == 127 && err == 3)
 			print_error(cmd, NULL, ": command not found");
+		else if (data->exit_code == 125)
+			print_error(cmd, NULL, ": Is a directory");
+		else if (data->exit_code == 124)
+			print_error(cmd, NULL, ": Executable file format error");
 	}
 	if (err == 6)
 		data->exit_code = 1;
+	if (err == 2 && data->exit_code == 125)
+		data->exit_code = 126;
+	if (err == 2 && data->exit_code == 124)
+		data->exit_code = 127;
 }
 
 void	print_error(char *var, char *var_2, char *str)
@@ -50,6 +58,10 @@ void	close_fd(int *fd)
 
 int	get_errno_codes(int err)
 {
+	if (err == ENOEXEC)
+		return (124);
+	if (err == EISDIR)
+		return (125);
 	if (err == SUCCESS)
 		return (0);
 	if (err == ENOENT)

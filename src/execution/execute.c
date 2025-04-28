@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:30:02 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:30:03 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:26:04 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static int	launch_single_cmd_exec(t_struct_ptrs *data, t_input *curr,
 		if (handle_standard_fds(data, exec_data, NO) == SYS_FAIL)
 			return (FAIL);
 		if (check_redir_files_for_exec(data, curr, exec_data->pipe_fd))
-			return (FAIL);
+			return (close_opened_fd(curr), handle_standard_fds(data, exec_data, YES), FAIL);
 		if (set_std_fds(data, curr, exec_data))
-			return (FAIL);
+			return (close_opened_fd(curr), handle_standard_fds(data, exec_data, YES), FAIL);
 		launch_builtin(data, curr, exec_data);
 		close_opened_fd(curr);
 		if (handle_standard_fds(data, exec_data, YES) == SYS_FAIL)

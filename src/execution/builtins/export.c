@@ -28,10 +28,10 @@ int	export(t_struct_ptrs *data, t_input *curr)
 		return (print_export(data));
 	else
 	{
-		if (update_export(data, curr, i))
-			return (FAIL);
-		if (update_env(data, curr))
-			return (FAIL);
+		if (update_export(data, curr, i) == SYS_FAIL)
+			return (SYS_FAIL);
+		if (update_env(data, curr) == SYS_FAIL)
+			return (SYS_FAIL);
 		return (SUCCESS);
 	}
 }
@@ -64,29 +64,26 @@ static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 {
 	t_env_nodes	*new_var;
 	char		*equal_sign;
-	int			ret_value;
 
-	ret_value = 0;
 	while (curr->cmd_arr[++i])
 	{
 		if (check_export_syntax(curr->cmd_arr[i]))
 		{
 			print_error("export: `", curr->cmd_arr[i],
 				"': not a valid identifier");
-			ret_value = 1;
 			continue ;
 		}
 		equal_sign = ft_strchr(curr->cmd_arr[i], '=');
 		new_var = malloc(sizeof(t_env_nodes));
 		if (!new_var)
-			return (FAIL);
+			return (SYS_FAIL);
 		*new_var = (t_env_nodes){0};
 		if (var_fill_export(curr->cmd_arr[i], equal_sign, new_var))
 			return (free(new_var), FAIL);
 		does_var_exist(&data->export, new_var->var_name);
 		insert_node(&data->export, new_var);
 	}
-	return (ret_value);
+	return (SUCCESS);
 }
 
 static int	var_fill_export(char *cmd_arr, char *equal_sign,
