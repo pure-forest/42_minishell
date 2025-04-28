@@ -71,7 +71,7 @@ int	var_fill_env(char *cmd_arr, char *equal_sign, t_env_nodes *new_var)
 	return (SUCCESS);
 }
 
-void	does_var_exist(t_env_nodes **list, char *arg)
+int	does_var_exist(t_env_nodes **list, char *arg)
 {
 	t_env_nodes	*curr;
 	t_env_nodes	*next;
@@ -80,13 +80,15 @@ void	does_var_exist(t_env_nodes **list, char *arg)
 	while (curr)
 	{
 		next = (t_env_nodes *)curr->base.next;
-		if (!check_match(curr->var_name, arg))
+		if (!check_match(arg, curr->var_name) &&
+			is_equal_sign_present(arg) == SUCCESS)
 		{
 			remove_node(list, curr);
-			break ;
+			return (YES);
 		}
 		curr = next;
 	}
+	return (NO);
 }
 
 int	check_export_syntax(char *arg)

@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:27:16 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 15:16:43 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:21:04 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data);
 int			is_equal_sign_present(char *arg);
 int			check_match(char *cmd_arg, char *var_name);
 int			remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
-void		does_var_exist(t_env_nodes **list, char *arg);
+int			does_var_exist(t_env_nodes **list, char *arg);
 
 //**************		NODE UTILS
 int			append_node(t_list_base **list_to_modify, t_list_base *new_var);

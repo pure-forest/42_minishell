@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:30:07 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 15:16:35 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/28 20:50:34 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 	{
 		if (dup2(input->input_fd, STDIN_FILENO) == -1)
 			return (handle_fd_err(data, exec_data, "Dup2 Failure"), FAIL);
+		close_fd(&input->input_fd);
 	}
 	else if (input->base.prev && exec_data->prev_read_end != -1)
 	{
@@ -47,8 +48,11 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 	if (input->output_fd >= 0)
 	{
 		if (input->output_fd != STDOUT_FILENO)
+		{
 			if (dup2(input->output_fd, STDOUT_FILENO) == -1)
 				return (handle_fd_err(data, exec_data, "Dup2 Fail"), FAIL);
+			close_fd(&input->input_fd);
+		}
 	}
 	else if (input->base.next)
 	{
