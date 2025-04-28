@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:17:25 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:17:26 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/28 12:17:26 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	mini_clean(t_struct_ptrs *data)
 		clean_up_temp_files(&data->input);
 	if (data->input)
 		free_cmd_table(&data->input);
+	return ;
+}
+
+void	delete_temp_files_in_token(t_token **token)
+{
+	t_token *node;
+
+	node = *token;
+	while (node)
+	{
+		if (!ft_strncmp(node->value, HEREDOC_TEMP_NAME, 12))
+			unlink(node->value);
+		node = (t_token *)(node->base.next);
+	}
 	return ;
 }
 
