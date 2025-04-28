@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:17:25 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/28 12:17:26 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/28 14:15:55 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	mini_clean(t_struct_ptrs *data)
 
 void	delete_temp_files_in_token(t_token **token)
 {
-	t_token *node;
+	t_token	*node;
 
 	node = *token;
 	while (node)

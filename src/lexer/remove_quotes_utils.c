@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:16:21 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:16:22 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/28 14:47:02 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,
 		(*j)++;
 	}
 	else if (!*ret)
-	{
-		free_and_null(&ret);
 		(*j)++;
-	}
 	else
 		(*j) += ft_strlen(ret);
 	(*node)->should_expand = NO;
