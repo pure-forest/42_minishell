@@ -6,11 +6,13 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:17:53 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:17:54 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/27 13:17:44 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expansion.h"
+
+static char *handle_dollar_dollar(void);
 
 char	*append_or_expand(char *src, int *i, char **new_str,
 		t_struct_ptrs *data)
@@ -74,7 +76,8 @@ char	*expand_valid_variable(char *valid_variable, t_struct_ptrs *data)
 	temp = data->env;
 	ret = NULL;
 	if (!ft_strncmp(valid_variable, "$=", 2))
-		return (free(valid_variable), ft_itoa(getpid()));
+
+		return (free(valid_variable), handle_dollar_dollar());
 	if (!ft_strncmp(valid_variable, "?=", 2))
 		return (free(valid_variable), handle_exit_code(data));
 	else if (!get_var_value(temp, valid_variable))
@@ -100,4 +103,14 @@ int	variable_init(int *i, char **new_str, char **expanded_value)
 	}
 	*expanded_value = NULL;
 	return (SUCCESS);
+}
+
+static char *handle_dollar_dollar(void)
+{
+	char 	*dollar;
+
+	dollar = ft_strdup("$$");
+	if (!dollar)
+		return (NULL);
+	return (dollar);
 }

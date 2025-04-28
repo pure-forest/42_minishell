@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:16:45 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:16:46 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/26 19:41:05 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static char	*write_or_expand(int fd, char *file_name, t_token *token,
 	{
 		signal_init_heredoc();
 		temp = readline("> ");
-		if (!temp)
+		if (!temp && g_signal_numb != SIGINT)
 		{
 			ft_putstr_fd("warning:here-document delimited by end-of-file\n", 2);
 			break ;
