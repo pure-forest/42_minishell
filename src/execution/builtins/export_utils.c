@@ -80,15 +80,16 @@ int	does_var_exist(t_env_nodes **list, char *arg)
 	while (curr)
 	{
 		next = (t_env_nodes *)curr->base.next;
-		if (!check_match(arg, curr->var_name)
-			&& is_equal_sign_present(arg) == SUCCESS)
+		if (!check_match(arg, curr->var_name))
 		{
-			remove_node(list, curr);
-			return (YES);
+			if (is_equal_sign_present(arg) == SUCCESS)
+				return (remove_node(list, curr), YES);
+			else
+				return (NO);
 		}
 		curr = next;
 	}
-	return (NO);
+	return (YES);
 }
 
 int	check_export_syntax(char *arg)

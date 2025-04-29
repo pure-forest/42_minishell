@@ -83,6 +83,8 @@ static int	update_export(t_struct_ptrs *data, t_input *curr, int i)
 			return (free(new_var), FAIL);
 		if (does_var_exist(&data->export, new_var->var_name) == YES)
 			insert_node(&data->export, new_var);
+		else
+			free_one_env_node(new_var);
 	}
 	return (SUCCESS);
 }
