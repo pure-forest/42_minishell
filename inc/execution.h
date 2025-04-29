@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:27:16 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/29 11:39:45 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:56:19 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void		update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 int			update_env(t_struct_ptrs *data, t_input *curr);
 int			check_export_syntax(char *arg);
-// void		set_shell_level(t_struct_ptrs *data);
 void		set_shell_level(t_struct_ptrs *data, char *shlvl_var_value);
 int			handle_shlvl(t_struct_ptrs *data, t_input *curr);
 void		create_var_env_and_export(t_struct_ptrs *data, char *var_name,
