@@ -4,7 +4,7 @@ OBJDIR=obj
 BINDIR=bin
 INCDIR=inc
 CC=cc
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g
 
 PINK = \033[38;5;218m
 END = \033[0m
@@ -17,8 +17,8 @@ LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c remove_quotes.c \
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
 		parser_redirection.c
 BUILTIN=cd.c echo.c export_utils.c export.c pwd.c unset.c env.c \
-		unset_utils.c exit.c
-EXECUTE= error_handling.c exec_utils.c exec_utils_2.c exec_utils_3.c \
+		builtin_utils.c exit.c
+EXECUTE= error_handling.c exec_utils.c redirection_files.c exec_utils_2.c \
 	execute_errors.c execute.c fd_handling.c run_child_process.c node_utils.c string_utils.c
 ENV=create_env.c create_export.c env_export_utils.c
 EXPANSION= expansion.c expansion_utils.c expansion_checks.c

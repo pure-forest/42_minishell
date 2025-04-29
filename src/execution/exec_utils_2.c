@@ -1,76 +1,106 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils_2.c                                     :+:      :+:    :+:   */
+/*   exec_utils_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 17:29:09 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:29:10 by gboggion         ###   ########.fr       */
+/*   Created: 2025/04/26 17:29:14 by gboggion          #+#    #+#             */
+/*   Updated: 2025/04/28 15:07:22 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/execution.h"
 
-int	check_inp_files(t_struct_ptrs *data, t_input *input, t_redir *redir_in,
-		int *pipe_fd)
+int	check_if_cmd_is_path(t_input *curr)
 {
-	if (input->input_fd >= 0)
-		close_fd(&input->input_fd);
-	input->input_fd = open(redir_in->file_name, O_RDONLY, 0777);
-	if (input->input_fd == -1)
-	{
-		set_exit_code(data, errno);
-		close_pipe_fd(pipe_fd);
-		return (print_err_exe(data, redir_in->file_name, 6), NO);
-	}
-	return (YES);
-}
+	int	i;
 
-int	check_out_files(t_struct_ptrs *data, t_input *input, t_redir *redir_out,
-		int *pipe_fd)
-{
-	if (input->output_fd >= 0)
-		close_fd(&input->output_fd);
-	if (redir_out->type == APPEND)
-		input->output_fd = open(redir_out->file_name,
-				O_WRONLY | O_CREAT | O_APPEND, 0777);
-	else
-		input->output_fd = open(redir_out->file_name,
-				O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (input->output_fd == -1)
+	i = -1;
+	if (curr->cmd_arr[0])
 	{
-		set_exit_code(data, errno);
-		close_pipe_fd(pipe_fd);
-		return (print_err_exe(data, redir_out->file_name, 6), NO);
-	}
-	return (YES);
-}
-
-int	check_redir_files_for_exec(t_struct_ptrs *data, t_input *input,
-		int *pipe_fd)
-{
-	t_redir	*redir;
-
-	input->input_fd = -1;
-	input->output_fd = -1;
-	redir = input->redirection;
-	if (redir)
-	{
-		while (redir)
+		while (curr->cmd_arr[0][++i])
 		{
-			if (redir->type == INPUT)
+			if (curr->cmd_arr[0][i] == '/')
 			{
-				if (!check_inp_files(data, input, redir, pipe_fd))
-					return (FAIL);
+				curr->cmd_path = curr->cmd_arr[0];
+				return (YES);
 			}
-			else if (redir->type == OUTPUT || redir->type == APPEND)
-			{
-				if (!check_out_files(data, input, redir, pipe_fd))
-					return (FAIL);
-			}
-			redir = (t_redir *)redir->base.next;
 		}
 	}
-	return (SUCCESS);
+	return (NO);
+}
+
+void	make_cmd_path(t_struct_ptrs *data, t_input *curr)
+{
+	int		i;
+	char	*tmp_cmd_path;
+
+	i = -1;
+	if (data->split_path)
+	{
+		if (!ft_strcmp(curr->cmd_arr[0], ""))
+			return ;
+		while (data->split_path[++i])
+		{
+			turn_cmd_into_directory(data, curr, i, &tmp_cmd_path);
+			if (!tmp_cmd_path)
+				return ;
+			if (access(tmp_cmd_path, F_OK | X_OK) == 0)
+			{
+				curr->cmd_path = tmp_cmd_path;
+				return ;
+			}
+			free(tmp_cmd_path);
+			tmp_cmd_path = NULL;
+		}
+		curr->cmd_path = NULL;
+	}
+	return ;
+}
+
+void	turn_cmd_into_directory(t_struct_ptrs *data, t_input *curr, int i,
+		char **tmp_cmd_path)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(data->split_path[i], "/");
+	if (!tmp)
+	{
+		tmp_cmd_path = NULL;
+		return ;
+	}
+	*tmp_cmd_path = ft_strjoin(tmp, curr->cmd_arr[0]);
+	free(tmp);
+	return ;
+}
+
+void	wait_for_children(t_struct_ptrs *data)
+{
+	int		status;
+	pid_t	pid;
+
+	pid = wait(&status);
+	while (pid > 0)
+	{
+		if (WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->exit_code = 128 + WTERMSIG(status);
+		pid = wait(&status);
+	}
+	if (data->exit_code == 131)
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+	else if (data->exit_code == 130)
+		printf("\n");
+}
+
+void	init_exec_data(t_exec_data *exec_data)
+{
+	exec_data->orig_stdin = -1;
+	exec_data->orig_stdout = -1;
+	exec_data->prev_read_end = -1;
+	exec_data->pipe_fd[0] = -1;
+	exec_data->pipe_fd[1] = -1;
+	return ;
 }

@@ -6,19 +6,14 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:30:07 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 20:50:34 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:41:53 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/execution.h"
 
-void	close_pipe_fd(int *pipe_fd)
-{
-	if (pipe_fd[0] >= 0)
-		close_fd(&pipe_fd[0]);
-	if (pipe_fd[1] >= 0)
-		close_fd(&pipe_fd[1]);
-}
+static int	set_std_output(t_struct_ptrs *data, t_input *input,
+				t_exec_data *exec_data);
 
 void	close_opened_fd(t_input *curr)
 {
@@ -45,13 +40,21 @@ int	set_std_fds(t_struct_ptrs *data, t_input *input, t_exec_data *exec_data)
 			return (handle_fd_err(data, exec_data, "Dup2 Failure"), FAIL);
 		close_fd(&exec_data->prev_read_end);
 	}
+	if (set_std_output(data, input, exec_data) == FAIL)
+		return (FAIL);
+	return (SUCCESS);
+}
+
+static int	set_std_output(t_struct_ptrs *data, t_input *input,
+							t_exec_data *exec_data)
+{
 	if (input->output_fd >= 0)
 	{
 		if (input->output_fd != STDOUT_FILENO)
 		{
 			if (dup2(input->output_fd, STDOUT_FILENO) == -1)
 				return (handle_fd_err(data, exec_data, "Dup2 Fail"), FAIL);
-			close_fd(&input->input_fd);
+			close_fd(&input->output_fd);
 		}
 	}
 	else if (input->base.next)

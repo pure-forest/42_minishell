@@ -6,14 +6,15 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:28:08 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 21:36:02 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:42:10 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/execution.h"
 
 static int	count_args(char **arr);
-static void	print_numeric_error(t_struct_ptrs *data, t_input *curr, char *str_input, t_exec_data *exec_data);
+static void	print_numeric_error(t_struct_ptrs *data, t_input *curr,
+				char *str_input, t_exec_data *exec_data);
 static void	clean_up_and_exit(t_struct_ptrs *data, t_input *curr,
 				t_exec_data *exec_data);
 
@@ -86,7 +87,8 @@ int	is_valid_numeric_input(char *arg)
 	return (NO);
 }
 
-static void	print_numeric_error(t_struct_ptrs *data, t_input *curr, char *str_input, t_exec_data *exec_data)
+static void	print_numeric_error(t_struct_ptrs *data, t_input *curr,
+			char *str_input, t_exec_data *exec_data)
 {
 	int	code;
 
