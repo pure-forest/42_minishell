@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:18:24 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:18:25 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/29 08:13:06 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		tokenize_quote(char *str, int *i, t_token **token_list);
 int		tokenize_pipe(char *str, int *i, t_token **token_list);
 int		tokenize_redir(char *str, int *i, t_token **token_list);
 int		check_redir_file(t_token *token_list);
-int		check_pipe(t_token *token_list, t_struct_ptrs *data);
+int		check_pipe(t_token *token_list);
 int		check_heredoc(t_token *token_list);
 int		remove_quotes(t_struct_ptrs *data);
 char	*check_quote_expansion(t_struct_ptrs *data, t_token **node, int *i,

@@ -6,13 +6,11 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:15:43 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:15:45 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/29 08:13:15 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
-
-static int	replace_unclose_pipe(t_token *node, t_struct_ptrs *data);
 
 int	check_redir_file(t_token *token_list)
 {
@@ -43,7 +41,7 @@ int	check_redir_file(t_token *token_list)
 	return (0);
 }
 
-int	check_pipe(t_token *token_list, t_struct_ptrs *data)
+int	check_pipe(t_token *token_list)
 {
 	while (token_list)
 	{
@@ -63,8 +61,10 @@ int	check_pipe(t_token *token_list, t_struct_ptrs *data)
 		}
 		if (token_list->type == PIPE
 			&& (t_token *)(token_list->base.next) == NULL)
-			if (replace_unclose_pipe(token_list, data) == FAIL)
-				return (FAIL);
+		{
+			ft_putstr_fd("syntax FAIL near unexpected token`|'\n", 2);
+			return (FAIL);
+		}
 		token_list = (t_token *)(token_list->base.next);
 	}
 	return (0);
@@ -92,33 +92,4 @@ int	check_heredoc(t_token *token_list)
 		token_list = ((t_token *)(token_list->base.next));
 	}
 	return (0);
-}
-
-static int	replace_unclose_pipe(t_token *node, t_struct_ptrs *data)
-{
-	char	*str;
-	int		i;
-
-	str = readline("> ");
-	i = 0;
-	if (!*str)
-		return (FAIL);
-	if (check_for_expansion(data, &str) == FAIL)
-		return (FAIL);
-	while (str[i])
-	{
-		if (ft_strchr(";&()\\", str[i]))
-			return (print_error("Syntax error", NULL, NULL), FAIL);
-		if (tokenize_pipe(str, &i, &node) == FAIL)
-			break ;
-		if (tokenize_redir(str, &i, &node) == FAIL)
-			break ;
-		if (tokenize_text(str, &i, &node) == FAIL)
-			break ;
-		while (str && str[i] && ft_strchr(FT_SPACE, str[i]))
-			i++;
-	}
-	if (str[i] != '\0')
-		return (FAIL);
-	return (SUCCESS);
 }

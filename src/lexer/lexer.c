@@ -6,7 +6,7 @@
 /*   By: ydeng <ydeng@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:15:58 by ydeng             #+#    #+#             */
-/*   Updated: 2025/04/26 17:15:59 by ydeng            ###   ########.fr       */
+/*   Updated: 2025/04/29 15:43:57 by ydeng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_token	*lexer(char *str, t_struct_ptrs *data)
 	token_list = create_token_list(str);
 	if (!token_list)
 		return (NULL);
-	if (check_pipe(token_list, data) == FAIL)
+	if (check_pipe(token_list) == FAIL)
 		return (free_lexer(&token_list), set_exit_code(data, 4), NULL);
 	if (check_redir_file(token_list) == FAIL)
 		return (free_lexer(&token_list), set_exit_code(data, 4), NULL);
