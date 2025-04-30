@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:14 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/29 18:44:04 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:09:56 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	make_cmd_path(t_struct_ptrs *data, t_input *curr)
 	i = -1;
 	if (data->split_path)
 	{
-		if (!ft_strcmp(curr->cmd_arr[0], ""))
+		if (!ft_strcmp(curr->cmd_arr[0], "") || !ft_strcmp(curr->cmd_arr[0], "."))
 			return ;
 		while (data->split_path[++i])
 		{
