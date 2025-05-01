@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:27:16 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 15:16:43 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:39:02 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void		update_var_in_both(t_env_nodes *env, t_env_nodes *export,
 t_env_nodes	*find_position(t_env_nodes *root, t_env_nodes *new_var);
 int			update_env(t_struct_ptrs *data, t_input *curr);
 int			check_export_syntax(char *arg);
-void		set_shell_level(t_struct_ptrs *data);
+void		set_shell_level(t_struct_ptrs *data, char *shlvl_var_value);
+int			handle_shlvl(t_struct_ptrs *data, t_input *curr);
 void		create_var_env_and_export(t_struct_ptrs *data, char *var_name,
 				char *var_value);
 
@@ -76,7 +77,7 @@ int			ft_exit(t_struct_ptrs *data, t_input *curr, t_exec_data *exec_data);
 int			is_equal_sign_present(char *arg);
 int			check_match(char *cmd_arg, char *var_name);
 int			remove_node(t_env_nodes **lst_to_unset, t_env_nodes *curr);
-void		does_var_exist(t_env_nodes **list, char *arg);
+int			does_var_exist(t_env_nodes **list, char *arg);
 
 //**************		NODE UTILS
 int			append_node(t_list_base **list_to_modify, t_list_base *new_var);

@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:19 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 15:43:06 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:51:57 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	launch_builtin(t_struct_ptrs *data, t_input *curr,
 	int		res;
 
 	cmd = curr->cmd_arr[0];
+	if (handle_shlvl(data, curr) == YES)
+		return ;
 	if (!ft_strcmp(cmd, "cd"))
 		res = cd(data, curr);
 	if (!ft_strcmp(cmd, "echo"))

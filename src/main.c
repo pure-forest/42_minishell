@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:30:37 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/26 17:30:39 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:39:10 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **av, char **envp)
 	data = &((t_struct_ptrs){0});
 	if (!argc || !av || is_ok_to_run(data, envp) == FAIL)
 		return (FAIL);
-	set_shell_level(data);
+	set_shell_level(data, NULL);
 	while (1)
 	{
 		signal_init();

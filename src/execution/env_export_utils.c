@@ -73,15 +73,17 @@ int	change_var_value(t_env_nodes *list, char *var_to_change, char *new_value,
 	return (FAIL);
 }
 
-void	set_shell_level(t_struct_ptrs *data)
+void	set_shell_level(t_struct_ptrs *data, char *shlvl_var_value)
 {
-	char	*shlvl_var_value;
 	long	shlvl;
 	char	*new_value;
 
-	shlvl_var_value = get_var_value(data->env, "SHLVL=");
 	if (!shlvl_var_value)
-		return (create_var_env_and_export(data, "SHLVL=", "1"));
+	{
+		shlvl_var_value = get_var_value(data->env, "SHLVL=");
+		if (!shlvl_var_value)
+			return (create_var_env_and_export(data, "SHLVL=", "1"));
+	}
 	if (is_valid_numeric_input(shlvl_var_value) == NO)
 		return ;
 	shlvl = ft_atol(shlvl_var_value);

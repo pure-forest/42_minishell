@@ -6,7 +6,7 @@
 /*   By: gboggion <gboggion@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:29:54 by gboggion          #+#    #+#             */
-/*   Updated: 2025/04/28 11:36:42 by gboggion         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:18:05 by gboggion         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 {
 	if (err == 1)
 		perror(PROMPT);
-	if (err == 2 || err == 3 || err == 4 || err == 6)
+	if (err == 2 || err == 3 || err == 4 || err == 6 || err == 5)
 	{
 		if (data->exit_code == 126 && err != 4)
 			print_error(cmd, NULL, ": Permission denied");
@@ -29,6 +29,8 @@ void	print_err_exe(t_struct_ptrs *data, char *cmd, int err)
 			print_error(cmd, NULL, ": Is a directory");
 		else if (data->exit_code == 124)
 			print_error(cmd, NULL, ": Executable file format error");
+		else if (data->exit_code == 2 && err == 5)
+			print_error(cmd, NULL, ": filename argument required");
 	}
 	if (err == 6)
 		data->exit_code = 1;
