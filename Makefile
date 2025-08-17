@@ -4,14 +4,15 @@ OBJDIR=obj
 BINDIR=bin
 INCDIR=inc
 CC=cc
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -lreadline
 
 PINK = \033[38;5;218m
 END = \033[0m
 
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./src/libft
 LIBFT_A = ${LIBFT_DIR}/libft.a
 
+#src files
 LEXER=lexer.c lexer_utils.c lexer_reprocess_token.c remove_quotes.c \
 		remove_quotes_utils.c remove_quote_checks.c
 PARSER= parser.c parser_utils.c parse_heredoc.c heredoc_utils.c \
@@ -25,7 +26,6 @@ EXPANSION= expansion.c expansion_utils.c expansion_checks.c
 UTILS=clean_up_utils.c init_utils.c string_utils_yutong.c \
 		free_functions.c
 SIGNAL=signal_default.c signal_heredoc.c signal_childprocess.c
-
 MAIN=main.c
 
 SRC=$(addprefix ${SRCDIR}/, $(MAIN)) \
@@ -38,6 +38,7 @@ SRC=$(addprefix ${SRCDIR}/, $(MAIN)) \
 	$(addprefix $(SRCDIR)/execution/, $(ENV)) \
 	$(addprefix $(SRCDIR)/signal/, $(SIGNAL))
 
+#Compiling c files into o files
 OBJ=${SRC:${SRCDIR}%.c=${OBJDIR}/%.o}
 
 all:$(LIBFT_A) ${NAME}

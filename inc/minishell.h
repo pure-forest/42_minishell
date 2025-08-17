@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include "../libft/libft.h"
+# include "../src/libft/libft.h"
 # include "execution.h"
 # include "expansion.h"
 # include "lexer.h"
