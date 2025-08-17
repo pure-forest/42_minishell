@@ -2,9 +2,6 @@
 ------------
 Minishell is a project focusing on replicating the main function of a shell (in our case, Bash) built with C and Makefile. This project is co-developed with @boggem, where we split the work into parsing and execution. I took over the responsibility of parsing the she took over the execution part. 
 
-## Project Screen Shots
-----
-
 
 ## Setup Instructions
 ----
