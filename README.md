@@ -9,13 +9,12 @@ sudo apt-get update
 sudo apt-get install build-essential
 sudo apt-get install libreadline-dev 
 ```
-After cloning the repository to your computer, you can start by compiling the executable by running `make` in the terminal. The executable will be compiled into the root directory named as `minishell`. Simply execute the binary by `./minishell` and the program will start. You can run all the possible commands the same way like you did with other shell. For exmaple:
+After cloning the repository to your computer, you can start by compiling the executable by running `make` in the terminal. The executable will be compiled into the root directory named as `minishell`. Simply execute the binary by `./minishell` and the program will start. You can run all the possible commands the same way like you did with other shell including simple commands and pipes. For exmaple:
 ```
 ls
-echo
-cat
-grep
-cd
+echo hello world
+cat file | grep something | tr ' ' '\n'
+cd home
 ```
 There is a supression file under suppression directory, which is designed to run along with valgrind tool (installing by running `suodo apt-get install valgrind`) to check for memory leak. If you want to check it, you can run with
 ```
