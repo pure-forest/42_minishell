@@ -1,10 +1,8 @@
 ## Minishell - A 42 school coding project
-------------
 Minishell is a project focusing on replicating the main function of a shell (in our case, Bash) built with C and Makefile. This project is co-developed with @boggem, where we split the work into parsing and execution. I took over the responsibility of parsing the she took over the execution part. 
 
 
 ## Setup Instructions
-----
 To compile this project, you will need `cc` `build-essentail` and `libreadline` on your linux system. If you don't have them yet, you can install the package by running the following commands:
 ```
 sudo apt-get update
@@ -26,7 +24,6 @@ valgrind --leak-check=full --track-fds=yes --show-reachable=yes --suppressions=s
 You can exit the program by either press ctrl+D or type `exit` in the terminal. 
 
 ## Reflection
-----
 This was a 4-week-long sprint-like intensitive proejct built during my studies in Hive Helsinki. Project goal was to understand how bash behaves behind the scence and how to handle complicated string manipulation. 
 
 The biggest challenge in parsing is to think about all the edge cases among input string especially there are quotes and expansion to be considered. Due to scope limitation and time constrain, the minishell didn't handle all the cases like other shell can handle, for example `cat Makefile ; echo hello` or any unclosed quotes or pipe. But I did get a taste of how does it feel to consider for so many things while still needs to consider for coding norm required by the school. 
